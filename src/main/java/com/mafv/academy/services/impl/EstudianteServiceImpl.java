@@ -11,7 +11,7 @@ import com.mafv.academy.repository.EstudianteRepository;
 import com.mafv.academy.services.EstudianteService;
 
 @Service
-public class AlumnoServiceImpl implements EstudianteService{
+public class EstudianteServiceImpl implements EstudianteService{
     
     @Autowired
     EstudianteRepository repository;
