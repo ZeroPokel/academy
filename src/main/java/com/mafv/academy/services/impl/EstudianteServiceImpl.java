@@ -6,24 +6,24 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.mafv.academy.models.Alumno;
-import com.mafv.academy.repository.AlumnoRepository;
-import com.mafv.academy.services.AlumnoService;
+import com.mafv.academy.models.Estudiante;
+import com.mafv.academy.repository.EstudianteRepository;
+import com.mafv.academy.services.EstudianteService;
 
 @Service
-public class AlumnoServiceImpl implements AlumnoService{
+public class AlumnoServiceImpl implements EstudianteService{
     
     @Autowired
-    AlumnoRepository repository;
+    EstudianteRepository repository;
 
     @Override
-    public List<Alumno> findAll() {
+    public List<Estudiante> findAll() {
         return repository.findAll();
     }
 
     @Override
-    public Alumno findById(int id) {
-        Optional<Alumno> findById = repository.findById(id);
+    public Estudiante findById(int id) {
+        Optional<Estudiante> findById = repository.findById(id);
         if(findById != null){
             return findById.get();
         }
@@ -31,12 +31,12 @@ public class AlumnoServiceImpl implements AlumnoService{
     }
 
     @Override
-    public Alumno save(Alumno alumno) {
+    public Estudiante save(Estudiante alumno) {
         return repository.save(alumno);
     }
 
     @Override
-    public void update(int id, Alumno alumno) {
+    public void update(int id, Estudiante alumno) {
         this.findById(id);
         alumno.setCodigo(id);
         repository.save(alumno);

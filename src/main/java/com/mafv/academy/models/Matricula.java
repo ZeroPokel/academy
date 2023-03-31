@@ -22,7 +22,7 @@ public class Matricula {
 
     @ManyToOne
     @JoinColumn(name = "alumno", nullable = false)
-    private Alumno alumno;
+    private Estudiante alumno;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "curso", referencedColumnName = "codigo")
@@ -74,11 +74,11 @@ public class Matricula {
         this.pagado = pagado;
     }
 
-    public Alumno getAlumno() {
+    public Estudiante getAlumno() {
         return alumno;
     }
 
-    public void setAlumno(Alumno alumno) {
+    public void setAlumno(Estudiante alumno) {
         this.alumno = alumno;
     }
 

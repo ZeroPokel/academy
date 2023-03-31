@@ -12,7 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Alumno {
+public class Estudiante {
     
     @Id
     @GeneratedValue
@@ -37,14 +37,14 @@ public class Alumno {
     @OneToMany(mappedBy = "alumno")
     private List<Matricula> matriculas;
 
-    public Alumno() {
+    public Estudiante() {
     }
 
-    public Alumno(int codigo) {
+    public Estudiante(int codigo) {
         this.codigo = codigo;
     }
 
-    public Alumno(int codigo, String nombre, String apellidos, String dni, String email, Date fechaNacimiento) {
+    public Estudiante(int codigo, String nombre, String apellidos, String dni, String email, Date fechaNacimiento) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.apellidos = apellidos;
@@ -117,7 +117,7 @@ public class Alumno {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Alumno other = (Alumno) obj;
+        Estudiante other = (Estudiante) obj;
         if (codigo != other.codigo)
             return false;
         return true;

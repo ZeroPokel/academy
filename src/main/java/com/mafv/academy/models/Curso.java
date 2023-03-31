@@ -30,7 +30,7 @@ public class Curso {
     private Matricula matricula;
 
     @OneToMany(mappedBy = "curso")
-    private List<Alumno> alumnos;
+    private List<Estudiante> alumnos;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "curso_modulos", joinColumns = @JoinColumn(name = "Curso_codigo"), inverseJoinColumns = @JoinColumn(name = "Modulo_codigo"))
@@ -68,11 +68,11 @@ public class Curso {
         this.tutor = tutor;
     }
 
-    public List<Alumno> getAlumnos() {
+    public List<Estudiante> getAlumnos() {
         return alumnos;
     }
 
-    public void setAlumnos(List<Alumno> alumnos) {
+    public void setAlumnos(List<Estudiante> alumnos) {
         this.alumnos = alumnos;
     }
 
