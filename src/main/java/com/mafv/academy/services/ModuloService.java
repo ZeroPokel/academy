@@ -1,0 +1,14 @@
+package com.mafv.academy.services;
+
+import java.util.List;
+
+import com.mafv.academy.models.Modulo;
+
+public interface ModuloService {
+    public List<Modulo> findAll();
+    public Modulo findById(int id);
+    public Modulo save(Modulo modulo);
+    public void update(int id, Modulo modulo);
+    public void deleteById(int id);
+    public void deleteAll();
+}
