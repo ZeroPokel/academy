@@ -11,7 +11,6 @@ import javax.persistence.ManyToMany;
 public class Permiso {
     
     @Id
-    @GeneratedValue
     private String codigo;
     private String nombre;
 

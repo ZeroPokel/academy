@@ -19,7 +19,6 @@ public class Usuario {
 
     private String nombre;
     private String password;
-    private String email;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_permission", joinColumns = @JoinColumn(name = "Usuario_codigo"), inverseJoinColumns = @JoinColumn(name = "Permiso_codigo"))
@@ -28,11 +27,10 @@ public class Usuario {
     public Usuario() {
     }
 
-    public Usuario(int codigo, String nombre, String password, String email) {
+    public Usuario(int codigo, String nombre, String password) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.password = password;
-        this.email = email;
     }
 
     public int getCodigo() {
@@ -57,14 +55,6 @@ public class Usuario {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     @Override
