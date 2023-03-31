@@ -31,10 +31,10 @@ public class Estudiante {
     @JoinColumn(name="curso", nullable = false)
     private Curso curso;
 
-    @OneToMany(mappedBy = "alumno")
+    @OneToMany(mappedBy = "estudiante")
     private List<Incidencia> incidencias;
 
-    @OneToMany(mappedBy = "alumno")
+    @OneToMany(mappedBy = "estudiante")
     private List<Matricula> matriculas;
 
     public Estudiante() {

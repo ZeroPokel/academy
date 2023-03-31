@@ -22,8 +22,8 @@ public class Incidencia {
     private String lugar;
 
     @ManyToOne
-    @JoinColumn(name = "alumno", nullable = false)
-    private Estudiante alumno;
+    @JoinColumn(name = "estudiante", nullable = false)
+    private Estudiante estudiante;
 
     @ManyToOne
     @JoinColumn(name = "docente", nullable = false)
@@ -93,12 +93,12 @@ public class Incidencia {
         this.lugar = lugar;
     }
 
-    public Estudiante getAlumno() {
-        return alumno;
+    public Estudiante getEstudiante() {
+        return estudiante;
     }
 
-    public void setAlumno(Estudiante alumno) {
-        this.alumno = alumno;
+    public void setEstudiante(Estudiante estudiante) {
+        this.estudiante = estudiante;
     }
 
     public Docente getDocente() {
