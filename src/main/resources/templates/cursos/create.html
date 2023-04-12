@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="commons/header :: header"></head>
+<body>
+
+    <div th:replace="commons/menu :: menu"></div>
+    <div class="container-fluid">
+        <form class="row g-3" method="post" th:action="@{/cursos/save}">
+                <legend>Nuevo curso</legend>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="nombre" class="form-label mt-4">Nombre</label>
+                        <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Introduce el nombre">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="tutor" class="form-label mt-4">Tutor</label>
+                        <input type="text" class="form-control" id="tutor" name="tutor" placeholder="Introduce el tutor">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <button type="submit" class="btn btn-success">Confirmar</button>
+                    <button type="button" class="btn btn-danger"><a th:href="@{/cursos/list}">Cancelar</a></button>
+                </div>
+        </form>
+    </div>
+
+    <div th:replace="commons/footer :: footer" class="container"></div>
+</body>
+</html>
