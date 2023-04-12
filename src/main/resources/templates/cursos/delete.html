@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="commons/header :: header"> </head>
+<body>
+    
+  <div th:replace="commons/menu :: menu"></div>
+    <main>
+        <div class="container py-4">
+            <div class="row align-items-md-stretch">
+                <div class="col-md-12">
+                    <div class="h-100 p-5 text-bg-white rounded-3">
+                        <h4>¡El curso <span th:text="${curso.nombre}"></span> va a ser eliminado permanentemente! Este cambio
+                            no se podrá deshacer, ¿estás seguro?</h4>
+                        <div class="col-md-2">
+                            <button type="button" class="btn btn-success"><a th:href="@{/cursos/confirmDelete/}+${curso.codigo}">Confirmar</a></button>
+                            <button type="button" class="btn btn-danger"><a th:href="@{/cursos/list}">Cancelar</a></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+  <div th:replace="commons/footer :: footer" class="container"></div>
+</body>
+</html>
