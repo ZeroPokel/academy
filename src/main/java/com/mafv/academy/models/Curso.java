@@ -23,7 +23,7 @@ public class Curso {
     private String nombre;
     
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "tutor", referencedColumnName = "codigo")
+    @JoinColumn(name = "tutor", referencedColumnName = "codigo", nullable = true)
     private Docente tutor;
 
     @OneToOne(mappedBy = "curso")
