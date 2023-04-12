@@ -23,8 +23,8 @@
                             <th scope="row" th:text="${curso.codigo}"></th>
                             <td th:text="${curso.nombre}"></td>
                             <td th:text="${curso.tutor}"></td>
-                            <td><a th:href="@{/cursos/edit/}+${curso.codigo}" class="btn btn-primary bi bi-pen"></a></td>
-                            <td><a th:href="@{/cursos/delete/}+${curso.codigo}" class="btn btn-primary bi bi-trash"></a></td>
+                            <td><a th:href="@{/cursos/edit/}+${curso.codigo}" class="btn btn-info bi bi-pen"></a></td>
+                            <td><a th:href="@{/cursos/delete/}+${curso.codigo}" class="btn btn-danger bi bi-trash"></a></td>
                         </tr>
                     </div>
                 </tbody>

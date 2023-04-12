@@ -9,9 +9,12 @@
             <div class="row align-items-md-stretch">
                 <div class="col-md-12">
                     <div class="h-100 p-5 text-bg-white rounded-3">
-                        <h4>¡El curso <span th:text="${curso.nombre}"></span> va a ser eliminado permanentemente! Este cambio
-                            no se podrá deshacer, ¿estás seguro?</h4>
-                        <div class="col-md-2">
+                        <div class="alert alert-dismissible alert-warning">
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            <h4 class="alert-heading">¡Atención!</h4>
+                            <p class="mb-0">El curso <span th:text="${curso.nombre}"></span> va a ser eliminado permanentemente, este cambio no se podrá deshacer, ¿estás seguro?</p>
+                          </div>
+                        <div class="col-md-4">
                             <button type="button" class="btn btn-success"><a th:href="@{/cursos/confirmDelete/}+${curso.codigo}">Confirmar</a></button>
                             <button type="button" class="btn btn-danger"><a th:href="@{/cursos/list}">Cancelar</a></button>
                         </div>
