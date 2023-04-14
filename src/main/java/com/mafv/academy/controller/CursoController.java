@@ -69,7 +69,7 @@ public class CursoController {
     @PostMapping(path = { "/update" })
     public ModelAndView update(Curso curso) {
 
-        cursosService.update(curso.getCodigo(), curso);
+        cursosService.update(curso);
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:edit/" + curso.getCodigo());
