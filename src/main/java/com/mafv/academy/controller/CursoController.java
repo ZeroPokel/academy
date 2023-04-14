@@ -80,8 +80,7 @@ public class CursoController {
     @GetMapping(path = { "/delete/{id}" })
     public ModelAndView delete(
             @PathVariable(name = "id", required = true) int id) {
-        
-        int codigo = id;
+
         cursosService.deleteById(id);
 
         ModelAndView modelAndView = new ModelAndView();
