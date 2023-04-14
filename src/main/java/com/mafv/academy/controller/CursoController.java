@@ -80,20 +80,8 @@ public class CursoController {
     @GetMapping(path = { "/delete/{id}" })
     public ModelAndView delete(
             @PathVariable(name = "id", required = true) int id) {
-
-        Curso curso = cursosService.findById(id);
-
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("curso", curso);
-        modelAndView.setViewName("cursos/delete");
-
-        return modelAndView;
-    }
-
-    @GetMapping(path = { "/confirmDelete/{id}" })
-    public ModelAndView confirmDelete(
-            @PathVariable(name = "id", required = true) int id) {
-
+        
+        int codigo = id;
         cursosService.deleteById(id);
 
         ModelAndView modelAndView = new ModelAndView();
@@ -101,6 +89,5 @@ public class CursoController {
 
         return modelAndView;
     }
-
 
 }
