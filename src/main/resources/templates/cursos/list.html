@@ -5,6 +5,7 @@
     
     <div th:replace="commons/menu :: menu"></div>
     <div class="container">
+        <br>
         <h1>Cursos</h1>
         <a th:href="@{/cursos/create}" class="btn btn-info">Crear curso</a>
         <div class="row">
@@ -14,8 +15,7 @@
                         <th scope="col">Código</th>
                         <th scope="col">Nombre</th>
                         <th scope="col">Tutor</th>
-                        <th scope="col">Editar</th>
-                        <th scope="col">Eliminar</th>
+                        <th scope="col">Operaciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -24,8 +24,10 @@
                             <th scope="row" th:text="${curso.codigo}"></th>
                             <td th:text="${curso.nombre}"></td>
                             <td th:text="${curso.tutor}"></td>
-                            <td><a th:href="@{/cursos/edit/}+${curso.codigo}" class="btn btn-info bi bi-pen"></a></td>
-                            <td><a th:href="@{/cursos/delete/}+${curso.codigo}" class="btn btn-danger bi bi-trash"></a></td>
+                            <td>
+                                <a th:href="@{/cursos/edit/}+${curso.codigo}" class="btn btn-info bi bi-pen"></a>
+                                <a th:href="@{/cursos/delete/}+${curso.codigo}" class="btn btn-danger bi bi-trash"></a>
+                            </td>
                         </tr>
                     </div>
                 </tbody>
