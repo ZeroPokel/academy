@@ -36,9 +36,7 @@ public class EstudianteServiceImpl implements EstudianteService{
     }
 
     @Override
-    public void update(int id, Estudiante alumno) {
-        this.findById(id);
-        alumno.setCodigo(id);
+    public void update(Estudiante alumno) {
         repository.save(alumno);
     }
 

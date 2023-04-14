@@ -36,9 +36,7 @@ public class CursoServiceImpl implements CursoService{
     }
 
     @Override
-    public void update(int id, Curso curso) {
-        this.findById(id);
-        curso.setCodigo(id);
+    public void update(Curso curso) {
         repository.save(curso);
     }
 

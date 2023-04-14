@@ -36,9 +36,7 @@ public class ModuloServiceImpl implements ModuloService{
     }
 
     @Override
-    public void update(int id, Modulo modulo) {
-        this.findById(id);
-        modulo.setCodigo(id);
+    public void update(Modulo modulo) {
         repository.save(modulo);
     }
 

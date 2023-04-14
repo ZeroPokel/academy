@@ -36,9 +36,7 @@ public class DocenteServiceImpl implements DocenteService{
     }
 
     @Override
-    public void update(int id, Docente docente) {
-        this.findById(id);
-        docente.setCodigo(id);
+    public void update(Docente docente) {
         repository.save(docente);
     }
 

@@ -36,9 +36,7 @@ public class IncidenciaServiceImpl implements IncidenciaService{
     }
 
     @Override
-    public void update(int id, Incidencia incidencia) {
-        this.findById(id);
-        incidencia.setCodigo(id);
+    public void update(Incidencia incidencia) {
         repository.save(incidencia);
     }
 
