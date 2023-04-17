@@ -1,6 +1,7 @@
 package com.mafv.academy.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +11,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mafv.academy.models.Curso;
+import com.mafv.academy.models.Docente;
 import com.mafv.academy.services.CursoService;
+import com.mafv.academy.services.DocenteService;
 
 @Controller
 @RequestMapping("/cursos")
@@ -21,6 +25,9 @@ public class CursoController {
 
     @Autowired
     CursoService cursosService;
+
+    @Autowired
+    DocenteService docentesService;
     
     @GetMapping(value = "/list")
     public ModelAndView listPage(Model model) {
@@ -59,15 +66,29 @@ public class CursoController {
             @PathVariable(name = "id", required = true) int id) {
 
         Curso curso = cursosService.findById(id);
+        List<Curso> cursos = cursosService.findAll();
+        List<Docente> docentes = docentesService.findAll();
+
+        for (Curso cursot : cursos){
+            for (Docente docente : docentes){
+                if(cursot.getTutor() != null){
+                    if(cursot.getTutor().getCodigo() == docente.getCodigo()){
+                        docente.setEsTutor(true);
+                        break;
+                    }
+                }
+            }
+        }
 
         ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("docentes", docentes);
         modelAndView.addObject("curso", curso);
         modelAndView.setViewName("cursos/edit");
         return modelAndView;
     }
 
     @PostMapping(path = { "/update" })
-    public ModelAndView update(Curso curso) {
+    public ModelAndView update(Curso curso, @RequestParam("tutor") int valor) {
 
         cursosService.update(curso);
 

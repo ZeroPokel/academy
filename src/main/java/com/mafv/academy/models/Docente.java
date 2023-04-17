@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -23,6 +24,9 @@ public class Docente {
     private String apellidos;
 
     private String email;
+
+    @Transient
+    private boolean esTutor;
 
     @JsonFormat(pattern = "yyyy-mm-dd")
     private Date fechaNacimiento;
@@ -141,6 +145,14 @@ public class Docente {
 
     public void setCurso(Curso curso) {
         this.curso = curso;
+    }
+
+    public boolean isEsTutor() {
+        return esTutor;
+    }
+
+    public void setEsTutor(boolean esTutor) {
+        this.esTutor = esTutor;
     }
 
 }

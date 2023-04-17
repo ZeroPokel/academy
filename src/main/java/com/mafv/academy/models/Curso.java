@@ -22,7 +22,7 @@ public class Curso {
 
     private String nombre;
     
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "tutor", referencedColumnName = "codigo", nullable = true)
     private Docente tutor;
 
