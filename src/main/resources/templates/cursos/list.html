@@ -22,7 +22,12 @@
                         <tr class="table-light text p-0 m-0">
                             <th scope="row" th:text="${curso.codigo}"></th>
                             <td th:text="${curso.nombre}"></td>
-                            <td th:text="${curso.tutor}"></td>
+                            <div th:if="${curso.tutor ne null}">
+                                <td th:text="|${curso.tutor.nombre} ${curso.tutor.apellidos}|"></td>
+                            </div>
+                            <div th:unless="${curso.tutor}">
+                                <td>Sin tutor</td>
+                            </div>
                             <td>
                                 <a th:href="@{/cursos/edit/}+${curso.codigo}" class="btn btn-info bi bi-pen"></a>
                                 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" th:attr="data-bs-target='#deleteModal'+${curso.codigo}"><span class="bi bi-trash"></span></button>                      
