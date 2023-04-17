@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 public class Estudiante {
     
@@ -25,6 +27,8 @@ public class Estudiante {
     private String dni;
     
     private String email;
+
+    @JsonFormat(pattern = "yyyy-mm-dd")
     private Date fechaNacimiento;
 
     @ManyToOne

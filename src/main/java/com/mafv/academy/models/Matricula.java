@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 public class Matricula {
     
@@ -17,6 +19,8 @@ public class Matricula {
     @GeneratedValue
     private int codigo;
     private float coste;
+    
+    @JsonFormat(pattern = "yyyy-mm-dd")
     private Date fecha;
     private boolean pagado;
 

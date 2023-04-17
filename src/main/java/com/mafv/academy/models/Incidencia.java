@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 public class Incidencia {
     
@@ -17,6 +19,8 @@ public class Incidencia {
 
     private String descripcion;
     private String tipo;
+
+    @JsonFormat(pattern = "yyyy-mm-dd")
     private Date fecha;
     private String sancion;
     private String lugar;

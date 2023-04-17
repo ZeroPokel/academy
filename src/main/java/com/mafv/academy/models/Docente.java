@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 public class Docente {
     
@@ -21,6 +23,8 @@ public class Docente {
     private String apellidos;
 
     private String email;
+
+    @JsonFormat(pattern = "yyyy-mm-dd")
     private Date fechaNacimiento;
 
     @Column(unique=true, length=9)
