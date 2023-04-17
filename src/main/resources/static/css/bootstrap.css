@@ -864,6 +864,10 @@ progress {
   --bs-gutter-y: 0.5rem;
 }
 
+.g-3{
+  margin-top: 1rem;
+}
+
 .g-3,
 .gx-3 {
   --bs-gutter-x: 1rem;
