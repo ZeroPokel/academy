@@ -46,10 +46,10 @@ public class DocenteController {
     @PostMapping(path = "/save")
     public ModelAndView save(Docente docente) throws IOException {
 
-        Docente cs = docentesService.save(docente);
+        Docente dc = docentesService.save(docente);
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:edit/" + cs.getCodigo());
+        modelAndView.setViewName("redirect:edit/" + dc.getCodigo());
 
         return modelAndView;
     }
