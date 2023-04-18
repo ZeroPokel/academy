@@ -34,19 +34,19 @@ public class EstudianteController {
     }
 
     @GetMapping(value = "/create")
-    public ModelAndView create(Estudiante docente) {
+    public ModelAndView create(Estudiante estudiante) {
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("docente", new Estudiante());
+        modelAndView.addObject("estudiante", new Estudiante());
         modelAndView.setViewName("estudiantes/create");
 
         return modelAndView;
     }
 
     @PostMapping(path = "/save")
-    public ModelAndView save(Estudiante docente) throws IOException {
+    public ModelAndView save(Estudiante estudiante) throws IOException {
 
-        Estudiante et = estudiantesService.save(docente);
+        Estudiante et = estudiantesService.save(estudiante);
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:edit/" + et.getCodigo());
@@ -58,21 +58,21 @@ public class EstudianteController {
     public ModelAndView edit(
             @PathVariable(name = "id", required = true) int id) {
 
-        Estudiante docente = estudiantesService.findById(id);
+        Estudiante estudiante = estudiantesService.findById(id);
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("docente", docente);
+        modelAndView.addObject("estudiante", estudiante);
         modelAndView.setViewName("estudiantes/edit");
         return modelAndView;
     }
 
     @PostMapping(path = { "/update" })
-    public ModelAndView update(Estudiante docente) {
+    public ModelAndView update(Estudiante estudiante) {
 
-        estudiantesService.update(docente);
+        estudiantesService.update(estudiante);
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:edit/" + docente.getCodigo());
+        modelAndView.setViewName("redirect:edit/" + estudiante.getCodigo());
 
         return modelAndView;
     }
