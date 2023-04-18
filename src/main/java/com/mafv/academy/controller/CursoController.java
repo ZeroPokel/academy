@@ -3,6 +3,7 @@ package com.mafv.academy.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -88,7 +89,7 @@ public class CursoController {
     }
 
     @PostMapping(path = { "/update" })
-    public ModelAndView update(Curso curso, @RequestParam("tutor") int valor) {
+    public ModelAndView update(Curso curso, @RequestParam("tutor") Optional<Integer> valor) {
 
         cursosService.update(curso);
 

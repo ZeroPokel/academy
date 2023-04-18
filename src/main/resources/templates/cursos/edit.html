@@ -27,6 +27,9 @@
                                             <option name="tutor" id="tutor" th:value="${docente.codigo}" th:text="|${docente.nombre} ${docente.apellidos}|" selected="selected"></option>
                                         </div>
                                     </div>
+                                    <div th:unless="${curso.tutor eq null}">
+                                        <option name="tutor" id="tutor" selected="selected"></option>
+                                    </div>
                                     <div th:if="${docente.isEsTutor eq false}">
                                         <option name="tutor" id="tutor" th:value="${docente.codigo}" th:text="|${docente.nombre} ${docente.apellidos}|"></option>
                                     </div>

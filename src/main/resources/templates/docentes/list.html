@@ -34,7 +34,7 @@
                                 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" th:attr="data-bs-target='#deleteModal'+${docente.codigo}"><span class="bi bi-trash"></span></button>                      
                             </td>
 
-                            <!-- Modal -->
+                            <!-- Modal, alerta que salta cuando le das a uno de los botones de eliminar para borrar dicha fila -->
                             <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" th:id="deleteModal+${docente.codigo}" aria-hidden="true">
                                 <div class="modal-dialog">
                                   <div class="modal-content">
