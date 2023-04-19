@@ -30,8 +30,8 @@
                             <td th:text="${docente.fechaNacimiento}"></td>
                             <td th:text="${docente.dni}"></td>
                             <td>
-                                <a th:href="@{/docentes/edit/}+${docente.codigo}" class="btn btn-info bi bi-pen"></a>
-                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" th:attr="data-bs-target='#deleteModal'+${docente.codigo}"><span class="bi bi-trash"></span></button>                      
+                                <a th:href="@{/docentes/edit/}+${docente.codigo}" class="btn btn-info bi bi-pen" data-bs-tooltip="tooltip" data-bs-placement="top" title="Editar docente"></a>
+                                <button type="button" class="btn btn-danger" data-bs-tooltip="tooltip" data-bs-placement="top" title="Borrar docente" data-bs-toggle="modal" data-bs-target="#deleteModal" th:attr="data-bs-target='#deleteModal'+${docente.codigo}"><span class="bi bi-trash"></span></button>                      
                             </td>
 
                             <!-- Modal, alerta que salta cuando le das a uno de los botones de eliminar para borrar dicha fila -->

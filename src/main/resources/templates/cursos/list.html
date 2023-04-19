@@ -29,8 +29,8 @@
                                 <td>Sin tutor</td>
                             </div>
                             <td>
-                                <a th:href="@{/cursos/edit/}+${curso.codigo}" class="btn btn-info bi bi-pen"></a>
-                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" th:attr="data-bs-target='#deleteModal'+${curso.codigo}"><span class="bi bi-trash"></span></button>                      
+                                <a th:href="@{/cursos/edit/}+${curso.codigo}" class="btn btn-info bi bi-pen" data-bs-tooltip="tooltip" data-bs-placement="top" title="Editar curso"></a>
+                                <button type="button" class="btn btn-danger bi bi-trash" data-bs-tooltip="tooltip" data-bs-placement="top" title="Borrar curso" data-bs-toggle="modal" data-bs-target="#deleteModal" th:attr="data-bs-target='#deleteModal'+${curso.codigo}"></button>                      
                             </td>
 
                             <!-- Modal, alerta que salta cuando le das a uno de los botones de eliminar para borrar dicha fila-->
