@@ -33,7 +33,7 @@ public class Curso {
     private List<Estudiante> estudiantes;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "curso_modulos", joinColumns = @JoinColumn(name = "Curso_codigo"), inverseJoinColumns = @JoinColumn(name = "Modulo_codigo"))
+    @JoinTable(name = "curso_modulo", joinColumns = @JoinColumn(name = "curso_codigo"), inverseJoinColumns = @JoinColumn(name = "modulo_codigo"))
     private List<Modulo> modulos;
 
     private float precio;
