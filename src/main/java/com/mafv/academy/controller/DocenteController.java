@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.mafv.academy.models.Curso;
 import com.mafv.academy.models.Docente;
+import com.mafv.academy.services.CursoService;
 import com.mafv.academy.services.DocenteService;
 
 @Controller
@@ -21,6 +23,9 @@ public class DocenteController {
     
     @Autowired
     DocenteService docentesService;
+
+    @Autowired
+    CursoService cursosService;
     
     @GetMapping(value = "/list")
     public ModelAndView listPage(Model model) {
@@ -80,6 +85,16 @@ public class DocenteController {
     @GetMapping(path = { "/delete/{id}" })
     public ModelAndView delete(
             @PathVariable(name = "id", required = true) int id) {
+
+        // Se comprueba si el docente es tutor de un curso, si lo es, borrará el tutor del curso
+        Docente docente = docentesService.findById(id);
+        Curso curso = cursosService.findByTutor(docente);
+
+        if(curso.getTutor() != null){
+            curso.setTutor(null);
+        }
+
+        cursosService.update(curso);
 
         docentesService.deleteById(id);
 

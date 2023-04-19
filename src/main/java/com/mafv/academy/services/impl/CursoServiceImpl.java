@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mafv.academy.models.Curso;
+import com.mafv.academy.models.Docente;
 import com.mafv.academy.repository.CursoRepository;
 import com.mafv.academy.services.CursoService;
 
@@ -48,5 +49,12 @@ public class CursoServiceImpl implements CursoService{
     @Override
     public void deleteAll() {
         repository.deleteAll();
+    }
+
+    @Override
+    public Curso findByTutor(Docente docente) {
+
+        Curso curso = repository.findByTutor(docente);
+        return curso;
     }
 }

@@ -2,7 +2,6 @@ package com.mafv.academy.models;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -22,7 +21,7 @@ public class Curso {
 
     private String nombre;
     
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "tutor", referencedColumnName = "codigo", nullable = true)
     private Docente tutor;
 
