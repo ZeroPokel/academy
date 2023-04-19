@@ -18,7 +18,6 @@ public class Modulo {
     private int codigo;
 
     private String nombre;
-    private String tipo;
     
     @ManyToOne
     @JoinColumn(name="docente", nullable=false)
@@ -52,15 +51,7 @@ public class Modulo {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
+    
     public Docente getDocente() {
         return docente;
     }
