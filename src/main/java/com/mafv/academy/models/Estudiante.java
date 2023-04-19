@@ -41,6 +41,9 @@ public class Estudiante {
     @OneToMany(mappedBy = "estudiante")
     private List<Matricula> matriculas;
 
+    @OneToMany(mappedBy = "estudiante")
+    private List<EstudianteModulo> nota;
+
     public Estudiante() {
     }
 

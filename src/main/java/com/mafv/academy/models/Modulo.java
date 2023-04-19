@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Modulo {
@@ -25,6 +26,9 @@ public class Modulo {
 
     @ManyToMany(mappedBy = "modulos")
     private List<Curso> cursos;
+
+    @OneToMany(mappedBy = "modulo")
+    private List<EstudianteModulo> nota;
 
     public Modulo() {
     }
