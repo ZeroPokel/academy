@@ -5,8 +5,8 @@
 
     <div th:replace="commons/menu :: menu"></div>
     <div class="container">
-        <form class="row g-3" method="post" th:action="@{/estudiantes/save}">
-                <legend>Nuevo estudiante</legend>
+        <form class="row g-3" method="post" th:action="@{/modulos/save}">
+                <legend>Nuevo modulo</legend>
                 <div class="row">
                     <div class="col-md-3">
                         <label for="nombre" class="form-label mt-4">Nombre</label>
@@ -19,7 +19,7 @@
                 </div>
                 <div class="col-md-4">
                     <button type="submit" class="btn btn-success">Confirmar</button>
-                    <button type="button" class="btn btn-danger"><a th:href="@{/estudiantes/list}">Cancelar</a></button>
+                    <button type="button" class="btn btn-danger"><a th:href="@{/modulos/list}">Cancelar</a></button>
                 </div>
         </form>
     </div>
