@@ -53,8 +53,6 @@ public class CursoServiceImpl implements CursoService{
 
     @Override
     public Curso findByTutor(Docente docente) {
-
-        Curso curso = repository.findByTutor(docente);
-        return curso;
+        return repository.findByTutor(docente);
     }
 }
