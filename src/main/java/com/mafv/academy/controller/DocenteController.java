@@ -91,10 +91,8 @@ public class DocenteController {
         Curso curso = cursosService.findByTutor(docente);
 
         if(curso != null){
-            if(curso.getTutor() != null){
-                curso.setTutor(null);
-                cursosService.update(curso);
-            }
+            curso.setTutor(null);
+            cursosService.update(curso);
         }
 
         docentesService.deleteById(id);
