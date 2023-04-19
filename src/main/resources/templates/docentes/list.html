@@ -37,19 +37,19 @@
                             <!-- Modal, alerta que salta cuando le das a uno de los botones de eliminar para borrar dicha fila -->
                             <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" th:id="deleteModal+${docente.codigo}" aria-hidden="true">
                                 <div class="modal-dialog">
-                                  <div class="modal-content">
-                                    <div class="modal-header">
-                                      <h5 class="modal-title" id="deleteModalLabel">Atencion</h5>
-                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="deleteModalLabel">Atencion</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p class="mb-0">El docente va a ser eliminado permanentemente, este cambio no se podrá deshacer, ¿estás seguro?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                                            <a type="button" class="btn btn-success" th:href="@{/docentes/delete/{id}(id=${docente.codigo})}">Confirmar</a>
+                                        </div>
                                     </div>
-                                    <div class="modal-body">
-                                        <p class="mb-0">El docente va a ser eliminado permanentemente, este cambio no se podrá deshacer, ¿estás seguro?</p>
-                                    </div>
-                                    <div class="modal-footer">
-                                      <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                                      <a type="button" class="btn btn-success" th:href="@{/docentes/delete/{id}(id=${docente.codigo})}">Confirmar</a>
-                                    </div>
-                                  </div>
                                 </div>
                             </div>
                         </tr>
