@@ -17,7 +17,6 @@ public class Modulo {
     private int codigo;
 
     private String nombre;
-    private float nota;
     private String tipo;
     
     @ManyToOne
@@ -50,14 +49,6 @@ public class Modulo {
         this.nombre = nombre;
     }
 
-    public float getNota() {
-        return nota;
-    }
-
-    public void setNota(float nota) {
-        this.nota = nota;
-    }
-
     public String getTipo() {
         return tipo;
     }
@@ -81,5 +72,29 @@ public class Modulo {
     public void setCursos(List<Curso> cursos) {
         this.cursos = cursos;
     }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + codigo;
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Modulo other = (Modulo) obj;
+        if (codigo != other.codigo)
+            return false;
+        return true;
+    }
+
+    
 
 }
