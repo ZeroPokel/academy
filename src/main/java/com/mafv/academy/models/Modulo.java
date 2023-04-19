@@ -20,10 +20,11 @@ public class Modulo {
     private String nombre;
     
     @ManyToOne
-    @JoinColumn(name="docente", nullable=false)
+    @JoinColumn(name ="docente", nullable = false)
     private Docente docente;
 
     @ManyToMany(mappedBy = "modulos")
+    @JoinColumn(nullable = false)
     private List<Curso> cursos;
 
     @OneToMany(mappedBy = "modulo")
@@ -51,7 +52,7 @@ public class Modulo {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    
+
     public Docente getDocente() {
         return docente;
     }
