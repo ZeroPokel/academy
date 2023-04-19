@@ -24,7 +24,6 @@ public class Modulo {
     private Docente docente;
 
     @ManyToMany(mappedBy = "modulos")
-    @JoinColumn(nullable = false)
     private List<Curso> cursos;
 
     @OneToMany(mappedBy = "modulo")
