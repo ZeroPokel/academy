@@ -39,6 +39,31 @@
                             </select>
                         </div>
                     </div>
+                    <!--
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="curso" class="form-label mt-4" name="curso">Docente</label>
+                            <select class="form-select" id="curso" name="curso" th:value="${modulo.curso}">
+                                <div th:if="${modulo.curso eq null}">
+                                    <option name="curso" id="curso" selected="selected"></option>
+                                </div>
+                                <div th:each="curso : ${cursos}">
+                                    <div th:if="${modulo.curso ne null}">
+                                        <div th:if="${modulo.curso.codigo eq curso.getCodigo}">
+                                            <option name="curso" id="curso" th:value="${curso.codigo}" th:text="${curso.nombre}" selected="selected"></option>
+                                        </div>
+                                        <div th:unless="${modulo.curso.codigo eq curso.getCodigo}">
+                                            <option name="curso" id="curso" th:value="${curso.codigo}" th:text="${curso.nombre}"></option>
+                                        </div>
+                                    </div>
+                                    <div th:unless="${modulo.curso ne null}">
+                                        <option name="curso" id="curso" th:value="${curso.codigo}" th:text="${curso.nombre}"></option>
+                                    </div>
+                                </div>
+                            </select>
+                        </div>
+                    </div>
+                    -->
                 </div>
                 <div class="col-md-4">
                     <button type="submit" class="btn btn-success">Confirmar</button>
