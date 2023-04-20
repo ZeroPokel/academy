@@ -101,6 +101,22 @@ public class CursoController {
         return modelAndView;
     }
 
+    @GetMapping(path = { "/tutor/{id}" })
+    public ModelAndView mostrarTutor(
+        @PathVariable(name = "id", required = true) int id) {
+
+        Docente tutor = docentesService.findById(id);
+        Curso curso = cursosService.findByTutor(tutor);
+    
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("tutor", tutor);
+        modelAndView.addObject("curso", curso);
+        modelAndView.setViewName("cursos/tutor");
+    
+        return modelAndView;
+    }
+
+
     // Función que comprueba todos los docentes y coloca el atributo "tutor" a true si dicho docente es tutor de ese curso y los devuelve
     public List<Docente> comprobarTutores(){
         List<Curso> cursos = cursosService.findAll();

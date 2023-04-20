@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="commons/header :: header"></head>
+<body>
+
+    <div th:replace="commons/menu :: menu"></div>
+    <div class="container">
+        <h1 class="mt-4 mb-4 text-center">Tutor del curso <span th:text="${curso.nombre}"></span></h1>
+        <div class="row">
+            <div class="col-md-3">
+                <label for="codigo" class="form-label mt-4">Codigo</label>
+                <input type="text" class="form-control" id="codigo" name="codigo" th:value="${tutor.codigo}" reandonly>
+            </div>
+            <div class="col-md-3">
+                <label for="nombre" class="form-label mt-4">Nombre</label>
+                <input type="text" class="form-control" id="nombre" name="nombre" th:value="${tutor.nombre}" readonly>
+            </div>
+            <div class="col-md-3">
+                <label for="apellidos" class="form-label mt-4">Apellidos</label>
+                <input type="text" class="form-control" id="apellidos" name="apellidos" th:value="${tutor.apellidos}" readonly>
+            </div>
+            <div class="col-md-3">
+                <label for="email" class="form-label mt-4">Email</label>
+                <input type="text" class="form-control" id="email" name="email" th:value="${tutor.email}" readonly>
+            </div>
+            <div class="col-md-3">
+                <label for="fechaNacimiento" class="form-label mt-4">Fecha de Nacimiento</label>
+                <input type="text" class="form-control" id="fechaNacimiento" name="fechaNacimiento" th:value="${tutor.fechaNacimiento}" readonly>
+            </div>
+            <div class="col-md-3">
+                <label for="dni" class="form-label mt-4">DNI</label>
+                <input type="text" class="form-control" id="dni" name="dni" th:value="${tutor.dni}" readonly>
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="commons/footer :: footer" class="container"></div>
+</body>
+</html>
