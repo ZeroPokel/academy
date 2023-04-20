@@ -20,7 +20,7 @@
                 </thead>
                 <tbody>
                     <div th:each="modulo : ${modulos}">
-                        <tr class="table-light text p-0 m-0">
+                        <tr class="table-light text p-0 m-0 align-middle">
                             <th scope="row" th:text="${modulo.codigo}"></th>
                             <td th:text="${modulo.nombre}"></td>
                             <td th:text="|${modulo.docente.nombre} ${modulo.docente.apellidos}|"></td>

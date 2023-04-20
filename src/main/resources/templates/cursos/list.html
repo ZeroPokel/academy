@@ -19,15 +19,11 @@
                 </thead>
                 <tbody>
                     <div th:each="curso : ${cursos}">
-                        <tr class="table-light text p-0 m-0">
+                        <tr class="table-light text p-0 m-0 align-middle">
                             <th scope="row" th:text="${curso.codigo}"></th>
                             <td th:text="${curso.nombre}"></td>
-                            <div th:if="${curso.tutor ne null}">
-                                <td th:text="|${curso.tutor.nombre} ${curso.tutor.apellidos}|"></td>
-                            </div>
-                            <div th:unless="${curso.tutor}">
-                                <td>Sin tutor</td>
-                            </div>
+                            <td th:if="${curso.tutor ne null}" th:text="|${curso.tutor.nombre} ${curso.tutor.apellidos}|"></td>
+                            <td th:unless="${curso.tutor}" >Sin tutor</td>
                             <td>
                                 <a th:href="@{/cursos/edit/}+${curso.codigo}" class="btn btn-info bi bi-pen fs-4" data-bs-tooltip="tooltip" data-bs-placement="top" title="Editar curso"></a>
                                 <button type="button" class="btn btn-danger bi bi-trash fs-4" data-bs-tooltip="tooltip" data-bs-placement="top" title="Borrar curso" data-bs-toggle="modal" data-bs-target="#deleteModal" th:attr="data-bs-target='#deleteModal'+${curso.codigo}"></button>                      
