@@ -65,6 +65,8 @@ public class SecurityConfig{
             .authenticated()
         .and()
             .formLogin()
+            .loginPage("/login")
+            .permitAll()
         .and()
             .httpBasic();
         
