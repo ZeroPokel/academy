@@ -17,8 +17,27 @@
                         <input type="text" class="form-control" id="nombre" name="nombre" th:value="${modulo.nombre}" placeholder="Introduce el nombre">
                     </div>
                     <div class="col-md-3">
-                        <label for="docente" class="form-label mt-4">Docente</label>
-                        <input type="text" class="form-control" id="docente" name="docente" th:value="${modulo.docente}" placeholder="Introduce el docente">
+                        <div class="form-group">
+                            <label for="docente" class="form-label mt-4" name="docente">Docente</label>
+                            <select class="form-select" id="docente" name="docente" th:value="${modulo.docente}">
+                                <div th:if="${modulo.docente eq null}">
+                                    <option name="docente" id="docente" selected="selected"></option>
+                                </div>
+                                <div th:each="docente : ${docentes}">
+                                    <div th:if="${modulo.docente ne null}">
+                                        <div th:if="${modulo.docente.codigo eq docente.getCodigo}">
+                                            <option name="docente" id="docente" th:value="${docente.codigo}" th:text="|${docente.nombre} ${docente.apellidos}|" selected="selected"></option>
+                                        </div>
+                                        <div th:unless="${modulo.docente.codigo eq docente.getCodigo}">
+                                            <option name="docente" id="docente" th:value="${docente.codigo}" th:text="|${docente.nombre} ${docente.apellidos}|"></option>
+                                        </div>
+                                    </div>
+                                    <div th:unless="${modulo.docente ne null}">
+                                        <option name="docente" id="docente" th:value="${docente.codigo}" th:text="|${docente.nombre} ${docente.apellidos}|"></option>
+                                    </div>
+                                </div>
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-4">

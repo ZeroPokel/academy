@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.mafv.academy.models.Docente;
 import com.mafv.academy.models.Modulo;
+import com.mafv.academy.services.DocenteService;
 import com.mafv.academy.services.ModuloService;
 
 
@@ -22,6 +24,9 @@ public class ModuloController {
     
     @Autowired
     ModuloService modulosService;
+
+    @Autowired
+    DocenteService docentesService;
     
     @GetMapping(value = "/list")
     public ModelAndView listPage(Model model) {
@@ -37,7 +42,10 @@ public class ModuloController {
     @GetMapping(value = "/create")
     public ModelAndView create(Modulo modulo) {
 
+        List<Docente> docentes = docentesService.findAll();
+
         ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("docentes", docentes);
         modelAndView.addObject("modulo", new Modulo());
         modelAndView.setViewName("modulos/create");
 
@@ -60,8 +68,10 @@ public class ModuloController {
             @PathVariable(name = "id", required = true) int id) {
 
         Modulo modulo = modulosService.findById(id);
+        List<Docente> docentes = docentesService.findAll();
 
         ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("docentes", docentes);
         modelAndView.addObject("modulo", modulo);
         modelAndView.setViewName("modulos/edit");
         return modelAndView;

@@ -20,7 +20,7 @@ public class Modulo {
     private String nombre;
     
     @ManyToOne
-    @JoinColumn(name ="docente", nullable = false)
+    @JoinColumn(name ="docente", nullable = true)
     private Docente docente;
 
     @ManyToMany(mappedBy = "modulos")
