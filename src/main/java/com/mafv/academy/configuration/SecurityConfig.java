@@ -17,8 +17,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import com.mafv.academy.services.UsuariosService;
 
 @Configuration
-@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
-public class SecurityConfig extends GlobalMethodSecurityConfiguration{
+public class SecurityConfig{
     
     @Bean
     public PasswordEncoder passwordEncoder(){
