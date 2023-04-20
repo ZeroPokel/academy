@@ -101,6 +101,7 @@ public class CursoController {
         return modelAndView;
     }
 
+    // Función que comprueba todos los docentes y coloca el atributo "tutor" a true si dicho docente es tutor de ese curso y los devuelve
     public List<Docente> comprobarTutores(){
         List<Curso> cursos = cursosService.findAll();
         List<Docente> docentes = docentesService.findAll();
