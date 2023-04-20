@@ -32,7 +32,7 @@ public class Estudiante {
     private Date fechaNacimiento;
 
     @ManyToOne
-    @JoinColumn(name="curso", nullable = false)
+    @JoinColumn(name="curso", nullable = true)
     private Curso curso;
 
     @OneToMany(mappedBy = "estudiante")
