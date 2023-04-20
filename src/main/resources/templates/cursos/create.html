@@ -12,6 +12,19 @@
                         <label for="nombre" class="form-label mt-4">Nombre</label>
                         <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Introduce el nombre">
                     </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="tutor" class="form-label mt-4" name="tutor">Tutor</label>
+                            <select class="form-select" id="tutor" name="tutor" th:value="${curso.tutor}">
+                                <option name="tutor" id="tutor" selected="selected" value="">Ninguno</option>
+                                <div th:each="docente : ${docentes}">
+                                    <div th:if="${docente.isEsTutor eq false}">
+                                        <option name="tutor" id="tutor" th:value="${docente.codigo}" th:text="|${docente.nombre} ${docente.apellidos}|"></option>
+                                    </div>
+                                </div>
+                            </select>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-4">
                     <button type="submit" class="btn btn-success">Confirmar</button>
