@@ -25,16 +25,10 @@
                                 </div>
                                 <div th:each="docente : ${docentes}">
                                     <div th:if="${modulo.docente ne null}">
-                                        <div th:if="${modulo.docente.codigo eq docente.getCodigo}">
-                                            <option name="docente" id="docente" th:value="${docente.codigo}" th:text="|${docente.nombre} ${docente.apellidos}|" selected="selected"></option>
-                                        </div>
-                                        <div th:unless="${modulo.docente.codigo eq docente.getCodigo}">
-                                            <option name="docente" id="docente" th:value="${docente.codigo}" th:text="|${docente.nombre} ${docente.apellidos}|"></option>
-                                        </div>
+                                        <option th:if="${modulo.docente.codigo eq docente.getCodigo}" name="docente" id="docente" th:value="${docente.codigo}" th:text="|${docente.nombre} ${docente.apellidos}|" selected="selected"></option>
+                                        <option th:unless="${modulo.docente.codigo eq docente.getCodigo}" name="docente" id="docente" th:value="${docente.codigo}" th:text="|${docente.nombre} ${docente.apellidos}|"></option>
                                     </div>
-                                    <div th:unless="${modulo.docente ne null}">
-                                        <option name="docente" id="docente" th:value="${docente.codigo}" th:text="|${docente.nombre} ${docente.apellidos}|"></option>
-                                    </div>
+                                    <option th:unless="${modulo.docente ne null}" name="docente" id="docente" th:value="${docente.codigo}" th:text="|${docente.nombre} ${docente.apellidos}|"></option>
                                 </div>
                             </select>
                         </div>

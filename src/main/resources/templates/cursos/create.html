@@ -18,9 +18,7 @@
                             <select class="form-select" id="tutor" name="tutor" th:value="${curso.tutor}">
                                 <option name="tutor" id="tutor" selected="selected" value="">Ninguno</option>
                                 <div th:each="docente : ${docentes}">
-                                    <div th:if="${docente.isEsTutor eq false}">
-                                        <option name="tutor" id="tutor" th:value="${docente.codigo}" th:text="|${docente.nombre} ${docente.apellidos}|"></option>
-                                    </div>
+                                    <option th:if="${docente.isEsTutor eq false}" name="tutor" id="tutor" th:value="${docente.codigo}" th:text="|${docente.nombre} ${docente.apellidos}|"></option>
                                 </div>
                             </select>
                         </div>
