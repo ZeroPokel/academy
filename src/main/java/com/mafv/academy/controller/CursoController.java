@@ -1,6 +1,7 @@
 package com.mafv.academy.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,8 +44,11 @@ public class CursoController {
     @GetMapping(value = "/create")
     public ModelAndView create(Curso curso) {
 
+        List<Docente> docentes = comprobarTutores();
+
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("curso", new Curso());
+        modelAndView.addObject("docentes", docentes);
         modelAndView.setViewName("cursos/create");
 
         return modelAndView;
@@ -66,19 +70,7 @@ public class CursoController {
             @PathVariable(name = "id", required = true) int id) {
 
         Curso curso = cursosService.findById(id);
-        List<Curso> cursos = cursosService.findAll();
-        List<Docente> docentes = docentesService.findAll();
-
-        for (Curso cursot : cursos){
-            for (Docente docente : docentes){
-                if(cursot.getTutor() != null){
-                    if(cursot.getTutor().getCodigo() == docente.getCodigo()){
-                        docente.setEsTutor(true);
-                        break;
-                    }
-                }
-            }
-        }
+        List<Docente> docentes = comprobarTutores();
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("docentes", docentes);
@@ -110,4 +102,21 @@ public class CursoController {
         return modelAndView;
     }
 
+    public List<Docente> comprobarTutores(){
+        List<Curso> cursos = cursosService.findAll();
+        List<Docente> docentes = docentesService.findAll();
+
+        for (Curso cursot : cursos){
+            for (Docente docente : docentes){
+                if(cursot.getTutor() != null){
+                    if(cursot.getTutor().getCodigo() == docente.getCodigo()){
+                        docente.setEsTutor(true);
+                        break;
+                    }
+                }
+            }
+        }
+
+        return docentes;
+    }
 }
