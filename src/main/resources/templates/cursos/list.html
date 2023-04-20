@@ -29,11 +29,13 @@
                                 <td>Sin tutor</td>
                             </div>
                             <td>
-                                <a th:href="@{/cursos/edit/}+${curso.codigo}" class="btn btn-info bi bi-pen" data-bs-tooltip="tooltip" data-bs-placement="top" title="Editar curso"></a>
-                                <button type="button" class="btn btn-danger bi bi-trash" data-bs-tooltip="tooltip" data-bs-placement="top" title="Borrar curso" data-bs-toggle="modal" data-bs-target="#deleteModal" th:attr="data-bs-target='#deleteModal'+${curso.codigo}"></button>                      
+                                <a th:href="@{/cursos/edit/}+${curso.codigo}" class="btn btn-info bi bi-pen fs-4" data-bs-tooltip="tooltip" data-bs-placement="top" title="Editar curso"></a>
+                                <button type="button" class="btn btn-danger bi bi-trash fs-4" data-bs-tooltip="tooltip" data-bs-placement="top" title="Borrar curso" data-bs-toggle="modal" data-bs-target="#deleteModal" th:attr="data-bs-target='#deleteModal'+${curso.codigo}"></button>                      
+                                <a th:if="${curso.tutor ne null}" href="#" class="btn btn-info bi-person fs-4" role="button" data-bs-tooltip="tooltip" data-bs-placement="top" title="Tutor"></a>
+                                <a th:unless="${curso.tutor ne null}" href="#" class="btn btn-info bi-person disabled fs-4" role="button" aria-disabled="true" data-bs-tooltip="tooltip" data-bs-placement="top" title="Sin tutor" disabled></a>
                             </td>
 
-                            <!-- Modal, alerta que salta cuando le das a uno de los botones de eliminar para borrar dicha fila-->
+                            <!-- th:href="@{/cursos/tutor/}+${curso.tutor.codigo}" Modal, alerta que salta cuando le das a uno de los botones de eliminar para borrar dicha fila-->
                             <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" th:id="deleteModal+${curso.codigo}" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
