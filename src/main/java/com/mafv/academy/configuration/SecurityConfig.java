@@ -13,7 +13,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
-import org.springframework.security.web.SecurityFilterChain;
 
 import com.mafv.academy.services.UsuariosService;
 
@@ -24,7 +23,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     @Bean
     public PasswordEncoder passwordEncoder(){
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
-        //return NoOpPasswordEncoder.getInstance();
     }
 
     @Bean
@@ -71,9 +69,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 .permitAll()
                 .and()
                 .logout()
+                    .logoutSuccessUrl("/login.html?logout=true")
+                    .invalidateHttpSession(true)
+                    .deleteCookies("JSESSIONID")
                 .permitAll();
     }
 
+    // Evita que te redirija a cualquier css o js
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/css/**");
