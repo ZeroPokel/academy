@@ -60,7 +60,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
+
+        String[] staticResources  =  {
+            "/css/**",
+            "/img/**",
+            "/fonts/**",
+            "/js/**",
+        };
+
         http.authorizeRequests()
+                .antMatchers(staticResources).permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -69,7 +78,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 .permitAll()
                 .and()
                 .logout()
-                    .logoutSuccessUrl("/login.html?logout=true")
+                    .logoutSuccessUrl("/login?logout=true")
                     .invalidateHttpSession(true)
                     .deleteCookies("JSESSIONID")
                 .permitAll();
