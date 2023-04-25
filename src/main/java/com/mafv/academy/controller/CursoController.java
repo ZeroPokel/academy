@@ -148,6 +148,21 @@ public class CursoController {
         return modelAndView;
     }
 
+    // Añadir un docente al curso seleccionado sin tutor
+    @GetMapping(path = { "/aniadir/tutor/{id}"})
+    public ModelAndView aniadirTutor(
+        @PathVariable(name = "id", required = true) int id){
+
+        Curso curso = cursosService.findById(id);
+        List<Docente> docentes = comprobarTutores();
+
+        ModelAndView modelAndView = new ModelAndView();            
+        modelAndView.addObject("curso", curso);
+        modelAndView.addObject("docentes", docentes);
+        modelAndView.setViewName("listar/docentes");
+
+        return modelAndView;
+    }
 
     // Función que comprueba todos los docentes y coloca el atributo "tutor" a true si dicho docente es tutor de ese curso y los devuelve
     public List<Docente> comprobarTutores(){
