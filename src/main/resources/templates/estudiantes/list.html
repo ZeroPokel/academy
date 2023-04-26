@@ -27,7 +27,7 @@
                             <td th:text="${estudiante.nombre}"></td>
                             <td th:text="${estudiante.apellidos}"></td>
                             <td th:text="${estudiante.email}"></td>
-                            <td th:text="${estudiante.fechaNacimiento}"></td>
+                            <td th:text="${#dates.format(estudiante.fechaNacimiento, 'dd-MM-yyyy')}"></td>
                             <td th:text="${estudiante.dni}"></td>
                             <td>
                                 <a th:href="@{/estudiantes/edit/}+${estudiante.codigo}" class="btn btn-info bi bi-pen" data-bs-tooltip="tooltip" data-bs-placement="top" title="Editar estudiante"></a>
