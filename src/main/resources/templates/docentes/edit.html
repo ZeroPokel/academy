@@ -1,13 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="commons/header :: header"></head>
-<script>
-    function blurFunction(fecha){
-        var fechaConvertida = new Date(fecha);
-        fechaConvertida = fechaConvertida.toLocaleDateString('en-GB');
-        return fechaConvertida;
-    }
-</script>
 <body>
 
     <div th:replace="commons/menu :: menu"></div>
@@ -33,13 +26,25 @@
                     </div>
                     <div class="col-md-3">
                         <label for="fechaNacimiento" class="form-label mt-4">Fecha de Nacimiento</label>
-                        <input type="text" class="form-control" id="fechaNacimiento" name="fechaNacimiento" onfocus="(this.type='date');" 
-                            onblur="(this.type='text', this.value=blurFunction(value));" 
-                            th:value="${#dates.format(docente.fechaNacimiento, 'dd-MM-yyyy')}" placeholder="Introduce la fecha de nacimiento">
+                        <input type="date" class="form-control" id="fechaNacimiento" name="fechaNacimiento" th:value="${docente.fechaNacimiento}" placeholder="Introduce la fecha de nacimiento">
                     </div>
                     <div class="col-md-3">
                         <label for="dni" class="form-label mt-4">DNI</label>
                         <input type="text" class="form-control" id="dni" name="dni" th:value="${docente.dni}" placeholder="Introduce el dni">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="telefono" class="form-label mt-4">Teléfono</label>
+                        <input type="text" class="form-control" id="telefono" name="telefono" th:value="${docente.telefono}" placeholder="Introduce el telefono">
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="sexo" class="form-label mt-4" name="sexo">Sexo</label>
+                            <select class="form-select" id="sexo" name="sexo" th:value="${docente.sexo}">
+                                <option name="sexo" id="sexo" th:selected="${docente.sexo eq 'Hombre'} ? 'true' : 'false'">Hombre</option>
+                                <option name="sexo" id="sexo" th:selected="${docente.sexo eq 'Mujer'} ? 'true' : 'false'">Mujer</option>
+                                <option name="sexo" id="sexo" th:selected="${docente.sexo eq 'Otro'} ? 'true' : 'false'">Otro</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -52,3 +57,19 @@
     <div th:replace="commons/footer :: footer" class="container"></div>
 </body>
 </html>
+
+<!--
+
+    <script>
+        function blurFunction(fecha){
+            var fechaConvertida = new Date(fecha);
+            fechaConvertida = fechaConvertida.toLocaleDateString('en-GB');
+            return fechaConvertida;
+        }
+    </script>
+
+                            <input type="text" class="form-control" id="fechaNacimiento" name="fechaNacimiento" onfocus="(this.type='date');" 
+                            onblur="(this.type='text', this.value=blurFunction(value));" 
+                            th:value="${#dates.format(docente.fechaNacimiento, 'dd-MM-yyyy')}" placeholder="Introduce la fecha de nacimiento">
+
+-->

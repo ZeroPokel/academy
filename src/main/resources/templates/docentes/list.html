@@ -16,6 +16,8 @@
                         <th scope="col">Email</th>
                         <th scope="col">Fecha de Nacimiento</th>
                         <th scope="col">DNI</th>
+                        <th scope="col">Teléfono</th>
+                        <th scope="col">Sexo</th>
                         <th scope="col">Operaciones</th>
                     </tr>
                     <tr th:if="${curso ne null}">
@@ -32,6 +34,8 @@
                             <td th:text="${docente.email}"></td>
                             <td th:text="${#dates.format(docente.fechaNacimiento, 'dd-MM-yyyy')}"></td>
                             <td th:text="${docente.dni}"></td>
+                            <td th:text="${docente.telefono}"></td>
+                            <td th:text="${docente.sexo}"></td>
                             <td>
                                 <a th:href="@{/docentes/edit/}+${docente.codigo}" class="btn btn-info bi bi-pen fs-4" data-bs-tooltip="tooltip" data-bs-placement="top" title="Editar docente"></a>
                                 <button type="button" class="btn btn-danger bi bi-trash fs-4" data-bs-tooltip="tooltip" data-bs-placement="top" title="Borrar docente" data-bs-toggle="modal" data-bs-target="#deleteModal" th:attr="data-bs-target='#deleteModal'+${docente.codigo}"></button>                      

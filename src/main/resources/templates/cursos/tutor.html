@@ -4,36 +4,54 @@
 <body>
 
     <div th:replace="commons/menu :: menu"></div>
-    <div class="container">
-        <h1 class="mt-4 mb-4 text-center">Tutor de <span th:text="${curso.nombre}"></span></h1>
+
+    <div class="container rounded bg-white mt-5 mb-5">
         <div class="row">
-            <div class="col-md-3">
-                <label for="codigo" class="form-label mt-4">Codigo</label>
-                <input type="text" class="form-control" id="codigo" name="codigo" th:value="${tutor.codigo}" reandonly>
+            <div class="col-md-4">
+                <div class="d-flex flex-column align-items-center text-center p-3 py-2">
+                    <img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
+                    <span class="font-weight-bold" th:text="|${tutor.nombre} ${tutor.apellidos}|">Edogaru</span>
+                    <span class="text-black-50" th:text="${tutor.email}"></span>
+                    <span></span>
+                </div>
             </div>
-            <div class="col-md-3">
-                <label for="nombre" class="form-label mt-4">Nombre</label>
-                <input type="text" class="form-control" id="nombre" name="nombre" th:value="${tutor.nombre}" readonly>
+            <div class="col-md-6">
+                <div class="p-3 py-5">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4 class="text-right">Tutor de <span th:text="${curso.nombre}"></span></h4>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <label for="fechaNacimiento" class="labels">Fecha de nacimiento</label>
+                            <input type="text" class="form-control" placeholder="Fecha de Nacimiento" th:value="${#dates.format(tutor.fechaNacimiento, 'dd-MM-yyyy')}" readonly>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="dni" class="labels">DNI</label>
+                            <input type="text" class="form-control" placeholder="DNI" th:value="${tutor.dni}" readonly>
+                        </div>
+                        <div class="col-md-6 mt-3">
+                            <label for="telefono" class="labels">Teléfono</label>
+                            <input type="text" class="form-control" placeholder="telefono" th:value="${tutor.telefono}" readonly>
+                        </div>
+                        <div class="col-md-6 mt-3">
+                            <label for="sexo" class="labels">Sexo</label>
+                            <input type="text" class="form-control" placeholder="sexo" th:value="${tutor.sexo}" readonly>
+                        </div>
+                    </div>
+                    <div class="mt-5 text-center">
+                        <button type="button" class="btn btn-danger"><a th:href="@{/cursos/list}">Atrás</a></button>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-3">
-                <label for="apellidos" class="form-label mt-4">Apellidos</label>
-                <input type="text" class="form-control" id="apellidos" name="apellidos" th:value="${tutor.apellidos}" readonly>
-            </div>
-            <div class="col-md-3">
-                <label for="email" class="form-label mt-4">Email</label>
-                <input type="text" class="form-control" id="email" name="email" th:value="${tutor.email}" readonly>
-            </div>
-            <div class="col-md-3">
-                <label for="fechaNacimiento" class="form-label mt-4">Fecha de Nacimiento</label>
-                <input type="text" class="form-control" id="fechaNacimiento" name="fechaNacimiento" th:value="${tutor.fechaNacimiento}" readonly>
-            </div>
-            <div class="col-md-3">
-                <label for="dni" class="form-label mt-4">DNI</label>
-                <input type="text" class="form-control" id="dni" name="dni" th:value="${tutor.dni}" readonly>
-            </div>
+            <!--<div class="col-md-4">
+                <div class="p-3 py-5">
+                    <br><br>
+                    <div class="col-md-12"><label class="labels">Experience in Designing</label><input type="text" class="form-control" placeholder="experience"></div> <br>
+                    <div class="col-md-12"><label class="labels">Additional Details</label><input type="text" class="form-control" placeholder="additional details"></div>
+                </div>
+            </div>-->
         </div>
     </div>
-
     <div th:replace="commons/footer :: footer" class="container"></div>
 </body>
 </html>
