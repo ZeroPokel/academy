@@ -1,0 +1,30 @@
+COSAS NO USADAS ACTUALMENTE PERO QUE PUEDEN SER ÚTILES O HAN SIDO UTILIZADAS Y PUEDEN SER REUTILIZADAS EN OTRO LUGAR
+
+----Muestra de docentes no tutores en un select----
+
+<div class="col-md-3">
+    <div class="form-group">
+        <label for="tutor" class="form-label mt-4" name="tutor">Tutor</label>
+        <select class="form-select" id="tutor" name="tutor" th:value="${curso.tutor}">
+            <option th:if="${curso.tutor eq null}" name="tutor" id="tutor" selected="selected"></option>
+                <div th:each="docente : ${docentes}">
+                    <div th:if="${curso.tutor ne null}">
+                        <option th:if="${curso.tutor.codigo eq docente.getCodigo}" name="tutor" id="tutor" th:value="${docente.codigo}" th:text="|${docente.nombre} ${docente.apellidos}|" selected="selected"></option>
+                    </div>
+                    <option th:if="${docente.isEsTutor eq false}" name="tutor" id="tutor" th:value="${docente.codigo}" th:text="|${docente.nombre} ${docente.apellidos}|"></option>
+                </div>
+        </select>
+    </div>
+</div>
+
+----Dos partes de los perfiles de tutores----
+<div class="col-md-4">
+    <div class="p-3 py-5">
+    <br><br>
+        <div class="col-md-12"><label class="labels">Experience in Designing</label><input type="text" class="form-control" placeholder="experience"></div> <br>
+        <div class="col-md-12"><label class="labels">Additional Details</label><input type="text" class="form-control" placeholder="additional details"></div>
+    </div>
+</div>
+
+
+
