@@ -1,6 +1,7 @@
 package com.mafv.academy.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -149,18 +150,36 @@ public class CursoController {
     }
 
     // Añadir un docente al curso seleccionado sin tutor
-    @GetMapping(path = { "/aniadir/tutor/{id}"})
-    public ModelAndView aniadirTutor(
+    @GetMapping(path = { "/select/tutor/{id}"})
+    public ModelAndView selectTutor(
         @PathVariable(name = "id", required = true) int id){
 
         Curso curso = cursosService.findById(id);
-        List<Docente> docentes = comprobarTutores();
+        List<Docente> docentes = darDocentesNoTutores();
 
         ModelAndView modelAndView = new ModelAndView();            
         modelAndView.addObject("curso", curso);
         modelAndView.addObject("docentes", docentes);
-        modelAndView.setViewName("listar/docentes");
+        modelAndView.setViewName("docentes/list");
 
+        return modelAndView;
+    }
+
+    // Añadir un docente al curso seleccionado sin tutor
+    @GetMapping(path = { "/add/tutor/{idTutor}/curso/{idCurso}"})
+    public ModelAndView addTutor(
+        @PathVariable(name = "idCurso", required = true) int idCurso,
+        @PathVariable(name = "idTutor", required = true) int idTutor){
+    
+        Curso curso = cursosService.findById(idCurso);
+        Docente tutor = docentesService.findById(idTutor);
+
+        curso.setTutor(tutor);
+        cursosService.save(curso);
+    
+        ModelAndView modelAndView = new ModelAndView();            
+        modelAndView.setViewName("redirect:/cursos/list");
+    
         return modelAndView;
     }
 
@@ -181,5 +200,19 @@ public class CursoController {
         }
 
         return docentes;
+    }
+
+    // Función que comprueba los docentes y te devuelve solo aquellos que no sean tutores
+    public List<Docente> darDocentesNoTutores(){
+        List<Docente> docentes = comprobarTutores();
+        List<Docente> noTutores = new ArrayList<Docente>();
+
+        for (Docente docente : docentes){
+            if(!docente.isEsTutor()){
+                noTutores.add(docente);
+            }
+        }
+
+        return noTutores;
     }
 }
