@@ -134,6 +134,7 @@ public class CursoController {
         return modelAndView;
     }
 
+    // Borrado de tutor de un curso
     @GetMapping(path = { "/delete/tutor/{id}" })
     public ModelAndView deleteTutor(
             @PathVariable(name = "id", required = true) int id) {
@@ -149,6 +150,7 @@ public class CursoController {
         return modelAndView;
     }
 
+    // Mostrar tutor del curso seleccionado
     @GetMapping(path = { "/tutor/{id}" })
     public ModelAndView mostrarTutor(
         @PathVariable(name = "id", required = true) int id) {
