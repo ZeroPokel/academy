@@ -38,8 +38,26 @@
                             <input type="text" class="form-control" placeholder="sexo" th:value="${tutor.sexo}" readonly>
                         </div>
                     </div>
-                    <div class="mt-5 text-center">
-                        <button type="button" class="btn btn-danger"><a th:href="@{/cursos/list}">Atrás</a></button>
+                    <div class="mt-5">
+                        <button type="button" class="btn btn-danger" data-bs-tooltip="tooltip" data-bs-placement="top" title="Borrar curso" data-bs-toggle="modal" data-bs-target="#deleteModal" th:attr="data-bs-target='#deleteModal'+${tutor.codigo}">Eliminar</button>                      
+                        <button type="button" class="btn btn-success"><a th:href="@{/cursos/list}">Atrás</a></button>
+                    </div>
+                    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" th:id="deleteModal+${tutor.codigo}" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="deleteModalLabel">Atencion</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p class="mb-0">El tutor va a ser eliminado del curso, este cambio no se podrá deshacer, ¿estás seguro?</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                                    <a type="button" class="btn btn-success" th:href="@{/cursos/delete/tutor/{id}(id=${tutor.codigo})}">Confirmar</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

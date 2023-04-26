@@ -134,6 +134,21 @@ public class CursoController {
         return modelAndView;
     }
 
+    @GetMapping(path = { "/delete/tutor/{id}" })
+    public ModelAndView deleteTutor(
+            @PathVariable(name = "id", required = true) int id) {
+
+        Docente docente = docentesService.findById(id);
+        Curso curso = cursosService.findByTutor(docente);
+        curso.setTutor(null);
+        cursosService.save(curso);
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("redirect:/cursos/list");
+
+        return modelAndView;
+    }
+
     @GetMapping(path = { "/tutor/{id}" })
     public ModelAndView mostrarTutor(
         @PathVariable(name = "id", required = true) int id) {
