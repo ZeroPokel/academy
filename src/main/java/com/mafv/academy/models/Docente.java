@@ -24,6 +24,8 @@ public class Docente {
     private String apellidos;
 
     private String email;
+    private Long telefono;
+    private String sexo;
 
     @Transient
     private boolean esTutor;
@@ -50,13 +52,15 @@ public class Docente {
         this.codigo = codigo;
     }
 
-    public Docente(int codigo, String nombre, String apellidos, String dni, String email, Date fechaNacimiento) {
+    public Docente(int codigo, String nombre, String apellidos, String dni, String email, Date fechaNacimiento, Long telefono, String sexo) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.dni = dni;
         this.email = email;
         this.fechaNacimiento = fechaNacimiento;
+        this.telefono = telefono;
+        this.sexo = sexo;
     }
 
     public int getCodigo() {
@@ -107,7 +111,21 @@ public class Docente {
         this.fechaNacimiento = fechaNacimiento;
     }
 
-    
+    public Long getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(Long telefono) {
+        this.telefono = telefono;
+    }
+
+    public String getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
+    }
 
     @Override
     public int hashCode() {
