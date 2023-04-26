@@ -112,7 +112,7 @@ public class CursoController {
     }
 
     @PostMapping(path = { "/update" })
-    public ModelAndView update(Curso curso, @RequestParam("tutor") Optional<Integer> valor) {
+    public ModelAndView update(Curso curso) {
 
         cursosService.update(curso);
 
