@@ -20,7 +20,7 @@ import com.mafv.academy.services.DocenteService;
 @Controller
 @RequestMapping("/docentes")
 public class DocenteController {
-    
+
     @Autowired
     DocenteService docentesService;
 

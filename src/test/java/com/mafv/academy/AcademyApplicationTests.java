@@ -30,7 +30,7 @@ class AcademyApplicationTests {
 
 		Usuario u1 = new Usuario();
 		u1.setCodigo(1);
-		u1.setNombre("admin");
+		u1.setUsername("admin");
 		u1.setPassword(encoder.encode("admin"));
 
 		Permiso permisoAdmin = new Permiso();

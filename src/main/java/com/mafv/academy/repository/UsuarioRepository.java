@@ -6,5 +6,5 @@ import com.mafv.academy.models.Usuario;
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer>{
     
-    Usuario findByNombre(String username);
+    Usuario findByUsername(String username);
 }

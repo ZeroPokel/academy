@@ -12,7 +12,7 @@ public interface CursoService {
     public List<Curso> findAll();
     public Page<Curso> findAll(Pageable page);
     public Curso findById(int id);
-    public Curso findByTutor(Docente docente);
+    public Curso findByTutor(Docente tutor);
     public Curso save(Curso curso);
     public void update(Curso curso);
     public void deleteById(int id);

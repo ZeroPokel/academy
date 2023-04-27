@@ -22,17 +22,18 @@ public class Curso {
 
     private String nombre;
     
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne
     @JoinColumn(name = "tutor", referencedColumnName = "codigo", nullable = true)
     private Docente tutor;
 
-    @OneToOne(mappedBy = "curso")
-    private Matricula matricula;
-
-    @OneToMany(mappedBy = "curso")
+    @ManyToMany
+    @JoinTable(
+        name = "curso_estudiante",
+        joinColumns = @JoinColumn(name = "curso_codigo"),
+        inverseJoinColumns = @JoinColumn(name = "estudiante_codigo"))
     private List<Estudiante> estudiantes;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     @JoinTable(name = "curso_modulo", joinColumns = @JoinColumn(name = "curso_codigo"), inverseJoinColumns = @JoinColumn(name = "modulo_codigo"))
     private List<Modulo> modulos;
 
@@ -77,14 +78,6 @@ public class Curso {
 
     public void setModulos(List<Modulo> modulos) {
         this.modulos = modulos;
-    }
-
-    public Matricula getMatricula() {
-        return matricula;
-    }
-
-    public void setMatricula(Matricula matricula) {
-        this.matricula = matricula;
     }
 
     public List<Estudiante> getEstudiantes() {

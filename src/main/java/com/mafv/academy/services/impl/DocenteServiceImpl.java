@@ -5,12 +5,14 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mafv.academy.models.Docente;
 import com.mafv.academy.repository.DocenteRepository;
 import com.mafv.academy.services.DocenteService;
 
 @Service
+@Transactional
 public class DocenteServiceImpl implements DocenteService{
     
     @Autowired
@@ -49,5 +51,6 @@ public class DocenteServiceImpl implements DocenteService{
     public void deleteAll() {
         repository.deleteAll();
     }
+    
     
 }

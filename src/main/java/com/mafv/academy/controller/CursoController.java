@@ -137,8 +137,8 @@ public class CursoController {
     public ModelAndView deleteTutor(
             @PathVariable(name = "id", required = true) int id) {
 
-        Docente docente = docentesService.findById(id);
-        Curso curso = cursosService.findByTutor(docente);
+        Docente tutor = docentesService.findById(id);
+        Curso curso = cursosService.findByTutor(tutor);
         curso.setTutor(null);
         cursosService.save(curso);
 

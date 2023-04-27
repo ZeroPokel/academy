@@ -10,12 +10,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mafv.academy.models.Permiso;
 import com.mafv.academy.models.Usuario;
 import com.mafv.academy.repository.UsuarioRepository;
 
 @Service
+@Transactional
 public class UsuariosService implements UserDetailsService {
     
     @Autowired
@@ -44,7 +46,7 @@ public class UsuariosService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        Usuario usuario = userRepository.findByNombre(username);
+        Usuario usuario = userRepository.findByUsername(username);
 
         List<Permiso> permisosUsuario = usuario.getPermissions();
         List<GrantedAuthority> permisos = new ArrayList<GrantedAuthority>(permisosUsuario.size());
@@ -53,7 +55,7 @@ public class UsuariosService implements UserDetailsService {
         }
 
         UserDetails user = org.springframework.security.core.userdetails.User.builder()
-            .username(usuario.getNombre())
+            .username(usuario.getUsername())
             .password(usuario.getPassword())
             .authorities(permisos)
             .build();

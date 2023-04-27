@@ -4,138 +4,31 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-public class Estudiante {
+@DiscriminatorValue("Estudiante")
+public class Estudiante extends Usuario{
+
+    @ManyToMany(mappedBy = "estudiantes")
+    private List<Curso> cursos;
+
+    public List<Curso> getCursos() {
+        return cursos;
+    }
+
+    public void setCursos(List<Curso> cursos) {
+        this.cursos = cursos;
+    }
     
-    @Id
-    @GeneratedValue
-    private int codigo;
-
-    private String nombre;
-    private String apellidos;
-    
-    @Column(unique=true, length=9)
-    private String dni;
-    
-    private String email;
-
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date fechaNacimiento;
-
-    @ManyToOne
-    @JoinColumn(name="curso", nullable = true)
-    private Curso curso;
-
-    @OneToMany(mappedBy = "estudiante")
-    private List<Incidencia> incidencias;
-
-    @OneToMany(mappedBy = "estudiante")
-    private List<Matricula> matriculas;
-
-    @OneToMany(mappedBy = "estudiante")
-    private List<EstudianteModulo> nota;
-
-    public Estudiante() {
-    }
-
-    public Estudiante(int codigo) {
-        this.codigo = codigo;
-    }
-
-    public Estudiante(int codigo, String nombre, String apellidos, String dni, String email, Date fechaNacimiento) {
-        this.codigo = codigo;
-        this.nombre = nombre;
-        this.apellidos = apellidos;
-        this.dni = dni;
-        this.email = email;
-        this.fechaNacimiento = fechaNacimiento;
-    }
-
-    public int getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getApellidos() {
-        return apellidos;
-    }
-
-    public void setApellidos(String apellidos) {
-        this.apellidos = apellidos;
-    }
-
-    public String getDni() {
-        return dni;
-    }
-
-    public void setDni(String dni) {
-        this.dni = dni;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public Date getFechaNacimiento() {
-        return fechaNacimiento;
-    }
-
-    public void setFechaNacimiento(Date fechaNacimiento) {
-        this.fechaNacimiento = fechaNacimiento;
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + codigo;
-        return result;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Estudiante other = (Estudiante) obj;
-        if (codigo != other.codigo)
-            return false;
-        return true;
-    }
-
-    public Curso getCurso() {
-        return curso;
-    }
-
-    public void setCurso(Curso curso) {
-        this.curso = curso;
-    }
     
 }

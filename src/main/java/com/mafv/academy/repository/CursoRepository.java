@@ -7,5 +7,5 @@ import com.mafv.academy.models.Docente;
 
 public interface CursoRepository extends JpaRepository<Curso, Integer>{
     
-    Curso findByTutor(Docente docente);
+    Curso findByTutor(Docente tutor);
 }
