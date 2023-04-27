@@ -164,7 +164,7 @@ public class CursoController {
         return modelAndView;
     }
 
-    // Añadir un docente al curso seleccionado sin tutor
+    // Mostrar docentes que no son tutores para añadir uno al curso seleccionado 
     @GetMapping(path = { "/select/tutor/{id}"})
     public ModelAndView selectTutor(
         @PathVariable(name = "id", required = true) int id){
