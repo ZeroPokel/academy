@@ -99,4 +99,70 @@ public class ModuloController {
 
         return modelAndView;
     }
+
+    // Borrado de docente de un modulo
+    @GetMapping(path = { "/delete/docente/{id}" })
+    public ModelAndView deleteDocente(
+            @PathVariable(name = "id", required = true) int id) {
+
+        Docente docente = docentesService.findById(id);
+        Modulo modulo = modulosService.findByDocente(docente);
+        modulo.setDocente(null);
+        modulosService.save(modulo);
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("redirect:/modulos/list");
+
+        return modelAndView;
+    }
+
+    // Mostrar docente del modulo seleccionado
+    @GetMapping(path = { "/docente/{id}" })
+    public ModelAndView mostrarDocente(
+        @PathVariable(name = "id", required = true) int id) {
+
+        Docente docente = docentesService.findById(id);
+        Modulo modulo = modulosService.findByDocente(docente);
+    
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("docente", docente);
+        modelAndView.addObject("modulo", modulo);
+        modelAndView.setViewName("modulos/docente");
+    
+        return modelAndView;
+    }
+
+    // Mostrar docentes para añadir uno al modulo seleccionado 
+    @GetMapping(path = { "/select/docente/{id}"})
+    public ModelAndView selectDocente(
+        @PathVariable(name = "id", required = true) int id){
+
+        Modulo modulo = modulosService.findById(id);
+        List<Docente> docentes = docentesService.findAll();
+    
+        ModelAndView modelAndView = new ModelAndView();            
+        modelAndView.addObject("modulo", modulo);
+        modelAndView.addObject("docentes", docentes);
+        modelAndView.setViewName("docentes/list");
+    
+        return modelAndView;
+    }
+    
+    // Añadir un docente al modulo seleccionado 
+    @GetMapping(path = { "/add/docente/{idDocente}/modulo/{idModulo}"})
+    public ModelAndView addDocente(
+        @PathVariable(name = "idModulo", required = true) int idModulo,
+        @PathVariable(name = "idDocente", required = true) int idDocente){
+    
+        Modulo modulo = modulosService.findById(idModulo);
+        Docente docente = docentesService.findById(idDocente);
+
+        modulo.setDocente(docente);
+        modulosService.save(modulo);
+    
+        ModelAndView modelAndView = new ModelAndView();            
+        modelAndView.setViewName("redirect:/modulos/list");
+    
+        return modelAndView;
+    }
 }

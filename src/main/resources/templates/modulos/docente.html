@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="commons/header :: header"></head>
+<body>
+
+    <div th:replace="commons/menu :: menu"></div>
+
+    <div class="container rounded bg-white mt-5 mb-5">
+        <div class="row">
+            <div class="col-md-3 border-end">
+                <div class="d-flex flex-column align-items-center text-center p-3 py-2">
+                    <img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
+                    <span class="font-weight-bold" th:text="|${docente.nombre} ${docente.apellidos}|">Edogaru</span>
+                    <span class="text-black-50" th:text="${docente.email}"></span>
+                    <span></span>
+                </div>
+            </div>
+            <div class="col-md-6 border-end">
+                <div class="p-3 py-5">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4 class="text-right">Docente de <span th:text="${modulo.nombre}"></span></h4>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <label for="fechaNacimiento" class="labels">Fecha de nacimiento</label>
+                            <input type="text" class="form-control rounded-2" placeholder="Fecha de Nacimiento" th:value="${#dates.format(docente.fechaNacimiento, 'dd-MM-yyyy')}" readonly>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="dni" class="labels">DNI</label>
+                            <input type="text" class="form-control rounded-2" placeholder="DNI" th:value="${docente.dni}" readonly>
+                        </div>
+                        <div class="col-md-6 mt-3">
+                            <label for="telefono" class="labels">Teléfono</label>
+                            <input type="text" class="form-control rounded-2" placeholder="telefono" th:value="${docente.telefono}" readonly>
+                        </div>
+                        <div class="col-md-6 mt-3">
+                            <label for="sexo" class="labels">Sexo</label>
+                            <input type="text" class="form-control rounded-2" placeholder="sexo" th:value="${docente.sexo}" readonly>
+                        </div>
+                    </div>
+                    <div class="mt-5">
+                        <a th:href="@{/modulos/list}" type="button" class="btn btn-success rounded-2">Atrás</a>
+                        <button type="button" class="btn btn-danger rounded-2" data-bs-tooltip="tooltip" data-bs-placement="top" title="Borrar modulo" data-bs-toggle="modal" data-bs-target="#deleteModal" th:attr="data-bs-target='#deleteModal'+${docente.codigo}">Eliminar</button>                      
+                    </div>
+                    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" th:id="deleteModal+${docente.codigo}" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content rounded-2">
+                                <div class="modal-header">
+                                    <h3 class="modal-title" id="deleteModalLabel">Atencion</h3>
+                                </div>
+                                <div class="modal-body">
+                                    <p class="mb-0">El docente va a ser eliminado del módulo, este cambio no se podrá deshacer, ¿estás seguro?</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <a type="button" class="btn btn-success rounded-2" th:href="@{/modulos/delete/docente/{id}(id=${docente.codigo})}">Confirmar</a>
+                                    <button type="button" class="btn btn-danger rounded-2" data-bs-dismiss="modal">Cancelar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:replace="commons/footer :: footer" class="container"></div>
+</body>
+</html>
