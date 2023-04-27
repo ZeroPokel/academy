@@ -21,15 +21,15 @@
                 </thead>
                 <tbody>
                     <div th:each="estudiante : ${estudiantes}">
-                        <tr class="table-light text p-0 m-0">
+                        <tr class="table-light text p-0 m-0 align-middle">
                             <th scope="row" th:text="${estudiante.codigo}"></th>
                             <td th:text="|${estudiante.nombre} ${estudiante.apellidos}|"></td>
                             <td th:text="${estudiante.email}"></td>
                             <td th:text="${#dates.format(estudiante.fechaNacimiento, 'dd-MM-yyyy')}"></td>
                             <td th:text="${estudiante.dni}"></td>
                             <td>
-                                <a th:href="@{/estudiantes/edit/}+${estudiante.codigo}" class="btn btn-info bi bi-pen rounded-2" data-bs-tooltip="tooltip" data-bs-placement="top" title="Editar estudiante"></a>
-                                <button type="button" class="btn btn-danger rounded-2" data-bs-tooltip="tooltip" data-bs-placement="top" title="Borrar estudiante" data-bs-toggle="modal" data-bs-target="#deleteModal" th:attr="data-bs-target='#deleteModal'+${estudiante.codigo}"><span class="bi bi-trash"></span></button>                      
+                                <a th:href="@{/estudiantes/edit/}+${estudiante.codigo}" class="btn btn-info bi bi-pen fs-4 rounded-2" data-bs-tooltip="tooltip" data-bs-placement="top" title="Editar estudiante"></a>
+                                <button type="button" class="btn btn-danger rounded-2 bi bi-trash fs-4" data-bs-tooltip="tooltip" data-bs-placement="top" title="Borrar estudiante" data-bs-toggle="modal" data-bs-target="#deleteModal" th:attr="data-bs-target='#deleteModal'+${estudiante.codigo}"></button>                      
                             </td>
 
                             <!-- Modal, alerta que salta cuando le das a uno de los botones de eliminar para borrar dicha fila -->
@@ -37,7 +37,7 @@
                                 <div class="modal-dialog">
                                     <div class="modal-content rounded-2">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="deleteModalLabel">Atencion</h5>
+                                            <h3 class="modal-title" id="deleteModalLabel">Atencion</h3>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
