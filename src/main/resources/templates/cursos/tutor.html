@@ -40,14 +40,13 @@
                     </div>
                     <div class="mt-5">
                         <button type="button" class="btn btn-danger rounded-2" data-bs-tooltip="tooltip" data-bs-placement="top" title="Borrar curso" data-bs-toggle="modal" data-bs-target="#deleteModal" th:attr="data-bs-target='#deleteModal'+${tutor.codigo}">Eliminar</button>                      
-                        <button type="button" class="btn btn-success rounded-2"><a th:href="@{/cursos/list}">Atrás</a></button>
+                        <a th:href="@{/cursos/list}" type="button" class="btn btn-success rounded-2">Confirmar</a>
                     </div>
                     <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" th:id="deleteModal+${tutor.codigo}" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content rounded-2">
                                 <div class="modal-header">
                                     <h3 class="modal-title" id="deleteModalLabel">Atencion</h3>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
                                     <p class="mb-0">El tutor va a ser eliminado del curso, este cambio no se podrá deshacer, ¿estás seguro?</p>
