@@ -1,18 +1,12 @@
 package com.mafv.academy.models;
 
-import java.util.Date;
 import java.util.List;
 
-import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
-
-import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @DiscriminatorValue("Docente")
