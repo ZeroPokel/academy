@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mafv.academy.models.Docente;
 import com.mafv.academy.models.Modulo;
 import com.mafv.academy.repository.ModuloRepository;
 import com.mafv.academy.services.ModuloService;
@@ -48,5 +49,10 @@ public class ModuloServiceImpl implements ModuloService{
     @Override
     public void deleteAll() {
         repository.deleteAll();
+    }
+
+    @Override
+    public Modulo findByDocente(Docente docente) {
+        return repository.findByDocente(docente);
     }
 }
