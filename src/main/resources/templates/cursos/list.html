@@ -6,7 +6,7 @@
     <div th:replace="commons/menu :: menu"></div>
     <div class="container">
         <h1 class="mt-4 mb-4 text-center">Cursos</h1>
-        <a th:href="@{/cursos/create}" class="btn btn-info mb-3">Crear curso</a>
+        <a th:href="@{/cursos/create}" class="btn btn-info mb-3 rounded-2">Crear curso</a>
         <div class="row">
             <table class="table table-striped table-hover p-0 m-0">
                 <thead>
@@ -25,26 +25,26 @@
                             <td th:if="${curso.tutor ne null}" th:text="|${curso.tutor.nombre} ${curso.tutor.apellidos}|"></td>
                             <td th:unless="${curso.tutor}" >Sin tutor</td>
                             <td>
-                                <a th:href="@{/cursos/edit/}+${curso.codigo}" class="btn btn-info bi bi-pen fs-4" data-bs-tooltip="tooltip" data-bs-placement="top" title="Editar curso"></a>
-                                <button type="button" class="btn btn-danger bi bi-trash fs-4" data-bs-tooltip="tooltip" data-bs-placement="top" title="Borrar curso" data-bs-toggle="modal" data-bs-target="#deleteModal" th:attr="data-bs-target='#deleteModal'+${curso.codigo}"></button>                      
-                                <a th:if="${curso.tutor ne null}" th:href="@{/cursos/tutor/}+${curso.tutor.codigo}" class="btn btn-info bi-person fs-4" role="button" data-bs-tooltip="tooltip" data-bs-placement="top" title="Tutor"></a>
-                                <a th:unless="${curso.tutor ne null}" th:href="@{/cursos/select/tutor/}+${curso.codigo}" class="btn btn-info bi-person fs-4" role="button" data-bs-tooltip="tooltip" data-bs-placement="top" title="Añadir tutor"></a>
+                                <a th:href="@{/cursos/edit/}+${curso.codigo}" class="btn btn-info bi bi-pen fs-4 rounded-2" data-bs-tooltip="tooltip" data-bs-placement="top" title="Editar curso"></a>
+                                <button type="button" class="btn btn-danger bi bi-trash fs-4 rounded-2" data-bs-tooltip="tooltip" data-bs-placement="top" title="Borrar curso" data-bs-toggle="modal" data-bs-target="#deleteModal" th:attr="data-bs-target='#deleteModal'+${curso.codigo}"></button>                      
+                                <a th:if="${curso.tutor ne null}" th:href="@{/cursos/tutor/}+${curso.tutor.codigo}" class="btn btn-info bi-person fs-4 rounded-2" role="button" data-bs-tooltip="tooltip" data-bs-placement="top" title="Tutor"></a>
+                                <a th:unless="${curso.tutor ne null}" th:href="@{/cursos/select/tutor/}+${curso.codigo}" class="btn btn-info bi-person-plus fs-4 rounded-2" role="button" data-bs-tooltip="tooltip" data-bs-placement="top" title="Añadir tutor"></a>
                             </td>
 
                             <!-- Modal, alerta que salta cuando le das a uno de los botones de eliminar para borrar dicha fila-->
                             <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" th:id="deleteModal+${curso.codigo}" aria-hidden="true">
                                 <div class="modal-dialog">
-                                    <div class="modal-content">
+                                    <div class="modal-content rounded-2">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="deleteModalLabel">Atencion</h5>
+                                            <h3 class="modal-title" id="deleteModalLabel">Atencion</h3>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
                                             <p class="mb-0">El curso va a ser eliminado permanentemente, este cambio no se podrá deshacer, ¿estás seguro?</p>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                                            <a type="button" class="btn btn-success" th:href="@{/cursos/delete/{id}(id=${curso.codigo})}">Confirmar</a>
+                                            <button type="button" class="btn btn-danger rounded-2" data-bs-dismiss="modal">Cancelar</button>
+                                            <a type="button" class="btn btn-success rounded-2" th:href="@{/cursos/delete/{id}(id=${curso.codigo})}">Confirmar</a>
                                         </div>
                                     </div>
                                 </div>

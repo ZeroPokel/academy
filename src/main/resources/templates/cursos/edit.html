@@ -10,16 +10,16 @@
                 <div class="row">
                     <div class="col-md-3">
                         <label for="codigo" class="form-label mt-4">Codigo</label>
-                        <input type="text" class="form-control" id="codigo" name="codigo" th:value="${curso.codigo}" readonly>
+                        <input type="text" class="form-control rounded-2" id="codigo" name="codigo" th:value="${curso.codigo}" readonly>
                     </div>
                     <div class="col-md-3">
                         <label for="nombre" class="form-label mt-4">Nombre</label>
-                        <input type="text" class="form-control" id="nombre" name="nombre" th:value="${curso.nombre}" placeholder="Introduce el nombre">
+                        <input type="text" class="form-control rounded-2" id="nombre" name="nombre" th:value="${curso.nombre}" placeholder="Introduce el nombre">
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <button type="submit" class="btn btn-success">Confirmar</button>
-                    <button type="button" class="btn btn-danger"><a th:href="@{/cursos/list}">Cancelar</a></button>
+                    <button type="submit" class="btn btn-success rounded-2">Confirmar</button>
+                    <button type="button" class="rounded-2 btn btn-danger"><a th:href="@{/cursos/list}">Cancelar</a></button>
                 </div>
         </form>
     </div>
