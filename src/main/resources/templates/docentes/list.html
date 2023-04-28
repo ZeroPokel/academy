@@ -32,7 +32,7 @@
                             <th scope="row" th:text="${docente.codigo}"></th>
                             <td th:text="|${docente.nombre} ${docente.apellidos}|"></td>
                             <td th:text="${docente.email}"></td>
-                            <td th:text="${#dates.format(docente.fechaNacimiento, 'dd-MM-yyyy')}"></td>
+                            <td th:text="${#dates.format(docente.fechaNacimiento, 'dd/MM/yyyy')}"></td>
                             <td th:text="${docente.dni}"></td>
                             <td th:text="${docente.telefono}"></td>
                             <td th:text="${docente.sexo}"></td>

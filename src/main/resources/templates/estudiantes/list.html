@@ -27,7 +27,7 @@
                             <th scope="row" th:text="${estudiante.codigo}"></th>
                             <td th:text="|${estudiante.nombre} ${estudiante.apellidos}|"></td>
                             <td th:text="${estudiante.email}"></td>
-                            <td th:text="${#dates.format(estudiante.fechaNacimiento, 'dd-MM-yyyy')}"></td>
+                            <td th:text="${#dates.format(estudiante.fechaNacimiento, 'dd/MM/yyyy')}"></td>
                             <td th:text="${estudiante.dni}"></td>
                             <td th:text="${estudiante.telefono}"></td>
                             <td th:text="${estudiante.sexo}"></td>

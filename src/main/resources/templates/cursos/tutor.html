@@ -23,7 +23,7 @@
                     <div class="row mt-3">
                         <div class="col-md-6">
                             <label for="fechaNacimiento" class="labels">Fecha de nacimiento</label>
-                            <input type="text" class="form-control rounded-2" placeholder="Fecha de Nacimiento" th:value="${#dates.format(tutor.fechaNacimiento, 'dd-MM-yyyy')}" readonly>
+                            <input type="text" class="form-control rounded-2" placeholder="Fecha de Nacimiento" th:value="${#dates.format(tutor.fechaNacimiento, 'dd/MM/yyyy')}" readonly>
                         </div>
                         <div class="col-md-6">
                             <label for="dni" class="labels">DNI</label>
