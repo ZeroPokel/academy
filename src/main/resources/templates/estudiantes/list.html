@@ -16,6 +16,8 @@
                         <th scope="col">Email</th>
                         <th scope="col">Fecha de Nacimiento</th>
                         <th scope="col">DNI</th>
+                        <th scope="col">Teléfono</th>
+                        <th scope="col">Sexo</th>
                         <th scope="col">Operaciones</th>
                     </tr>
                 </thead>
@@ -27,6 +29,8 @@
                             <td th:text="${estudiante.email}"></td>
                             <td th:text="${#dates.format(estudiante.fechaNacimiento, 'dd-MM-yyyy')}"></td>
                             <td th:text="${estudiante.dni}"></td>
+                            <td th:text="${estudiante.telefono}"></td>
+                            <td th:text="${estudiante.sexo}"></td>
                             <td>
                                 <a th:href="@{/estudiantes/edit/}+${estudiante.codigo}" class="btn btn-info bi bi-pen fs-4 rounded-2" data-bs-tooltip="tooltip" data-bs-placement="top" title="Editar estudiante"></a>
                                 <button type="button" class="btn btn-danger rounded-2 bi bi-trash fs-4" data-bs-tooltip="tooltip" data-bs-placement="top" title="Borrar estudiante" data-bs-toggle="modal" data-bs-target="#deleteModal" th:attr="data-bs-target='#deleteModal'+${estudiante.codigo}"></button>                      
