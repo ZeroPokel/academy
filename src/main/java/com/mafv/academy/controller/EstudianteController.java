@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mafv.academy.models.Estudiante;
@@ -44,7 +46,11 @@ public class EstudianteController {
     }
 
     @PostMapping(path = "/save")
-    public ModelAndView save(Estudiante estudiante) throws IOException {
+    public ModelAndView save(Estudiante estudiante,
+        @RequestParam("imageForm") MultipartFile multipartFile) throws IOException {
+
+        byte[] foto = multipartFile.getBytes();
+        estudiante.setFoto(foto);
 
         Estudiante et = estudiantesService.save(estudiante);
 
@@ -67,7 +73,11 @@ public class EstudianteController {
     }
 
     @PostMapping(path = { "/update" })
-    public ModelAndView update(Estudiante estudiante) {
+    public ModelAndView update(Estudiante estudiante,
+        @RequestParam("imageForm") MultipartFile multipartFile) throws IOException {
+
+        byte[] foto = multipartFile.getBytes();
+        estudiante.setFoto(foto);
 
         estudiantesService.update(estudiante);
 

@@ -33,13 +33,19 @@ public class EstudianteServiceImpl implements EstudianteService{
     }
 
     @Override
-    public Estudiante save(Estudiante alumno) {
-        return repository.save(alumno);
+    public Estudiante save(Estudiante estudiante) {
+        return repository.save(estudiante);
     }
 
     @Override
-    public void update(Estudiante alumno) {
-        repository.save(alumno);
+    public void update(Estudiante estudiante) {
+        
+        if (estudiante.getFoto() == null || estudiante.getFoto().length <= 0){
+            Estudiante estudianteDB = findById(estudiante.getCodigo());
+            estudiante.setFoto(estudianteDB.getFoto());
+        }
+
+        repository.save(estudiante);
     }
 
     @Override

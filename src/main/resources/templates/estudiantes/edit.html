@@ -5,7 +5,7 @@
 
     <div th:replace="commons/menu :: menu"></div>
     <div class="container">
-        <form class="row g-3" method="post" th:action="@{/estudiantes/update}">
+        <form class="row g-3" method="post" th:action="@{/estudiantes/update}" enctype="multipart/form-data">
                 <legend>Editar estudiante</legend>
                 <div class="row">
                     <div class="col-md-3">
@@ -45,6 +45,13 @@
                                 <option class="rounded-2" name="sexo" id="sexo" th:selected="${estudiante.sexo eq 'Otro'} ? 'true' : 'false'">Otro</option>
                             </select>
                         </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="imageForm" class="form-label">Foto</label>
+                        <input type="file" class="form-control" id="imageForm" name="imageForm">
+                    </div>
+                    <div class="col-md-1">
+                        <img th:src="'data:image/jpeg;base64,' + ${estudiante.imageView}" alt="" class="card-title" width="200em" height="200em">
                     </div>
                 </div>
                 <div class="col-md-4">

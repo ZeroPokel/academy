@@ -39,6 +39,12 @@ public class DocenteServiceImpl implements DocenteService{
 
     @Override
     public void update(Docente docente) {
+
+        if (docente.getFoto() == null || docente.getFoto().length <= 0){
+            Docente docenteDB = findById(docente.getCodigo());
+            docente.setFoto(docenteDB.getFoto());
+        }
+
         repository.save(docente);
     }
 

@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mafv.academy.models.Curso;
@@ -39,7 +41,8 @@ public class DocenteController {
     }
 
     @GetMapping(value = "/create")
-    public ModelAndView create(Docente docente) {
+    public ModelAndView create(Docente docente) throws IOException {
+
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("docente", new Docente());
@@ -49,7 +52,11 @@ public class DocenteController {
     }
 
     @PostMapping(path = "/save")
-    public ModelAndView save(Docente docente) throws IOException {
+    public ModelAndView save(Docente docente,
+        @RequestParam("imageForm") MultipartFile multipartFile) throws IOException {
+
+        byte foto[] = multipartFile.getBytes();
+        docente.setFoto(foto);
 
         Docente dc = docentesService.save(docente);
 
@@ -72,8 +79,12 @@ public class DocenteController {
     }
 
     @PostMapping(path = { "/update" })
-    public ModelAndView update(Docente docente) {
+    public ModelAndView update(Docente docente,
+        @RequestParam("imageForm") MultipartFile multipartFile) throws IOException {
 
+        byte[] foto = multipartFile.getBytes();
+        docente.setFoto(foto);
+        
         docentesService.update(docente);
 
         ModelAndView modelAndView = new ModelAndView();

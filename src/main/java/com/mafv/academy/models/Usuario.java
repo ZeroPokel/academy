@@ -13,11 +13,14 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.mafv.academy.utils.ImageUtil;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -43,6 +46,10 @@ public class Usuario {
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fechaNacimiento;
+
+    @Lob
+    @Column(length = 100000)
+    private byte[] foto;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @Fetch(FetchMode.SUBSELECT)
@@ -152,6 +159,14 @@ public class Usuario {
         this.fechaNacimiento = fechaNacimiento;
     }
 
+    public byte[] getFoto() {
+        return foto;
+    }
+
+    public void setFoto(byte[] foto) {
+        this.foto = foto;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -180,6 +195,10 @@ public class Usuario {
 
     public void setPermissions(List<Permiso> permissions) {
         this.permissions = permissions;
+    }
+
+    public String getImageView(){
+        return ImageUtil.getImgData(this.foto);
     }
     
 }
