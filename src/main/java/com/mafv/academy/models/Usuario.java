@@ -15,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -39,6 +40,9 @@ public class Usuario {
 
     private Long telefono;
     private String sexo;
+
+    @Transient
+    private boolean firstLogin;
     
     @Column(unique=true, length=9)
     private String dni;
@@ -199,6 +203,14 @@ public class Usuario {
 
     public String getImageView(){
         return ImageUtil.getImgData(this.foto);
+    }
+
+    public boolean isFirstLogin() {
+        return firstLogin;
+    }
+
+    public void setFirstLogin(boolean firstLogin) {
+        this.firstLogin = firstLogin;
     }
     
 }

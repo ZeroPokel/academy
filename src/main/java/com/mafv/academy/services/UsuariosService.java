@@ -46,7 +46,7 @@ public class UsuariosService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        Usuario usuario = userRepository.findByUsername(username);
+         Usuario usuario = userRepository.findByUsername(username);
 
         List<Permiso> permisosUsuario = usuario.getPermissions();
         List<GrantedAuthority> permisos = new ArrayList<GrantedAuthority>(permisosUsuario.size());
