@@ -9,7 +9,7 @@ public interface ModuloService {
     public List<Modulo> findAll();
     public Modulo findById(int id);
     public Modulo save(Modulo modulo);
-    public Modulo findByDocente(Docente docente);
+    public List<Modulo> findByDocente(Docente docente);
     public void update(Modulo modulo);
     public void deleteById(int id);
     public void deleteAll();

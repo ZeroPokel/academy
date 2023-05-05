@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,8 +17,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.mafv.academy.models.Curso;
 import com.mafv.academy.models.Docente;
+import com.mafv.academy.models.Modulo;
 import com.mafv.academy.services.CursoService;
 import com.mafv.academy.services.DocenteService;
+import com.mafv.academy.services.ModuloService;
 
 @Controller
 @RequestMapping("/docentes")
@@ -33,6 +34,9 @@ public class DocenteController {
 
     @Autowired
     CursoService cursosService;
+
+    @Autowired
+    ModuloService modulosService;
     
     @GetMapping(value = "/list")
     public ModelAndView listPage(Model model) {
@@ -109,12 +113,22 @@ public class DocenteController {
         // Se comprueba si el docente es tutor de un curso, si lo es, borrará el tutor del curso
         Docente docente = docentesService.findById(id);
         Curso curso = cursosService.findByTutor(docente);
-
+        
         if(curso != null){
             curso.setTutor(null);
             cursosService.update(curso);
         }
 
+        // Además se comprueba si el docenete imparte en algún módulo, si lo hace, será eliminado como docente del módulo
+        List<Modulo> modulos = modulosService.findByDocente(docente);
+
+        if (modulos != null){
+            for (Modulo modulo : modulos){
+                modulo.setDocente(null);
+                modulosService.save(modulo);
+            }
+        }
+        
         docentesService.deleteById(id);
 
         ModelAndView modelAndView = new ModelAndView();

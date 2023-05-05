@@ -54,7 +54,7 @@ public class ModuloServiceImpl implements ModuloService{
     }
 
     @Override
-    public Modulo findByDocente(Docente docente) {
+    public List<Modulo> findByDocente(Docente docente) {
         return repository.findByDocente(docente);
     }
 }

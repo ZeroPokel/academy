@@ -101,12 +101,11 @@ public class ModuloController {
     }
 
     // Borrado de docente de un modulo
-    @GetMapping(path = { "/delete/docente/{id}" })
+    @GetMapping(path = { "/delete/docente/modulo/{idModulo}" })
     public ModelAndView deleteDocente(
-            @PathVariable(name = "id", required = true) int id) {
+        @PathVariable(name = "idModulo", required = true) int idModulo) {
 
-        Docente docente = docentesService.findById(id);
-        Modulo modulo = modulosService.findByDocente(docente);
+        Modulo modulo = modulosService.findById(idModulo);
         modulo.setDocente(null);
         modulosService.save(modulo);
 
@@ -117,12 +116,13 @@ public class ModuloController {
     }
 
     // Mostrar docente del modulo seleccionado
-    @GetMapping(path = { "/docente/{id}" })
+    @GetMapping(path = { "/docente/{idDocente}/modulo/{idModulo}" })
     public ModelAndView mostrarDocente(
-        @PathVariable(name = "id", required = true) int id) {
+        @PathVariable(name = "idDocente", required = true) int idDocente,
+        @PathVariable(name = "idModulo", required = true) int idModulo) {
 
-        Docente docente = docentesService.findById(id);
-        Modulo modulo = modulosService.findByDocente(docente);
+        Docente docente = docentesService.findById(idDocente);
+        Modulo modulo = modulosService.findById(idModulo);
     
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("docente", docente);
