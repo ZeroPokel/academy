@@ -37,12 +37,18 @@ class AcademyApplicationTests {
 		permisoAdmin.setCodigo("admin");
 		permisoAdmin.setNombre("admin");
 
+		Permiso permisoDocente = new Permiso();
+		permisoDocente.setCodigo("docente");
+		permisoDocente.setNombre("docente");
+
 		List<Permiso> permisosTodos = new ArrayList<Permiso>();
 		permisosTodos.add(permisoAdmin);
+		permisosTodos.add(permisoDocente);
 
 		u1.setPermissions(permisosTodos);
 
 		permissionRepository.save(permisoAdmin);
+		permissionRepository.save(permisoDocente);
 
 		userRepository.save(u1);
 	}

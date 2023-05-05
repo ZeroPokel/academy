@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +27,9 @@ public class DocenteController {
 
     @Autowired
     DocenteService docentesService;
+
+    @Autowired
+	PasswordEncoder encoder;
 
     @Autowired
     CursoService cursosService;
@@ -57,6 +62,10 @@ public class DocenteController {
 
         byte foto[] = multipartFile.getBytes();
         docente.setFoto(foto);
+
+        String usuario = docente.getNombre().substring(0, 3) + docente.getApellidos().substring(0, 3) + docente.getDni().substring(5, 8);
+        docente.setUsername(usuario);
+        docente.setPassword(encoder.encode(usuario));
 
         Docente dc = docentesService.save(docente);
 

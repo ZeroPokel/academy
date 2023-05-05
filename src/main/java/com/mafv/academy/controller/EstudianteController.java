@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +24,9 @@ public class EstudianteController {
     
     @Autowired
     EstudianteService estudiantesService;
+
+    @Autowired
+	PasswordEncoder encoder;
     
     @GetMapping(value = "/list")
     public ModelAndView listPage(Model model) {
@@ -51,6 +55,10 @@ public class EstudianteController {
 
         byte[] foto = multipartFile.getBytes();
         estudiante.setFoto(foto);
+
+        String usuario = estudiante.getNombre().substring(0, 3) + estudiante.getApellidos().substring(0, 3) + estudiante.getDni().substring(5, 8);
+        estudiante.setUsername(usuario);
+        estudiante.setPassword(encoder.encode(usuario));
 
         Estudiante et = estudiantesService.save(estudiante);
 
