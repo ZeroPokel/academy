@@ -1,6 +1,7 @@
 package com.mafv.academy.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mafv.academy.models.Estudiante;
+import com.mafv.academy.models.Permiso;
 import com.mafv.academy.services.EstudianteService;
 
 @Controller
@@ -59,6 +61,11 @@ public class EstudianteController {
         String usuario = estudiante.getNombre().substring(0, 3) + estudiante.getApellidos().substring(0, 3) + estudiante.getDni().substring(5, 8);
         estudiante.setUsername(usuario);
         estudiante.setPassword(encoder.encode(usuario));
+        estudiante.setFirstLogin(false);
+        Permiso permiso = new Permiso("estudiante", "estudiante");
+        List<Permiso> permisoEstudiante = new ArrayList<Permiso>();
+        permisoEstudiante.add(permiso);
+        estudiante.setPermissions(permisoEstudiante);
 
         Estudiante et = estudiantesService.save(estudiante);
 
@@ -103,6 +110,17 @@ public class EstudianteController {
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/estudiantes/list");
+
+        return modelAndView;
+    }
+
+    @GetMapping(path = { "/alumno"})
+    public ModelAndView infoEstudiante(){
+
+        
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("/estudiantes/info");
 
         return modelAndView;
     }

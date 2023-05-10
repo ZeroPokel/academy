@@ -1,4 +1,4 @@
-package com.mafv.academy.configuration;
+/*package com.mafv.academy.configuration;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -11,3 +11,4 @@ public class WebConfig implements WebMvcConfigurer{
         registry.addViewController("/login").setViewName("login");
     }
 }
+*/

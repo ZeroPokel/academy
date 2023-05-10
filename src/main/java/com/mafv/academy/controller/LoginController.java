@@ -24,11 +24,6 @@ public class LoginController {
     @Autowired
     private UsuarioRepository userRepository;
 
-    @GetMapping("/login")
-    public String showLoginForm() {
-        return "login";
-    }
-
     @PostMapping("/login")
     public String processLogin(@RequestParam String username, @RequestParam String password, HttpSession session) {
 
@@ -49,6 +44,11 @@ public class LoginController {
 
         session.setAttribute("user", user);
         return "redirect:/welcome";
+    }
+
+    @GetMapping("/login")
+    public String showLoginForm() {
+        return "login";
     }
 
     @GetMapping(value = {"/welcome"})
