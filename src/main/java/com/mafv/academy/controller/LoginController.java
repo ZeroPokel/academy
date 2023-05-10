@@ -11,6 +11,7 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,8 +25,8 @@ public class LoginController {
     @Autowired
     private UsuarioRepository userRepository;
 
-    @PostMapping("/login")
-    public String processLogin(@RequestParam String username, @RequestParam String password, HttpSession session) {
+    @PostMapping("/processLogin")
+    public String processLogin(@RequestBody String username, @RequestBody String password, HttpSession session) {
 
         Usuario user = userRepository.findByUsername(username);
         if (user == null) {

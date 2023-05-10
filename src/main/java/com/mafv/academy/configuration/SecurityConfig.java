@@ -25,39 +25,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
-    @Bean
-    UsuariosService myUserService(){
-        return new UsuariosService();
-    }
-
-    @Bean
-    public UserDetailsService user(){
-
-        UserDetails user = User.builder()
-            .username("user")
-            .password("{noop}user*1234")
-            .authorities("USER")
-            .build();
-
-        UserDetails admin = User.builder()
-            .username("admin")
-            .password("{noop}admin*1234")
-            .authorities("USER","ADMIN")
-            .build();
-
-        return new InMemoryUserDetailsManager(user, admin);
-    }
-
-    @Bean
-    public DaoAuthenticationProvider authenticationProvider(){
-        DaoAuthenticationProvider autProvider = new DaoAuthenticationProvider();
-
-        autProvider.setUserDetailsService(myUserService());
-        autProvider.setPasswordEncoder(passwordEncoder());
-
-        return autProvider;
-    }
-
     @Override
     public void configure(HttpSecurity http) throws Exception {
 
@@ -76,7 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 .and()
                 .formLogin()
                 .loginPage("/login")
-                .loginProcessingUrl("/login")
+                .loginProcessingUrl("/processLogin")
                 .defaultSuccessUrl("/welcome")
                 .permitAll()
                 .and()
