@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mafv.academy.models.Usuario;
+import com.mafv.academy.models.UsuarioDTO;
 import com.mafv.academy.repository.UsuarioRepository;
 
 @Controller
@@ -25,16 +26,16 @@ public class LoginController {
     @Autowired
     private UsuarioRepository userRepository;
 
-    @RequestMapping(value = "/processLogin", method = RequestMethod.POST)
-    public String processLogin(@RequestBody String username, @RequestBody String password, HttpSession session) {
+    @RequestMapping(value = "/adios", method = RequestMethod.POST)
+    public String processLogin(UsuarioDTO usuario, HttpSession session) {
 
-        Usuario user = userRepository.findByUsername(username);
+        Usuario user = userRepository.findByUsername(usuario.getUsername());
         if (user == null) {
             // Usuario no encontrado
             return "redirect:/login?error";
         }
 
-        if (!user.getPassword().equals(password)) {
+        if (!user.getPassword().equals(usuario.getPassword())) {
             // Contraseña incorrecta
             return "redirect:/login?error";
         }
