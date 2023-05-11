@@ -19,7 +19,7 @@
                   <div class="text-center">
                     <img th:src="@{img/logo-no-background.png}" width="250" height="43" alt="">
                   </div>
-                  <form th:action="@{/processLogin}" method="post">
+                  <form th:action="@{/processLogin}" method="post" th:object="${usuario}">
                     <div th:if="${param.error}" class="alert alert-dismissible alert-danger mt-4 rounded-3">    
                       <p class="mb-0"><small>Usuario o contraseña incorrectos.</small></p>
                     </div>
@@ -35,7 +35,7 @@
                       <input type="password" id="password" name="password" class="form-control rounded-3" />
                     </div>
                     <div class="text-center pt-1">
-                      <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3 rounded-3" type="submit">Log in</button>
+                      <button type="submit" class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3 rounded-3"  id="login-submit">Log in</button>
                     </div>
                   </form>
                 </div>

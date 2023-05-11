@@ -1,4 +1,4 @@
-package com.mafv.academy.configuration;
+/*package com.mafv.academy.configuration;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -9,3 +9,4 @@ import org.springframework.security.config.annotation.method.configuration.Globa
 public class MethodSecurityConfig extends GlobalMethodSecurityConfiguration{
     
 }
+*/

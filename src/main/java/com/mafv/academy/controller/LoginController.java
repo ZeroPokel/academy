@@ -25,7 +25,7 @@ public class LoginController {
     @Autowired
     private UsuarioRepository userRepository;
 
-    @PostMapping("/processLogin")
+    @RequestMapping(value = "/processLogin", method = RequestMethod.POST)
     public String processLogin(@RequestBody String username, @RequestBody String password, HttpSession session) {
 
         Usuario user = userRepository.findByUsername(username);
@@ -47,7 +47,7 @@ public class LoginController {
         return "redirect:/welcome";
     }
 
-    @GetMapping("/login")
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String showLoginForm() {
         return "login";
     }
