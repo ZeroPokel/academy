@@ -26,7 +26,7 @@ public class LoginController {
     @Autowired
     private UsuarioRepository userRepository;
 
-    @RequestMapping(value = "/adios", method = RequestMethod.POST)
+    @RequestMapping(value = "/processLogin", method = RequestMethod.POST)
     public String processLogin(UsuarioDTO usuario, HttpSession session) {
 
         Usuario user = userRepository.findByUsername(usuario.getUsername());
