@@ -34,21 +34,21 @@ class AcademyApplicationTests {
 		u1.setPassword(encoder.encode("admin"));
 
 		Permiso permisoAdmin = new Permiso();
-		permisoAdmin.setCodigo("admin");
-		permisoAdmin.setNombre("admin");
+		permisoAdmin.setCodigo("ADMIN");
+		permisoAdmin.setNombre("ADMIN");
 
 		Permiso permisoDocente = new Permiso();
-		permisoDocente.setCodigo("docente");
-		permisoDocente.setNombre("docente");
+		permisoDocente.setCodigo("DOCENTE");
+		permisoDocente.setNombre("DOCENTE");
 
 		Permiso permisoEstudiante = new Permiso();
-		permisoEstudiante.setCodigo("estudiante");
-		permisoEstudiante.setNombre("estudiante");
+		permisoEstudiante.setCodigo("ESTUDIANTE");
+		permisoEstudiante.setNombre("ESTUDIANTE");
 
 		List<Permiso> permisosTodos = new ArrayList<Permiso>();
 		permisosTodos.add(permisoAdmin);
-		permisosTodos.add(permisoDocente);
-		permisosTodos.add(permisoEstudiante);
+		//permisosTodos.add(permisoDocente);
+		//permisosTodos.add(permisoEstudiante);
 
 		u1.setPermissions(permisosTodos);
 
