@@ -19,17 +19,20 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
                   <span class="visually-hidden">(current)</span>
                 </a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN')">
                 <a class="nav-link" th:href="@{/cursos/list}">Cursos</a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN')">
                 <a class="nav-link" th:href="@{/modulos/list}">Módulos</a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN')">
                 <a class="nav-link" th:href="@{/docentes/list}">Docentes</a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN')">
                 <a class="nav-link" th:href="@{/estudiantes/list}">Estudiantes</a>
+              </li>
+              <li class="nav-item" sec:authorize="hasAnyAuthority('ESTUDIANTE')">
+                <a class="nav-link" th:href="@{/estudiantes/info/}+${session.usuario.codigo}">Info Estudiante</a>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
