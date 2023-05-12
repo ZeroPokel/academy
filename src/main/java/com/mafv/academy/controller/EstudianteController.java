@@ -62,7 +62,8 @@ public class EstudianteController {
         estudiante.setUsername(usuario);
         estudiante.setPassword(encoder.encode(usuario));
         estudiante.setFirstLogin(false);
-        Permiso permiso = new Permiso("estudiante", "estudiante");
+
+        Permiso permiso = new Permiso("ESTUDIANTE", "ESTUDIANTE");
         List<Permiso> permisoEstudiante = new ArrayList<Permiso>();
         permisoEstudiante.add(permiso);
         estudiante.setPermissions(permisoEstudiante);
@@ -114,12 +115,14 @@ public class EstudianteController {
         return modelAndView;
     }
 
-    @GetMapping(path = { "/alumno"})
-    public ModelAndView infoEstudiante(){
+    @GetMapping(path = { "/info/{id}"})
+    public ModelAndView infoEstudiante(
+            @PathVariable(name = "id", required = true) int id){
 
-        
+        Estudiante estudiante = estudiantesService.findById(id);
 
         ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("estudiante", estudiante);
         modelAndView.setViewName("/estudiantes/info");
 
         return modelAndView;

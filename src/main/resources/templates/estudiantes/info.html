@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="commons/header :: header"></head>
+<body>
+
+    <div th:replace="commons/menu :: menu"></div>
+
+    <div class="container rounded bg-white mt-5 mb-5">
+        <div class="row">
+            <div class="col-md-3 border-end">
+                <div class="d-flex flex-column align-items-center text-center p-3 py-2">
+                    <img th:src="'data:image/jpeg;base64,' + ${estudiante.imageView}" alt="" class="rounded-circle mt-3" width="150px">
+                    <span class="font-weight-bold" th:text="|${estudiante.nombre} ${estudiante.apellidos}|">Edogaru</span>
+                    <span class="text-black-50" th:text="${estudiante.email}"></span>
+                    <span></span>
+                </div>
+            </div>
+            <div class="col-md-6 border-end">
+                <div class="p-3 py-5">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4 class="text-right">Perfil de Estudiante</h4>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <label for="fechaNacimiento" class="labels">Fecha de nacimiento</label>
+                            <input type="text" class="form-control rounded-2" placeholder="Fecha de Nacimiento" th:value="${#dates.format(estudiante.fechaNacimiento, 'dd/MM/yyyy')}" readonly>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="dni" class="labels">DNI</label>
+                            <input type="text" class="form-control rounded-2" placeholder="DNI" th:value="${estudiante.dni}" readonly>
+                        </div>
+                        <div class="col-md-6 mt-3">
+                            <label for="telefono" class="labels">Teléfono</label>
+                            <input type="text" class="form-control rounded-2" placeholder="telefono" th:value="${estudiante.telefono}" readonly>
+                        </div>
+                        <div class="col-md-6 mt-3">
+                            <label for="sexo" class="labels">Sexo</label>
+                            <input type="text" class="form-control rounded-2" placeholder="sexo" th:value="${estudiante.sexo}" readonly>
+                        </div>
+                    </div>
+                    <div class="mt-5">
+                        <a th:href="@{/welcome}" type="button" class="btn btn-success rounded-2">Atrás</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:replace="commons/footer :: footer" class="container"></div>
+</body>
+</html>
