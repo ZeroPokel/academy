@@ -3,6 +3,8 @@ package com.mafv.academy.services;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -22,6 +24,9 @@ public class UsuariosService implements UserDetailsService {
     
     @Autowired
     private UsuarioRepository userRepository;
+
+    @Autowired
+    private HttpSession session;
 
     public Usuario createUser(Usuario user) {
         return userRepository.save(user);
@@ -46,7 +51,9 @@ public class UsuariosService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-         Usuario usuario = userRepository.findByUsername(username);
+        Usuario usuario = userRepository.findByUsername(username);
+
+        session.setAttribute("usuario", usuario);
 
         List<Permiso> permisosUsuario = usuario.getPermissions();
         List<GrantedAuthority> permisos = new ArrayList<GrantedAuthority>(permisosUsuario.size());
