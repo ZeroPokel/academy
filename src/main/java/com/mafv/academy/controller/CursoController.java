@@ -21,8 +21,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.mafv.academy.models.Curso;
 import com.mafv.academy.models.Docente;
+import com.mafv.academy.models.Estudiante;
 import com.mafv.academy.services.CursoService;
 import com.mafv.academy.services.DocenteService;
+import com.mafv.academy.services.EstudianteService;
 
 @Controller
 @RequestMapping("/cursos")
@@ -33,6 +35,9 @@ public class CursoController {
 
     @Autowired
     DocenteService docentesService;
+
+    @Autowired
+    EstudianteService estudianteService;
     
     @Value("${pagination.size}")
     int sizePage;
@@ -210,6 +215,45 @@ public class CursoController {
         return modelAndView;
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @GetMapping(path = { "/add/estudiante/{idCurso}"})
+    public ModelAndView addTutor(
+        @PathVariable(name = "idCurso", required = true) int idCurso){
+    
+        Curso curso = cursosService.findById(idCurso);
+
+        List<Estudiante> estudiantes = darEstudiantes(curso);
+
+    
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("estudiantes", estudiantes);
+        modelAndView.addObject("curso", curso);            
+        modelAndView.setViewName("estudiantes/list");
+    
+        return modelAndView;
+    }
+
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @GetMapping(path = { "/add/estudiante/{idEstudiante}/curso/{idCurso}"})
+    public ModelAndView addEstudiante(
+        @PathVariable(name = "idCurso", required = true) int idCurso,
+        @PathVariable(name = "idEstudiante", required = true) int idEstudiante){
+    
+        Curso curso = cursosService.findById(idCurso);
+        Estudiante estudiante = estudianteService.findById(idEstudiante);
+        
+        List<Estudiante> estudiantes = new ArrayList<Estudiante>();
+        estudiantes.add(estudiante);
+        
+        curso.setEstudiantes(estudiantes);
+        cursosService.save(curso);
+    
+        ModelAndView modelAndView = new ModelAndView();            
+        modelAndView.setViewName("redirect:/cursos/list");
+    
+        return modelAndView;
+    }
+
     // Función que comprueba todos los docentes y coloca el atributo "tutor" a true si dicho docente es tutor de ese curso y los devuelve
     public List<Docente> comprobarTutores(){
         List<Curso> cursos = cursosService.findAll();
@@ -241,5 +285,28 @@ public class CursoController {
         }
 
         return noTutores;
+    }
+
+    // Función que recoge todos los estudiantes y te devuelve aquellos que no pertenezcan al curso elegido
+    public List<Estudiante> darEstudiantes(Curso curso){
+        List<Estudiante> estudiantes = estudianteService.findAll();
+        List<Estudiante> estudiantesFiltrado = new ArrayList<Estudiante>();
+        boolean valido = true;
+
+        for (Estudiante estudiante : estudiantes){
+            List<Curso> cursos = estudiante.getCursos();
+            for (Curso curso2 : cursos){
+                if (curso2 == curso){
+                    valido = false; 
+                    break;
+                }
+            }
+
+            if (valido){
+                estudiantesFiltrado.add(estudiante);
+            }
+        }
+
+        return estudiantesFiltrado;
     }
 }

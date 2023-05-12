@@ -35,9 +35,6 @@ public class Curso {
     @JoinTable(name = "curso_modulo", joinColumns = @JoinColumn(name = "curso_codigo"), inverseJoinColumns = @JoinColumn(name = "modulo_codigo"))
     private List<Modulo> modulos;
 
-    @Transient
-    private float precio;
-
     public Curso() {
     }
 
@@ -84,14 +81,6 @@ public class Curso {
 
     public void setEstudiantes(List<Estudiante> estudiantes) {
         this.estudiantes = estudiantes;
-    }
-
-    public float getPrecio() {
-        return precio;
-    }
-
-    public void setPrecio(float precio) {
-        this.precio = precio;
     }
 
     @Override
