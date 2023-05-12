@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +29,7 @@ public class ModuloController {
     @Autowired
     DocenteService docentesService;
     
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping(value = "/list")
     public ModelAndView listPage(Model model) {
 
@@ -39,6 +41,7 @@ public class ModuloController {
         return modelAndView;
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping(value = "/create")
     public ModelAndView create(Modulo modulo) {
 
@@ -52,6 +55,7 @@ public class ModuloController {
         return modelAndView;
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @PostMapping(path = "/save")
     public ModelAndView save(Modulo modulo) throws IOException {
 
@@ -63,6 +67,7 @@ public class ModuloController {
         return modelAndView;
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping(path = { "/edit/{id}" })
     public ModelAndView edit(
             @PathVariable(name = "id", required = true) int id) {
@@ -77,6 +82,7 @@ public class ModuloController {
         return modelAndView;
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @PostMapping(path = { "/update" })
     public ModelAndView update(Modulo modulo) {
 
@@ -88,6 +94,7 @@ public class ModuloController {
         return modelAndView;
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping(path = { "/delete/{id}" })
     public ModelAndView delete(
             @PathVariable(name = "id", required = true) int id) {
@@ -101,6 +108,7 @@ public class ModuloController {
     }
 
     // Borrado de docente de un modulo
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping(path = { "/delete/docente/modulo/{idModulo}" })
     public ModelAndView deleteDocente(
         @PathVariable(name = "idModulo", required = true) int idModulo) {
@@ -116,6 +124,7 @@ public class ModuloController {
     }
 
     // Mostrar docente del modulo seleccionado
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping(path = { "/docente/{idDocente}/modulo/{idModulo}" })
     public ModelAndView mostrarDocente(
         @PathVariable(name = "idDocente", required = true) int idDocente,
@@ -133,6 +142,7 @@ public class ModuloController {
     }
 
     // Mostrar docentes para añadir uno al modulo seleccionado 
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping(path = { "/select/docente/{id}"})
     public ModelAndView selectDocente(
         @PathVariable(name = "id", required = true) int id){
@@ -148,7 +158,8 @@ public class ModuloController {
         return modelAndView;
     }
     
-    // Añadir un docente al modulo seleccionado 
+    // Añadir un docente al modulo seleccionado
+    @PreAuthorize("hasAnyAuthority('ADMIN')") 
     @GetMapping(path = { "/add/docente/{idDocente}/modulo/{idModulo}"})
     public ModelAndView addDocente(
         @PathVariable(name = "idModulo", required = true) int idModulo,

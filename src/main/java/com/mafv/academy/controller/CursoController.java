@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,6 +37,7 @@ public class CursoController {
     @Value("${pagination.size}")
     int sizePage;
 
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping(value = "/list")
     public ModelAndView list(Model model) {
         ModelAndView modelAndView = new ModelAndView();
@@ -43,6 +45,7 @@ public class CursoController {
         return modelAndView;
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping(value = "/list/{numPage}/{fieldSort}/{directionSort}")
     public ModelAndView listPage(Model model,
             @PathVariable("numPage") Integer numPage,
@@ -71,6 +74,7 @@ public class CursoController {
         return modelAndView;
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping(value = "/create")
     public ModelAndView create(Curso curso) {
 
@@ -84,6 +88,7 @@ public class CursoController {
         return modelAndView;
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @PostMapping(path = "/save")
     public ModelAndView save(Curso curso) throws IOException {
 
@@ -95,6 +100,7 @@ public class CursoController {
         return modelAndView;
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping(path = { "/edit/{id}" })
     public ModelAndView edit(
             @PathVariable(name = "id", required = true) int id) {
@@ -109,6 +115,7 @@ public class CursoController {
         return modelAndView;
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @PostMapping(path = { "/update" })
     public ModelAndView update(Curso curso) {
 
@@ -120,6 +127,7 @@ public class CursoController {
         return modelAndView;
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping(path = { "/delete/{id}" })
     public ModelAndView delete(
             @PathVariable(name = "id", required = true) int id) {
@@ -133,6 +141,7 @@ public class CursoController {
     }
 
     // Borrado de tutor de un curso
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping(path = { "/delete/tutor/{id}" })
     public ModelAndView deleteTutor(
             @PathVariable(name = "id", required = true) int id) {
@@ -149,6 +158,7 @@ public class CursoController {
     }
 
     // Mostrar tutor del curso seleccionado
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping(path = { "/tutor/{id}" })
     public ModelAndView mostrarTutor(
         @PathVariable(name = "id", required = true) int id) {
@@ -165,6 +175,7 @@ public class CursoController {
     }
 
     // Mostrar docentes que no son tutores para añadir uno al curso seleccionado 
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping(path = { "/select/tutor/{id}"})
     public ModelAndView selectTutor(
         @PathVariable(name = "id", required = true) int id){
@@ -181,6 +192,7 @@ public class CursoController {
     }
 
     // Añadir un docente al curso seleccionado sin tutor
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping(path = { "/add/tutor/{idTutor}/curso/{idCurso}"})
     public ModelAndView addTutor(
         @PathVariable(name = "idCurso", required = true) int idCurso,

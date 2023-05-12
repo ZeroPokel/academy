@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,6 +31,7 @@ public class EstudianteController {
     @Autowired
 	PasswordEncoder encoder;
     
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping(value = "/list")
     public ModelAndView listPage(Model model) {
 
@@ -41,6 +43,7 @@ public class EstudianteController {
         return modelAndView;
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping(value = "/create")
     public ModelAndView create(Estudiante estudiante) {
 
@@ -51,6 +54,7 @@ public class EstudianteController {
         return modelAndView;
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @PostMapping(path = "/save")
     public ModelAndView save(Estudiante estudiante,
         @RequestParam("imageForm") MultipartFile multipartFile) throws IOException {
@@ -76,6 +80,7 @@ public class EstudianteController {
         return modelAndView;
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping(path = { "/edit/{id}" })
     public ModelAndView edit(
             @PathVariable(name = "id", required = true) int id) {
@@ -88,6 +93,7 @@ public class EstudianteController {
         return modelAndView;
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @PostMapping(path = { "/update" })
     public ModelAndView update(Estudiante estudiante,
         @RequestParam("imageForm") MultipartFile multipartFile) throws IOException {
@@ -103,6 +109,7 @@ public class EstudianteController {
         return modelAndView;
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping(path = { "/delete/{id}" })
     public ModelAndView delete(
             @PathVariable(name = "id", required = true) int id) {
@@ -115,6 +122,7 @@ public class EstudianteController {
         return modelAndView;
     }
 
+    @PreAuthorize("hasAnyAuthority('ESTUDIANTE')")
     @GetMapping(path = { "/info/{id}"})
     public ModelAndView infoEstudiante(
             @PathVariable(name = "id", required = true) int id){

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,6 +39,7 @@ public class DocenteController {
     @Autowired
     ModuloService modulosService;
     
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping(value = "/list")
     public ModelAndView listPage(Model model) {
 
@@ -49,6 +51,7 @@ public class DocenteController {
         return modelAndView;
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping(value = "/create")
     public ModelAndView create(Docente docente) throws IOException {
 
@@ -60,6 +63,7 @@ public class DocenteController {
         return modelAndView;
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @PostMapping(path = "/save")
     public ModelAndView save(Docente docente,
         @RequestParam("imageForm") MultipartFile multipartFile) throws IOException {
@@ -79,6 +83,7 @@ public class DocenteController {
         return modelAndView;
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping(path = { "/edit/{id}" })
     public ModelAndView edit(
             @PathVariable(name = "id", required = true) int id) {
@@ -91,6 +96,7 @@ public class DocenteController {
         return modelAndView;
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @PostMapping(path = { "/update" })
     public ModelAndView update(Docente docente,
         @RequestParam("imageForm") MultipartFile multipartFile) throws IOException {
@@ -106,6 +112,7 @@ public class DocenteController {
         return modelAndView;
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping(path = { "/delete/{id}" })
     public ModelAndView delete(
             @PathVariable(name = "id", required = true) int id) {
