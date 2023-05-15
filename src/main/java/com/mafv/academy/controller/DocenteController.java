@@ -1,6 +1,7 @@
 package com.mafv.academy.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.mafv.academy.models.Curso;
 import com.mafv.academy.models.Docente;
 import com.mafv.academy.models.Modulo;
+import com.mafv.academy.models.Permiso;
 import com.mafv.academy.services.CursoService;
 import com.mafv.academy.services.DocenteService;
 import com.mafv.academy.services.ModuloService;
@@ -74,6 +76,11 @@ public class DocenteController {
         String usuario = docente.getNombre().substring(0, 3) + docente.getApellidos().substring(0, 3) + docente.getDni().substring(5, 8);
         docente.setUsername(usuario);
         docente.setPassword(encoder.encode(usuario));
+
+        Permiso permiso = new Permiso("DOCENTE", "DOCENTE");
+        List<Permiso> permisoDocente = new ArrayList<Permiso>();
+        permisoDocente.add(permiso);
+        docente.setPermissions(permisoDocente);
 
         Docente dc = docentesService.save(docente);
 

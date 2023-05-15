@@ -64,4 +64,5 @@ public class CursoServiceImpl implements CursoService{
     public Curso findByTutor(Docente tutor) {
         return repository.findByTutor(tutor);
     }
+
 }

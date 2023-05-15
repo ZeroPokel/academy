@@ -45,6 +45,10 @@ class AcademyApplicationTests {
 		permisoEstudiante.setCodigo("ESTUDIANTE");
 		permisoEstudiante.setNombre("ESTUDIANTE");
 
+		Permiso permisoTutor = new Permiso();
+		permisoTutor.setCodigo("TUTOR");
+		permisoTutor.setNombre("TUTOR");
+
 		List<Permiso> permisosTodos = new ArrayList<Permiso>();
 		permisosTodos.add(permisoAdmin);
 		//permisosTodos.add(permisoDocente);
@@ -55,6 +59,7 @@ class AcademyApplicationTests {
 		permissionRepository.save(permisoAdmin);
 		permissionRepository.save(permisoDocente);
 		permissionRepository.save(permisoEstudiante);
+		permissionRepository.save(permisoTutor);
 
 		userRepository.save(u1);
 	}
