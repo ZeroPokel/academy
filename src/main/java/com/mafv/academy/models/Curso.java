@@ -26,11 +26,7 @@ public class Curso {
     @JoinColumn(name = "tutor", referencedColumnName = "codigo", nullable = true)
     private Docente tutor;
 
-    @ManyToMany
-    @JoinTable(
-        name = "curso_estudiante",
-        joinColumns = @JoinColumn(name = "curso_codigo"),
-        inverseJoinColumns = @JoinColumn(name = "estudiante_codigo"))
+    @OneToMany(mappedBy = "curso")
     private List<Estudiante> estudiantes;
 
     @OneToMany(mappedBy = "curso")
