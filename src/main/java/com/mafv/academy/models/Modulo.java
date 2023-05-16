@@ -23,8 +23,9 @@ public class Modulo {
     @JoinColumn(name = "docente", referencedColumnName = "codigo", nullable = true)
     private Docente docente;
 
-    @ManyToMany(mappedBy = "modulos")
-    private List<Curso> cursos;
+    @ManyToOne
+    @JoinColumn(name = "curso", referencedColumnName = "codigo", nullable = true)
+    private Curso curso;
 
     @OneToMany(mappedBy = "modulo")
     private List<EstudianteModulo> nota;
@@ -60,12 +61,20 @@ public class Modulo {
         this.docente = docente;
     }
 
-    public List<Curso> getCursos() {
-        return cursos;
+    public Curso getCurso() {
+        return curso;
     }
 
-    public void setCursos(List<Curso> cursos) {
-        this.cursos = cursos;
+    public void setCurso(Curso curso) {
+        this.curso = curso;
+    }
+
+    public List<EstudianteModulo> getNota() {
+        return nota;
+    }
+
+    public void setNota(List<EstudianteModulo> nota) {
+        this.nota = nota;
     }
 
     @Override

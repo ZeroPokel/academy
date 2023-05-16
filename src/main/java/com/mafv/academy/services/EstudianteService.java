@@ -2,7 +2,6 @@ package com.mafv.academy.services;
 
 import java.util.List;
 
-import com.mafv.academy.models.Curso;
 import com.mafv.academy.models.Estudiante;
 
 public interface EstudianteService {

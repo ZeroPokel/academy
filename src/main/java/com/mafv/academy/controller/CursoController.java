@@ -326,10 +326,10 @@ public class CursoController {
     public List<Estudiante> darEstudiantes(Curso curso){
         List<Estudiante> estudiantes = estudianteService.findAll();
         List<Estudiante> estudiantesFiltrado = new ArrayList<Estudiante>();
-        boolean valido = true;
 
         for (Estudiante estudiante : estudiantes){
             List<Curso> cursos = estudiante.getCursos();
+            boolean valido = true;
             for (Curso curso2 : cursos){
                 if (curso2 == curso){
                     valido = false; 

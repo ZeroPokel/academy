@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
@@ -31,8 +33,7 @@ public class Curso {
         inverseJoinColumns = @JoinColumn(name = "estudiante_codigo"))
     private List<Estudiante> estudiantes;
 
-    @ManyToMany
-    @JoinTable(name = "curso_modulo", joinColumns = @JoinColumn(name = "curso_codigo"), inverseJoinColumns = @JoinColumn(name = "modulo_codigo"))
+    @OneToMany(mappedBy = "curso")
     private List<Modulo> modulos;
 
     public Curso() {
@@ -67,14 +68,6 @@ public class Curso {
         this.tutor = tutor;
     }
 
-    public List<Modulo> getModulos() {
-        return modulos;
-    }
-
-    public void setModulos(List<Modulo> modulos) {
-        this.modulos = modulos;
-    }
-
     public List<Estudiante> getEstudiantes() {
         return estudiantes;
     }
@@ -105,7 +98,12 @@ public class Curso {
         return true;
     }
 
-    
+    public List<Modulo> getModulos() {
+        return modulos;
+    }
 
+    public void setModulos(List<Modulo> modulos) {
+        this.modulos = modulos;
+    }
 
 }
