@@ -126,6 +126,7 @@ public class EstudianteController {
         return modelAndView;
     }
 
+    // Muestra información del estudiante seleccionado
     @PreAuthorize("hasAnyAuthority('ESTUDIANTE')")
     @GetMapping(path = { "/info/{id}"})
     public ModelAndView infoEstudiante(

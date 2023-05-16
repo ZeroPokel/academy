@@ -145,22 +145,7 @@ public class CursoController {
         return modelAndView;
     }
 
-    // Borrado de tutor de un curso
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
-    @GetMapping(path = { "/delete/tutor/{id}" })
-    public ModelAndView deleteTutor(
-            @PathVariable(name = "id", required = true) int id) {
-
-        Docente tutor = docentesService.findById(id);
-        Curso curso = cursosService.findByTutor(tutor);
-        curso.setTutor(null);
-        cursosService.save(curso);
-
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:/cursos/list");
-
-        return modelAndView;
-    }
+    // TUTORES
 
     // Mostrar tutor del curso seleccionado
     @PreAuthorize("hasAnyAuthority('ADMIN')")
@@ -214,6 +199,25 @@ public class CursoController {
     
         return modelAndView;
     }
+
+    // Borrado de tutor de un curso
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @GetMapping(path = { "/delete/tutor/{id}" })
+    public ModelAndView deleteTutor(
+            @PathVariable(name = "id", required = true) int id) {
+
+        Docente tutor = docentesService.findById(id);
+        Curso curso = cursosService.findByTutor(tutor);
+        curso.setTutor(null);
+        cursosService.save(curso);
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("redirect:/cursos/list");
+
+        return modelAndView;
+    }
+
+    // ESTUDIANTES
 
     // Te lleva a la lista de estudiantes para añadir estudiantes al curso marcado
     @PreAuthorize("hasAnyAuthority('ADMIN')")
@@ -292,6 +296,18 @@ public class CursoController {
     
         return modelAndView;
     }
+
+    // MODULOS
+
+    // Listado de módulos que no tienen curso
+
+    // Añadir un módulo al curso seleccionado
+
+    // Borrado de módulo de un curso
+
+    // Listado de módulos de un curso
+
+    // FUNCIONES
 
     // Función que comprueba todos los docentes y coloca el atributo "tutor" a true si dicho docente es tutor de ese curso y los devuelve
     public List<Docente> comprobarTutores(){
