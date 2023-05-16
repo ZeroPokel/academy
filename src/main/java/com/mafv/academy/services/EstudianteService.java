@@ -13,6 +13,6 @@ public interface EstudianteService {
     public void update(Estudiante alumno);
     public void deleteById(int id);
     public void deleteAll();
-    public void deleteEstudianteFromCurso(int idEstudiante, int idCurso);
-    public void deleteAllEstudianteFromCurso(int idCurso);
+    public void deleteEstudianteFromCurso(int estudianteId, int cursoId);
+    public void deleteAllEstudianteFromCurso(int cursoId);
 }

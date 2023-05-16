@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.mafv.academy.models.Curso;
 import com.mafv.academy.models.Docente;
 import com.mafv.academy.models.Modulo;
+import com.mafv.academy.repository.CursoRepository;
 import com.mafv.academy.repository.ModuloRepository;
 import com.mafv.academy.services.ModuloService;
 
@@ -18,6 +20,9 @@ public class ModuloServiceImpl implements ModuloService{
     
     @Autowired
     ModuloRepository repository;
+
+    @Autowired
+    CursoRepository cursoRepository;
 
     @Override
     public List<Modulo> findAll() {
@@ -56,5 +61,42 @@ public class ModuloServiceImpl implements ModuloService{
     @Override
     public List<Modulo> findByDocente(Docente docente) {
         return repository.findByDocente(docente);
+    }
+
+    @Override
+    public List<Modulo> findByCurso(Curso curso) {
+        return repository.findByCurso(curso);
+    }
+
+    @Override
+    public void deleteModuloFromCurso(int moduloId, int cursoId) {
+        Optional<Modulo> moduloOptional = repository.findById(moduloId);
+
+        if (moduloOptional.isPresent()) {
+            Modulo modulo = moduloOptional.get();
+            
+            if (modulo.getCurso().getCodigo() == cursoId) {
+                modulo.setCurso(null);
+            } 
+
+            repository.save(modulo);
+        } 
+    }
+
+    @Override
+    public void deleteAllModuloFromCurso(int idCurso) {
+        Optional<Curso> cursoOptional = cursoRepository.findById(idCurso);
+        
+        if (cursoOptional.isPresent()) {
+            Curso curso = cursoOptional.get();
+            List<Modulo> modulosCurso = curso.getModulos();
+
+            for (Modulo modulo : modulosCurso){
+                modulo.setCurso(null);
+                repository.save(modulo);
+            }
+            
+        }
+
     }
 }

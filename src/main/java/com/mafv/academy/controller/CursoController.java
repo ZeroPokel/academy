@@ -361,8 +361,55 @@ public class CursoController {
     }
 
     // Borrado de módulo de un curso
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @GetMapping(path = { "/delete/modulo/{idModulo}/curso/{idCurso}"})
+    public ModelAndView deleteModulo(
+        @PathVariable(name = "idCurso", required = true) int idCurso,
+        @PathVariable(name = "idModulo", required = true) int idModulo){
+    
+        Curso curso = cursosService.findById(idCurso);
+        Modulo modulo = modulosService.findById(idModulo);
+        modulosService.deleteModuloFromCurso(modulo.getCodigo(), curso.getCodigo());
+    
+        ModelAndView modelAndView = new ModelAndView();            
+        modelAndView.setViewName("redirect:/cursos/list/modulos/"+curso.getCodigo());
+    
+        return modelAndView;
+    }
 
     // Listado de módulos de un curso
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @GetMapping(path = { "/list/modulos/{idCurso}"})
+    public ModelAndView listModuloCurso(
+        @PathVariable(name = "idCurso", required = true) int idCurso){
+    
+        Curso cursoList = cursosService.findById(idCurso);
+        List<Modulo> modulos = modulosService.findByCurso(cursoList);
+        
+        cursoList.setModulos(modulos);
+    
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("modulos", modulos);
+        modelAndView.addObject("cursoList", cursoList);             
+        modelAndView.setViewName("modulos/list");
+    
+        return modelAndView;
+    }
+
+    // Borrar TODOS los modulos del curso
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @GetMapping(path = { "/delete/all/modulos/{idCurso}"})
+    public ModelAndView deleteAllModulo(
+        @PathVariable(name = "idCurso", required = true) int idCurso){
+    
+        Curso curso = cursosService.findById(idCurso);
+        modulosService.deleteAllModuloFromCurso(curso.getCodigo());
+    
+        ModelAndView modelAndView = new ModelAndView();            
+        modelAndView.setViewName("redirect:/cursos/list");
+    
+        return modelAndView;
+    }
 
     // FUNCIONES
 
