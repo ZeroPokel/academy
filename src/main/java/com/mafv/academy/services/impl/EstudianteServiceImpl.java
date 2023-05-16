@@ -59,9 +59,4 @@ public class EstudianteServiceImpl implements EstudianteService{
         repository.deleteAll();
     }
 
-    @Override
-    public List<Estudiante> findByCursosCodigo(int codigo) {
-        return repository.findByCursosCodigo(codigo);
-    }
-
 }

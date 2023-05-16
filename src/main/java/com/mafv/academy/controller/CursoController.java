@@ -249,11 +249,11 @@ public class CursoController {
         cursosService.save(curso);
     
         ModelAndView modelAndView = new ModelAndView();            
-        modelAndView.setViewName("redirect:/cursos/list");
+        modelAndView.setViewName("redirect:/cursos/add/estudiante/"+curso.getCodigo());
     
         return modelAndView;
     }
-    
+    /*
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping(path = { "/list/estudiantes/{idCurso}"})
     public ModelAndView listEstudiante(
@@ -328,14 +328,7 @@ public class CursoController {
         List<Estudiante> estudiantesFiltrado = new ArrayList<Estudiante>();
 
         for (Estudiante estudiante : estudiantes){
-            List<Curso> cursos = estudiante.getCursos();
             boolean valido = true;
-            for (Curso curso2 : cursos){
-                if (curso2 == curso){
-                    valido = false; 
-                    break;
-                }
-            }
 
             if (valido){
                 estudiantesFiltrado.add(estudiante);

@@ -8,6 +8,4 @@ import com.mafv.academy.models.Estudiante;
 
 public interface EstudianteRepository extends JpaRepository<Estudiante, Integer>{
     
-    List<Estudiante> findByCursosCodigo(Integer codigo);
-    
 }

@@ -24,6 +24,7 @@ import com.mafv.academy.models.Permiso;
 import com.mafv.academy.services.CursoService;
 import com.mafv.academy.services.DocenteService;
 import com.mafv.academy.services.ModuloService;
+import com.mafv.academy.services.UsuariosService;
 
 @Controller
 @RequestMapping("/docentes")
@@ -142,7 +143,7 @@ public class DocenteController {
                 modulosService.save(modulo);
             }
         }
-        
+
         docentesService.deleteById(id);
 
         ModelAndView modelAndView = new ModelAndView();

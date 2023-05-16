@@ -19,7 +19,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.mafv.academy.models.Estudiante;
 import com.mafv.academy.models.Permiso;
+import com.mafv.academy.services.CursoService;
 import com.mafv.academy.services.EstudianteService;
+import com.mafv.academy.services.UsuariosService;
 
 @Controller
 @RequestMapping("/estudiantes")
@@ -27,6 +29,9 @@ public class EstudianteController {
     
     @Autowired
     EstudianteService estudiantesService;
+
+    @Autowired
+    CursoService cursosService;
 
     @Autowired
 	PasswordEncoder encoder;
