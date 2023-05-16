@@ -9,8 +9,6 @@
         <a th:href="@{/estudiantes/create}" class="btn btn-info mb-3 rounded-2" th:if="${curso eq null and cursoList eq null}">Crear estudiante</a>
         <a th:href="@{/cursos/list}" class="btn btn-success mb-3 rounded-2" th:if="${curso ne null or cursoList ne null}">Atrás</a>
         <a th:href="@{/cursos/delete/all/estudiante/} + ${cursoList.codigo}" class="btn btn-danger mb-3 rounded-2" th:if="${cursoList ne null}">Borrar todos los estudiantes</a>
-        <!-- Aquí añadir el eliminar a todos los estudiantes del curso de golpe cuando liste los de un curso en especifico -->
-        <!-- Aquí añadir también el botón de atrás cuando se quiera añadir un estudiante a un curso y cuando liste los estudiantes de un curso en especifico tambien -->
         <div class="row">
             <table class="table table-striped table-hover p-0 m-0">
                 <thead>
