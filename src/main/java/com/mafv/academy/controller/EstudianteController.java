@@ -21,7 +21,6 @@ import com.mafv.academy.models.Estudiante;
 import com.mafv.academy.models.Permiso;
 import com.mafv.academy.services.CursoService;
 import com.mafv.academy.services.EstudianteService;
-import com.mafv.academy.services.UsuariosService;
 
 @Controller
 @RequestMapping("/estudiantes")

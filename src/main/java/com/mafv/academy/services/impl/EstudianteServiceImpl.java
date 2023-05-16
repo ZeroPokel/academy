@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.mafv.academy.models.Curso;
 import com.mafv.academy.models.Estudiante;
 import com.mafv.academy.repository.EstudianteRepository;
 import com.mafv.academy.services.EstudianteService;
