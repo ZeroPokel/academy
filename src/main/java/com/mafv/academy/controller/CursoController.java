@@ -22,9 +22,11 @@ import org.springframework.web.servlet.ModelAndView;
 import com.mafv.academy.models.Curso;
 import com.mafv.academy.models.Docente;
 import com.mafv.academy.models.Estudiante;
+import com.mafv.academy.models.Modulo;
 import com.mafv.academy.services.CursoService;
 import com.mafv.academy.services.DocenteService;
 import com.mafv.academy.services.EstudianteService;
+import com.mafv.academy.services.ModuloService;
 
 @Controller
 @RequestMapping("/cursos")
@@ -38,6 +40,9 @@ public class CursoController {
 
     @Autowired
     EstudianteService estudianteService;
+
+    @Autowired
+    ModuloService modulosService;
     
     @Value("${pagination.size}")
     int sizePage;
@@ -83,11 +88,8 @@ public class CursoController {
     @GetMapping(value = "/create")
     public ModelAndView create(Curso curso) {
 
-        List<Docente> docentes = comprobarTutores();
-
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("curso", new Curso());
-        modelAndView.addObject("docentes", docentes);
         modelAndView.setViewName("cursos/create");
 
         return modelAndView;
@@ -131,6 +133,8 @@ public class CursoController {
 
         return modelAndView;
     }
+
+    // Cuando borre el curso tengo que antes borrar las relaciones 
 
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping(path = { "/delete/{id}" })
@@ -222,7 +226,7 @@ public class CursoController {
     // Te lleva a la lista de estudiantes para añadir estudiantes al curso marcado
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping(path = { "/add/estudiante/{idCurso}"})
-    public ModelAndView addTutor(
+    public ModelAndView listAddEstudiante(
         @PathVariable(name = "idCurso", required = true) int idCurso){
     
         Curso curso = cursosService.findById(idCurso);
@@ -240,7 +244,7 @@ public class CursoController {
     // Añadir el estudiante al curso 
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping(path = { "/add/estudiante/{idEstudiante}/curso/{idCurso}"})
-    public ModelAndView addEstudiante(
+    public ModelAndView addEstudianteCurso(
         @PathVariable(name = "idCurso", required = true) int idCurso,
         @PathVariable(name = "idEstudiante", required = true) int idEstudiante){
     
@@ -264,7 +268,7 @@ public class CursoController {
     // Listar los estudiantes del curso seleccionado
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping(path = { "/list/estudiantes/{idCurso}"})
-    public ModelAndView listEstudiante(
+    public ModelAndView listEstudianteCurso(
         @PathVariable(name = "idCurso", required = true) int idCurso){
     
         Curso cursoList = cursosService.findById(idCurso);
@@ -315,8 +319,46 @@ public class CursoController {
     // MODULOS
 
     // Listado de módulos que no tienen curso
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @GetMapping(path = { "/add/modulo/{idCurso}"})
+    public ModelAndView listAddModulo(
+        @PathVariable(name = "idCurso", required = true) int idCurso){
+    
+        Curso curso = cursosService.findById(idCurso);
+
+        List<Modulo> modulos = darModulos(curso);
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("modulos", modulos);
+        modelAndView.addObject("curso", curso);            
+        modelAndView.setViewName("modulos/list");
+    
+        return modelAndView;
+    }
 
     // Añadir un módulo al curso seleccionado
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @GetMapping(path = { "/add/modulo/{idModulo}/curso/{idCurso}"})
+    public ModelAndView addModuloCurso(
+        @PathVariable(name = "idCurso", required = true) int idCurso,
+        @PathVariable(name = "idModulo", required = true) int idModulo){
+    
+        Curso curso = cursosService.findById(idCurso);
+        Modulo modulo = modulosService.findById(idModulo);
+        
+        List<Modulo> modulos = curso.getModulos();
+        modulos.add(modulo);
+        modulo.setCurso(curso);
+        
+        curso.setModulos(modulos);
+        cursosService.save(curso);
+        modulosService.save(modulo);
+    
+        ModelAndView modelAndView = new ModelAndView();            
+        modelAndView.setViewName("redirect:/cursos/add/modulo/"+curso.getCodigo());
+    
+        return modelAndView;
+    }
 
     // Borrado de módulo de un curso
 
@@ -371,4 +413,19 @@ public class CursoController {
 
         return estudiantesFiltrado;
     }
+
+        // Función que coge todos los modulos y te devuelve aquellos que no pertenezcan a un curso
+        public List<Modulo> darModulos(Curso curso){
+
+            List<Modulo> modulos = modulosService.findAll();
+            List<Modulo> modulosFiltrado = new ArrayList<Modulo>();
+    
+            for (Modulo modulo : modulos){
+                if(modulo.getCurso() == null){
+                    modulosFiltrado.add(modulo);
+                }
+            }
+    
+            return modulosFiltrado;
+        }
 }

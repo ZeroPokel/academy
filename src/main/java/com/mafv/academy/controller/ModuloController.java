@@ -45,10 +45,7 @@ public class ModuloController {
     @GetMapping(value = "/create")
     public ModelAndView create(Modulo modulo) {
 
-        List<Docente> docentes = docentesService.findAll();
-
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("docentes", docentes);
         modelAndView.addObject("modulo", new Modulo());
         modelAndView.setViewName("modulos/create");
 
@@ -73,10 +70,8 @@ public class ModuloController {
             @PathVariable(name = "id", required = true) int id) {
 
         Modulo modulo = modulosService.findById(id);
-        List<Docente> docentes = docentesService.findAll();
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("docentes", docentes);
         modelAndView.addObject("modulo", modulo);
         modelAndView.setViewName("modulos/edit");
         return modelAndView;

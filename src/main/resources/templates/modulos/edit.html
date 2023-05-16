@@ -16,23 +16,6 @@
                         <label for="nombre" class="form-label mt-4">Nombre</label>
                         <input type="text" class="form-control rounded-2" id="nombre" name="nombre" th:value="${modulo.nombre}" placeholder="Introduce el nombre">
                     </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label for="docente" class="form-label mt-4" name="docente">Docente</label>
-                            <select class="form-select rounded-2" id="docente" name="docente" th:value="${modulo.docente}">
-                                <div th:if="${modulo.docente eq null}">
-                                    <option class="rounded-2" name="docente" id="docente" selected="selected"></option>
-                                </div>
-                                <div th:each="docente : ${docentes}">
-                                    <div th:if="${modulo.docente ne null}">
-                                        <option class="rounded-2" th:if="${modulo.docente.codigo eq docente.getCodigo}" name="docente" id="docente" th:value="${docente.codigo}" th:text="|${docente.nombre} ${docente.apellidos}|" selected="selected"></option>
-                                        <option class="rounded-2" th:unless="${modulo.docente.codigo eq docente.getCodigo}" name="docente" id="docente" th:value="${docente.codigo}" th:text="|${docente.nombre} ${docente.apellidos}|"></option>
-                                    </div>
-                                    <option class="rounded-2" th:unless="${modulo.docente ne null}" name="docente" id="docente" th:value="${docente.codigo}" th:text="|${docente.nombre} ${docente.apellidos}|"></option>
-                                </div>
-                            </select>
-                        </div>
-                    </div>
                 </div>
                 <div class="col-md-4">
                     <button type="submit" class="btn btn-success rounded-2">Confirmar</button>

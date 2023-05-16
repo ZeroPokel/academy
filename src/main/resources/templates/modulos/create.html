@@ -12,17 +12,6 @@
                         <label for="nombre" class="form-label mt-4">Nombre</label>
                         <input type="text" class="form-control rounded-2" id="nombre" name="nombre" placeholder="Introduce el nombre">
                     </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label for="docente" class="form-label mt-4" name="docente">Docente</label>
-                            <select class="form-select rounded-2" id="docente" name="docente" th:value="${modulo.docente}">
-                                <option class="rounded-2" name="docente" id="docente" selected="selected" value="">Ninguno</option>
-                                <div th:each="docente : ${docentes}">
-                                    <option class="rounded-2" name="docente" id="docente" th:value="${docente.codigo}" th:text="|${docente.nombre} ${docente.apellidos}|"></option>
-                                </div>
-                            </select>
-                        </div>
-                    </div>
                 </div>
                 <div class="col-md-4">
                     <button type="submit" class="btn btn-success rounded-2">Confirmar</button>
