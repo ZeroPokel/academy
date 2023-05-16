@@ -297,6 +297,21 @@ public class CursoController {
         return modelAndView;
     }
 
+    // Borrar TODOS los estudiantes del curso
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @GetMapping(path = { "/delete/all/estudiante/{idCurso}"})
+    public ModelAndView deleteAllEstudiante(
+        @PathVariable(name = "idCurso", required = true) int idCurso){
+    
+        Curso curso = cursosService.findById(idCurso);
+        estudianteService.deleteAllEstudianteFromCurso(curso.getCodigo());
+    
+        ModelAndView modelAndView = new ModelAndView();            
+        modelAndView.setViewName("redirect:/cursos/list");
+    
+        return modelAndView;
+    }
+
     // MODULOS
 
     // Listado de módulos que no tienen curso

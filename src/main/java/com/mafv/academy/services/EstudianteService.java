@@ -14,4 +14,5 @@ public interface EstudianteService {
     public void deleteById(int id);
     public void deleteAll();
     public void deleteEstudianteFromCurso(int idEstudiante, int idCurso);
+    public void deleteAllEstudianteFromCurso(int idCurso);
 }

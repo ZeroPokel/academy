@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.mafv.academy.models.Curso;
 import com.mafv.academy.models.Estudiante;
+import com.mafv.academy.repository.CursoRepository;
 import com.mafv.academy.repository.EstudianteRepository;
 import com.mafv.academy.services.EstudianteService;
 
@@ -18,6 +19,9 @@ public class EstudianteServiceImpl implements EstudianteService{
     
     @Autowired
     EstudianteRepository repository;
+
+    @Autowired
+    CursoRepository cursoRepository;
 
     @Override
     public List<Estudiante> findAll() {
@@ -77,6 +81,23 @@ public class EstudianteServiceImpl implements EstudianteService{
 
             repository.save(estudiante);
         } 
+    }
+
+    @Override
+    public void deleteAllEstudianteFromCurso(int idCurso) {
+        Optional<Curso> cursoOptional = cursoRepository.findById(idCurso);
+        
+        if (cursoOptional.isPresent()) {
+            Curso curso = cursoOptional.get();
+            List<Estudiante> estudiantesCurso = curso.getEstudiantes();
+
+            for (Estudiante estudiante : estudiantesCurso){
+                estudiante.setCurso(null);
+                repository.save(estudiante);
+            }
+            
+        }
+
     }
 
 }
