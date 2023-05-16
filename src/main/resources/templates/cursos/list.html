@@ -31,7 +31,7 @@
                                 <a th:unless="${curso.tutor ne null}" th:href="@{/cursos/select/tutor/}+${curso.codigo}" class="btn btn-info bi-person-plus fs-4 rounded-2" role="button" data-bs-tooltip="tooltip" data-bs-placement="top" title="Añadir tutor"></a>
                                 <a th:href="@{/cursos/add/estudiante/}+${curso.codigo}" class="btn btn-info bi bi-book-fill fs-4 rounded-2" role="button" data-bs-tooltip="tooltip" data-bs-placement="top" title="Añadir estudiante"></a>
                                 <a th:href="@{/cursos/list/estudiantes/}+${curso.codigo}" class="btn btn-info bi bi-book-fill fs-4 rounded-2" role="button" data-bs-tooltip="tooltip" data-bs-placement="top" title="Listar estudiante"></a>
-
+                                <a th:href="@{/cursos/add/modulo/}+${curso.codigo}" class="btn btn-info bi bi-book-fill fs-4 rounded-2" role="button" data-bs-tooltip="tooltip" data-bs-placement="top" title="Añadir curso"></a>
                             </td>
 
                             <!-- Modal, alerta que salta cuando le das a uno de los botones de eliminar para borrar dicha fila-->

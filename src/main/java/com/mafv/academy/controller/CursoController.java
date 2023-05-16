@@ -224,7 +224,6 @@ public class CursoController {
 
         List<Estudiante> estudiantes = darEstudiantes(curso);
 
-    
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("estudiantes", estudiantes);
         modelAndView.addObject("curso", curso);            
@@ -242,28 +241,29 @@ public class CursoController {
         Curso curso = cursosService.findById(idCurso);
         Estudiante estudiante = estudianteService.findById(idEstudiante);
         
-        List<Estudiante> estudiantes = new ArrayList<Estudiante>();
+        List<Estudiante> estudiantes = curso.getEstudiantes();
         estudiantes.add(estudiante);
+        estudiante.setCurso(curso);
         
         curso.setEstudiantes(estudiantes);
         cursosService.save(curso);
+        estudianteService.save(estudiante);
     
         ModelAndView modelAndView = new ModelAndView();            
         modelAndView.setViewName("redirect:/cursos/add/estudiante/"+curso.getCodigo());
     
         return modelAndView;
     }
-    /*
+    
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping(path = { "/list/estudiantes/{idCurso}"})
     public ModelAndView listEstudiante(
         @PathVariable(name = "idCurso", required = true) int idCurso){
     
         Curso cursoList = cursosService.findById(idCurso);
-        List<Estudiante> estudiantes = estudianteService.findByCursosCodigo(idCurso);
+        List<Estudiante> estudiantes = estudianteService.findByCurso(cursoList);
         
         cursoList.setEstudiantes(estudiantes);
-        cursosService.save(cursoList);
     
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("estudiantes", estudiantes);
@@ -273,7 +273,7 @@ public class CursoController {
         return modelAndView;
     }
 
-    /*@PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping(path = { "/delete/estudiante/{idEstudiante}/curso/{idCurso}"})
     public ModelAndView deleteEstudiante(
         @PathVariable(name = "idCurso", required = true) int idCurso,
@@ -281,13 +281,13 @@ public class CursoController {
     
         Curso curso = cursosService.findById(idCurso);
         Estudiante estudiante = estudianteService.findById(idEstudiante);
-        //estudianteService.deleteEstudianteWhereCurso(estudiante.getCodigo(), curso.getCodigo());
+        estudianteService.deleteEstudianteFromCurso(estudiante.getCodigo(), curso.getCodigo());
     
         ModelAndView modelAndView = new ModelAndView();            
         modelAndView.setViewName("redirect:/cursos/list");
     
         return modelAndView;
-    }*/
+    }
 
     // Función que comprueba todos los docentes y coloca el atributo "tutor" a true si dicho docente es tutor de ese curso y los devuelve
     public List<Docente> comprobarTutores(){
@@ -322,15 +322,14 @@ public class CursoController {
         return noTutores;
     }
 
-    // Función que recoge todos los estudiantes y te devuelve aquellos que no pertenezcan al curso elegido
+    // Función que coge todos los estudiantes y te devuelve aquellos que no pertenezcan a un curso
     public List<Estudiante> darEstudiantes(Curso curso){
+
         List<Estudiante> estudiantes = estudianteService.findAll();
         List<Estudiante> estudiantesFiltrado = new ArrayList<Estudiante>();
 
         for (Estudiante estudiante : estudiantes){
-            boolean valido = true;
-
-            if (valido){
+            if(estudiante.getCurso() == null){
                 estudiantesFiltrado.add(estudiante);
             }
         }

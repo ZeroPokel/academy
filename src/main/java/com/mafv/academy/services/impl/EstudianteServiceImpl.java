@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.mafv.academy.models.Curso;
 import com.mafv.academy.models.Estudiante;
 import com.mafv.academy.repository.EstudianteRepository;
 import com.mafv.academy.services.EstudianteService;
@@ -56,6 +57,26 @@ public class EstudianteServiceImpl implements EstudianteService{
     @Override
     public void deleteAll() {
         repository.deleteAll();
+    }
+
+    @Override
+    public List<Estudiante> findByCurso(Curso curso) {
+        return repository.findByCurso(curso);
+    }
+
+    @Override
+    public void deleteEstudianteFromCurso(int estudianteId, int cursoId) {
+        Optional<Estudiante> estudianteOptional = repository.findById(estudianteId);
+
+        if (estudianteOptional.isPresent()) {
+            Estudiante estudiante = estudianteOptional.get();
+            
+            if (estudiante.getCurso().getCodigo() == cursoId) {
+                estudiante.setCurso(null);
+            } 
+
+            repository.save(estudiante);
+        } 
     }
 
 }

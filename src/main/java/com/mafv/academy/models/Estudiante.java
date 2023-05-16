@@ -12,6 +12,14 @@ public class Estudiante extends Usuario{
     @ManyToOne
     @JoinColumn(name = "curso", referencedColumnName = "codigo", nullable = true)
     private Curso curso;
+
+    public Curso getCurso() {
+        return curso;
+    }
+
+    public void setCurso(Curso curso) {
+        this.curso = curso;
+    }
     
     
 }
