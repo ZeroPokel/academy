@@ -215,6 +215,7 @@ public class CursoController {
         return modelAndView;
     }
 
+    // Te lleva a la lista de estudiantes para añadir estudiantes al curso marcado
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping(path = { "/add/estudiante/{idCurso}"})
     public ModelAndView addTutor(
@@ -232,6 +233,7 @@ public class CursoController {
         return modelAndView;
     }
 
+    // Añadir el estudiante al curso 
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping(path = { "/add/estudiante/{idEstudiante}/curso/{idCurso}"})
     public ModelAndView addEstudiante(
@@ -255,6 +257,7 @@ public class CursoController {
         return modelAndView;
     }
     
+    // Listar los estudiantes del curso seleccionado
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping(path = { "/list/estudiantes/{idCurso}"})
     public ModelAndView listEstudiante(
@@ -273,6 +276,7 @@ public class CursoController {
         return modelAndView;
     }
 
+    // Borrar estudiante del curso
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping(path = { "/delete/estudiante/{idEstudiante}/curso/{idCurso}"})
     public ModelAndView deleteEstudiante(
@@ -284,7 +288,7 @@ public class CursoController {
         estudianteService.deleteEstudianteFromCurso(estudiante.getCodigo(), curso.getCodigo());
     
         ModelAndView modelAndView = new ModelAndView();            
-        modelAndView.setViewName("redirect:/cursos/list");
+        modelAndView.setViewName("redirect:/cursos/list/estudiantes/"+curso.getCodigo());
     
         return modelAndView;
     }
