@@ -37,7 +37,7 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
               <li class="nav-item" sec:authorize="hasAnyAuthority('DOCENTE')">
                 <a class="nav-link" th:href="@{/docentes/info/{idDocente}/{username}(idDocente = ${session.usuario.codigo}, username = ${session.usuario.username})}">Perfil</a>
               </li>
-              <li class="nav-item dropdown">
+              <!--<li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
                 <div class="dropdown-menu">
                   <a class="dropdown-item" href="#">Action</a>
@@ -46,12 +46,12 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="#">Separated link</a>
                 </div>
-              </li>
+              </li>-->
             </ul>
-            <form class="d-flex">
+            <!--<form class="d-flex">
               <input class="form-control me-sm-2" type="search" placeholder="Search">
               <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-            </form>
+            </form>-->
           </div>
         </div>
         <a class="btn btn-outline-success" value="Logout" th:href="@{/logout}"><i class="bi bi-box-arrow-in-left"></i></a>
