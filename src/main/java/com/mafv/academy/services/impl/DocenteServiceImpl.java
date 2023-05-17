@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mafv.academy.models.Docente;
+import com.mafv.academy.models.Modulo;
 import com.mafv.academy.repository.DocenteRepository;
+import com.mafv.academy.repository.ModuloRepository;
 import com.mafv.academy.services.DocenteService;
 
 @Service
@@ -17,6 +19,9 @@ public class DocenteServiceImpl implements DocenteService{
     
     @Autowired
     DocenteRepository repository;
+
+    @Autowired
+    ModuloRepository moduloRepository;
 
     @Override
     public List<Docente> findAll() {
@@ -56,6 +61,19 @@ public class DocenteServiceImpl implements DocenteService{
     @Override
     public void deleteAll() {
         repository.deleteAll();
+    }
+
+    @Override
+    public void deleteDocenteFromAllModulo(int id) {
+        Docente docente = repository.findById(id).get();
+        List<Modulo> modulos = moduloRepository.findByDocente(docente);
+
+        if (modulos != null){
+            for (Modulo modulo : modulos){
+                modulo.setDocente(null);
+                moduloRepository.save(modulo);
+            }
+        }
     }
     
     

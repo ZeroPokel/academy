@@ -11,4 +11,5 @@ public interface DocenteService {
     public void update(Docente docente);
     public void deleteById(int id);
     public void deleteAll();
+    public void deleteDocenteFromAllModulo(int id);
 }

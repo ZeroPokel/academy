@@ -57,7 +57,6 @@ public class DocenteController {
     @GetMapping(value = "/create")
     public ModelAndView create(Docente docente) throws IOException {
 
-
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("docente", new Docente());
         modelAndView.setViewName("docentes/create");
@@ -147,18 +146,12 @@ public class DocenteController {
         Curso curso = cursosService.findByTutor(docente);
         
         if(curso != null){
-            curso.setTutor(null);
-            cursosService.update(curso);
+            cursosService.deleteTutor(curso.getCodigo());
         }
 
         // Además se comprueba si el docenete imparte en algún módulo, si lo hace, será eliminado como docente del módulo
-        List<Modulo> modulos = modulosService.findByDocente(docente);
-
-        if (modulos != null){
-            for (Modulo modulo : modulos){
-                modulo.setDocente(null);
-                modulosService.save(modulo);
-            }
+        if(docente.getModulos().size() != 0){
+            docentesService.deleteDocenteFromAllModulo(id);
         }
 
         docentesService.deleteById(id);
