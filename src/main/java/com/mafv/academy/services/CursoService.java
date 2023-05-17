@@ -17,5 +17,6 @@ public interface CursoService {
     public void update(Curso curso);
     public void deleteById(int id);
     public void deleteAll();
+    public void deleteTutor(int id);
 
 }

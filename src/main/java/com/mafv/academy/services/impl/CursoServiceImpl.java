@@ -65,4 +65,12 @@ public class CursoServiceImpl implements CursoService{
         return repository.findByTutor(tutor);
     }
 
+    @Override
+    public void deleteTutor(int id) {
+        Curso curso = repository.findById(id).get();
+
+        curso.setTutor(null);
+        repository.save(curso);
+    }
+
 }

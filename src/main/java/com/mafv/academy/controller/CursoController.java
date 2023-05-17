@@ -141,6 +141,20 @@ public class CursoController {
     public ModelAndView delete(
             @PathVariable(name = "id", required = true) int id) {
 
+        Curso curso = cursosService.findById(id);
+
+        if (curso.getModulos().size() != 0){
+            modulosService.deleteAllModuloFromCurso(id);
+        }
+
+        if (curso.getEstudiantes().size() != 0){
+            estudianteService.deleteAllEstudianteFromCurso(id);
+        }
+
+        if (curso.getTutor() != null){
+            cursosService.deleteTutor(id);
+        }
+
         cursosService.deleteById(id);
 
         ModelAndView modelAndView = new ModelAndView();
@@ -210,10 +224,7 @@ public class CursoController {
     public ModelAndView deleteTutor(
             @PathVariable(name = "id", required = true) int id) {
 
-        Docente tutor = docentesService.findById(id);
-        Curso curso = cursosService.findByTutor(tutor);
-        curso.setTutor(null);
-        cursosService.save(curso);
+        cursosService.deleteTutor(id);
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/cursos/list");
