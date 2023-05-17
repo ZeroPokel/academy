@@ -127,12 +127,13 @@ public class EstudianteController {
     }
 
     // Muestra información del estudiante seleccionado
-    @PreAuthorize("hasAnyAuthority('ESTUDIANTE')")
-    @GetMapping(path = { "/info/{id}"})
+    @PreAuthorize("#username == authentication.principal.username")
+    @GetMapping(path = { "/info/{codigo}/{username}"})
     public ModelAndView infoEstudiante(
-            @PathVariable(name = "id", required = true) int id){
+            @PathVariable(name = "codigo", required = true) int codigo,
+            @PathVariable(name = "username", required = true) String username){
 
-        Estudiante estudiante = estudiantesService.findById(id);
+        Estudiante estudiante = estudiantesService.findById(codigo);
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("estudiante", estudiante);

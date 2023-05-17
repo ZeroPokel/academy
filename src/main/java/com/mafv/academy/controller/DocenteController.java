@@ -120,12 +120,13 @@ public class DocenteController {
     }
 
     // Muestra información del docente seleccionado
-    @PreAuthorize("hasAnyAuthority('DOCENTE')")
-    @GetMapping(path = { "/info/{id}"})
+    @PreAuthorize("#username == authentication.principal.username")
+    @GetMapping(path = { "/info/{codigo}/{username}"})
     public ModelAndView infoDocente(
-            @PathVariable(name = "id", required = true) int id){
+            @PathVariable(name = "codigo", required = true) int codigo,
+            @PathVariable(name = "username", required = true) String username){
 
-        Docente docente = docentesService.findById(id);
+        Docente docente = docentesService.findById(codigo);
         List<Modulo> modulos = docente.getModulos();
 
         ModelAndView modelAndView = new ModelAndView();
