@@ -461,18 +461,18 @@ public class CursoController {
         return estudiantesFiltrado;
     }
 
-        // Función que coge todos los modulos y te devuelve aquellos que no pertenezcan a un curso
-        public List<Modulo> darModulos(Curso curso){
+    // Función que coge todos los modulos y te devuelve aquellos que no pertenezcan a un curso
+    public List<Modulo> darModulos(Curso curso){
 
-            List<Modulo> modulos = modulosService.findAll();
-            List<Modulo> modulosFiltrado = new ArrayList<Modulo>();
-    
-            for (Modulo modulo : modulos){
-                if(modulo.getCurso() == null){
-                    modulosFiltrado.add(modulo);
-                }
+        List<Modulo> modulos = modulosService.findAll();
+        List<Modulo> modulosFiltrado = new ArrayList<Modulo>();
+
+        for (Modulo modulo : modulos){
+            if(modulo.getCurso() == null){
+                modulosFiltrado.add(modulo);
             }
-    
-            return modulosFiltrado;
         }
+
+        return modulosFiltrado;
+    }
 }

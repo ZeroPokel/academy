@@ -119,6 +119,23 @@ public class DocenteController {
         return modelAndView;
     }
 
+    // Muestra información del docente seleccionado
+    @PreAuthorize("hasAnyAuthority('DOCENTE')")
+    @GetMapping(path = { "/info/{id}"})
+    public ModelAndView infoDocente(
+            @PathVariable(name = "id", required = true) int id){
+
+        Docente docente = docentesService.findById(id);
+        List<Modulo> modulos = docente.getModulos();
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("docente", docente);
+        modelAndView.addObject("modulos", modulos);
+        modelAndView.setViewName("/docentes/info");
+
+        return modelAndView;
+    }
+
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping(path = { "/delete/{id}" })
     public ModelAndView delete(

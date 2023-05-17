@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="commons/header :: header"></head>
+<body>
+
+    <div th:replace="commons/menu :: menu"></div>
+
+    <div class="container rounded bg-white mt-5 mb-5">
+        <div class="row">
+            <div class="col-md-3 border-end mt-5">
+                <div class="d-flex flex-column align-items-center text-center p-3 py-2 mt-3">
+                    <img th:src="'data:image/jpeg;base64,' + ${docente.imageView}" alt="" class="rounded-circle mt-3" width="150px">
+                    <span class="font-weight-bold" th:text="|${docente.nombre} ${docente.apellidos}|">Edogaru</span>
+                    <span class="text-black-50" th:text="${docente.email}"></span>
+                    <span></span>
+                </div>
+            </div>
+            <div class="col-md-5 border-end">
+                <div class="p-3 py-5">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4 class="text-right">Perfil de Docente</h4>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <label for="fechaNacimiento" class="labels">Fecha de nacimiento</label>
+                            <input type="text" class="form-control rounded-2" placeholder="Fecha de Nacimiento" th:value="${#dates.format(docente.fechaNacimiento, 'dd/MM/yyyy')}" readonly>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="dni" class="labels">DNI</label>
+                            <input type="text" class="form-control rounded-2" placeholder="DNI" th:value="${docente.dni}" readonly>
+                        </div>
+                        <div class="col-md-6 mt-3">
+                            <label for="telefono" class="labels">Teléfono</label>
+                            <input type="text" class="form-control rounded-2" placeholder="telefono" th:value="${docente.telefono}" readonly>
+                        </div>
+                        <div class="col-md-6 mt-3">
+                            <label for="sexo" class="labels">Sexo</label>
+                            <input type="text" class="form-control rounded-2" placeholder="sexo" th:value="${docente.sexo}" readonly>
+                        </div>
+                    </div>
+                    <div class="mt-5">
+                        <a th:href="@{/welcome}" type="button" class="btn btn-danger rounded-2">Atrás</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="p-3 py-5">
+                    <div class="d-flex justify-content-between align-items-center experience"><h4 class="text-right">Módulos</h4></div><br>
+                    <div class="col-md-12" th:if="${modulos.size() ne 0}">
+                        <div th:each="modulo: ${modulos}">
+                            <label class="labels" th:text="'Módulo: ' + ${modulo.nombre} + ' - Curso: '">Experience in Designing</label>
+                            <label class="labels" th:text="${modulo.getCurso()}" th:if="${modulo.getCurso() ne null}">Experience in Designing</label>
+                            <label class="labels" th:if="${modulo.getCurso() eq null}">Sin curso </label>
+                        </div>
+                    </div> 
+                    <div class="col-md-12" th:if="${modulos.size()} eq 0">
+                        <label class="labels" >No imparte módulos</label>
+                    </div> 
+                    <br>
+                    <div class="col-md-12"><label class="labels">Additional Details</label><input type="text" class="form-control rounded-2" placeholder="additional details"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:replace="commons/footer :: footer" class="container"></div>
+</body>
+</html>

@@ -98,4 +98,10 @@ public class Curso {
         this.modulos = modulos;
     }
 
+    @Override
+    public String toString() {
+        return nombre;
+    }
+
+    
 }
