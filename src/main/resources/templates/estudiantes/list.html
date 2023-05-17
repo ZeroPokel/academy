@@ -54,7 +54,7 @@
                                         <div class="modal-header">
                                             <h3 class="modal-title" id="deleteModalLabel">Atencion</h3>                                        </div>
                                         <div class="modal-body">
-                                            <p class="mb-0">El estudiante va a ser eliminado permanentemente, este cambio no se podrá deshacer, ¿estás seguro?</p>
+                                            <p class="mb-0">El estudiante va a ser eliminado permanentemente, al hacerlo se borraría la información en otras tablas, este cambio no se podrá deshacer, ¿estás seguro?</p>
                                         </div>
                                         <div class="modal-footer">
                                             <a type="button" class="btn btn-success rounded-2" th:href="@{/estudiantes/delete/{id}(id=${estudiante.codigo})}">Confirmar</a>
@@ -79,9 +79,10 @@
                                     <div class="modal-dialog">
                                         <div class="modal-content rounded-2">
                                             <div class="modal-header">
-                                                <h3 class="modal-title" id="deleteModalLabel">Atencion</h3>                                        </div>
+                                                <h3 class="modal-title" id="deleteModalLabel">Atencion</h3>                                        
+                                            </div>
                                             <div class="modal-body">
-                                                <p class="mb-0">El estudiante va a ser eliminado del curso, este cambio no se podrá deshacer, ¿estás seguro?</p>
+                                                <p class="mb-0">El estudiante va a ser eliminado del curso, al hacerlo se borraría la información en otras tablas que tenga relación, este cambio no se podrá deshacer, ¿estás seguro?</p>
                                             </div>
                                             <div class="modal-footer">
                                                 <a type="button" class="btn btn-success rounded-2" th:href="@{/cursos/delete/estudiante/{idEstudiante}/curso/{idCurso}(idEstudiante = ${estudiante.codigo}, idCurso = ${cursoList.codigo})}">Confirmar</a>
