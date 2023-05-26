@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.mafv.academy.models.Curso;
 import com.mafv.academy.models.Docente;
 import com.mafv.academy.models.Estudiante;
+import com.mafv.academy.models.EstudianteModulo;
 import com.mafv.academy.models.Modulo;
 import com.mafv.academy.services.CursoService;
 import com.mafv.academy.services.DocenteService;
@@ -43,6 +44,9 @@ public class CursoController {
 
     @Autowired
     ModuloService modulosService;
+
+    @Autowired
+
     
     @Value("${pagination.size}")
     int sizePage;
@@ -252,7 +256,7 @@ public class CursoController {
         return modelAndView;
     }
 
-    // Añadir el estudiante al curso 
+    // Añadir el estudiante al curso, además se añadirá por defecto a los módulos que haya en ese momento
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping(path = { "/add/estudiante/{idEstudiante}/curso/{idCurso}"})
     public ModelAndView addEstudianteCurso(
@@ -265,6 +269,17 @@ public class CursoController {
         List<Estudiante> estudiantes = curso.getEstudiantes();
         estudiantes.add(estudiante);
         estudiante.setCurso(curso);
+
+        // Añadir el estudiante a los módulos del curso
+        List<Modulo> modulos = curso.getModulos();
+        List<EstudianteModulo> estudianteModulo = new ArrayList<EstudianteModulo>();
+        for (Modulo modulo : modulos){
+            EstudianteModulo estMod = new EstudianteModulo();
+            estMod.setEstudiante(estudiante);
+            estMod.setModulo(modulo);
+            estudianteModulo.add(estMod);
+        }
+        estudiante.setEstudianteModulos(estudianteModulo);
         
         curso.setEstudiantes(estudiantes);
         cursosService.save(curso);
@@ -295,7 +310,7 @@ public class CursoController {
         return modelAndView;
     }
 
-    // Borrar estudiante del curso
+    // Borrar estudiante del curso y de los módulos en los que está
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping(path = { "/delete/estudiante/{idEstudiante}/curso/{idCurso}"})
     public ModelAndView deleteEstudiante(

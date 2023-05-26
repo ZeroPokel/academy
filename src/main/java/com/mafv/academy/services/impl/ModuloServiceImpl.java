@@ -11,6 +11,7 @@ import com.mafv.academy.models.Curso;
 import com.mafv.academy.models.Docente;
 import com.mafv.academy.models.Modulo;
 import com.mafv.academy.repository.CursoRepository;
+import com.mafv.academy.repository.EstudianteModuloRepository;
 import com.mafv.academy.repository.ModuloRepository;
 import com.mafv.academy.services.ModuloService;
 
@@ -20,6 +21,9 @@ public class ModuloServiceImpl implements ModuloService{
     
     @Autowired
     ModuloRepository repository;
+
+    @Autowired
+    EstudianteModuloRepository estudianteModuloRepository;
 
     @Autowired
     CursoRepository cursoRepository;
@@ -79,6 +83,8 @@ public class ModuloServiceImpl implements ModuloService{
                 modulo.setCurso(null);
             } 
 
+            estudianteModuloRepository.deleteByModuloCodigo(moduloId);
+
             repository.save(modulo);
         } 
     }
@@ -93,6 +99,7 @@ public class ModuloServiceImpl implements ModuloService{
 
             for (Modulo modulo : modulosCurso){
                 modulo.setCurso(null);
+                estudianteModuloRepository.deleteByModuloCodigo(modulo.getCodigo());
                 repository.save(modulo);
             }
             

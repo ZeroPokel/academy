@@ -9,7 +9,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.mafv.academy.models.Curso;
 import com.mafv.academy.models.Estudiante;
+import com.mafv.academy.models.EstudianteModulo;
+import com.mafv.academy.models.EstudianteModuloKey;
 import com.mafv.academy.repository.CursoRepository;
+import com.mafv.academy.repository.EstudianteModuloRepository;
 import com.mafv.academy.repository.EstudianteRepository;
 import com.mafv.academy.services.EstudianteService;
 
@@ -19,6 +22,9 @@ public class EstudianteServiceImpl implements EstudianteService{
     
     @Autowired
     EstudianteRepository repository;
+
+    @Autowired
+    EstudianteModuloRepository estudianteModuloRepository;
 
     @Autowired
     CursoRepository cursoRepository;
@@ -39,7 +45,17 @@ public class EstudianteServiceImpl implements EstudianteService{
 
     @Override
     public Estudiante save(Estudiante estudiante) {
-        return repository.save(estudiante);
+        repository.save(estudiante);
+
+        List<EstudianteModulo> estudianteModulos = estudiante.getEstudianteModulos();
+        if (estudianteModulos != null){
+            for (EstudianteModulo estudianteModulo : estudianteModulos){
+                EstudianteModuloKey id = new EstudianteModuloKey(estudiante.getCodigo(), estudianteModulo.getModulo().getCodigo());
+                estudianteModulo.setCodigo(id);
+                estudianteModuloRepository.save(estudianteModulo);
+            }
+        }
+        return estudiante;
     }
 
     @Override
@@ -74,10 +90,12 @@ public class EstudianteServiceImpl implements EstudianteService{
 
         if (estudianteOptional.isPresent()) {
             Estudiante estudiante = estudianteOptional.get();
-            
+
             if (estudiante.getCurso().getCodigo() == cursoId) {
                 estudiante.setCurso(null);
             } 
+
+            estudianteModuloRepository.deleteByEstudianteCodigo(estudianteId);
 
             repository.save(estudiante);
         } 
@@ -93,6 +111,7 @@ public class EstudianteServiceImpl implements EstudianteService{
 
             for (Estudiante estudiante : estudiantesCurso){
                 estudiante.setCurso(null);
+                estudianteModuloRepository.deleteByEstudianteCodigo(estudiante.getCodigo());
                 repository.save(estudiante);
             }
             
