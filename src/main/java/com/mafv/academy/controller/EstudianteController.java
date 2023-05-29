@@ -142,4 +142,7 @@ public class EstudianteController {
         return modelAndView;
     }
 
+    // A los alumnos se le listará los módulos y se le mostrará que curso está, clickando en mas info, verá el profesor que imparte, el módulo y
+    // las notas de probablemente los 3 trimestres y la media final.
+
 }

@@ -1,5 +1,6 @@
 package com.mafv.academy.services.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -117,6 +118,18 @@ public class EstudianteServiceImpl implements EstudianteService{
             
         }
 
+    }
+
+    @Override
+    public List<Estudiante> findByModulo(int id) {
+        List<EstudianteModulo> estudianteModulos = estudianteModuloRepository.findByModuloCodigo(id);
+        List<Estudiante> estudiantes = new ArrayList<Estudiante>();
+
+        for (EstudianteModulo estMod : estudianteModulos){
+            estudiantes.add(estMod.getEstudiante());
+        }
+
+        return estudiantes;
     }
 
 }

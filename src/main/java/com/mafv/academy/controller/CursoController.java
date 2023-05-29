@@ -45,9 +45,6 @@ public class CursoController {
     @Autowired
     ModuloService modulosService;
 
-    @Autowired
-
-    
     @Value("${pagination.size}")
     int sizePage;
 
@@ -138,8 +135,7 @@ public class CursoController {
         return modelAndView;
     }
 
-    // Cuando borre el curso tengo que antes borrar las relaciones 
-
+    // Al borrar un curso, se borran las relaciones también con las otras tablas
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping(path = { "/delete/{id}" })
     public ModelAndView delete(

@@ -161,4 +161,8 @@ public class DocenteController {
 
         return modelAndView;
     }
+
+
+    // Si el docente es tutor, tendrá una vista de tutoría, donde le saldrá información de la clase que es tutor, los módulos, que profesor imparte dicho módulo,
+    // y de ahí podrá ir a la info de los módulos y de los alumnos
 }

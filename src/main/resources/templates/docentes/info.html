@@ -48,7 +48,7 @@
                     <div class="d-flex justify-content-between align-items-center experience"><h4 class="text-right">Módulos</h4></div><br>
                     <div class="col-md-12" th:if="${modulos.size() ne 0}">
                         <div th:each="modulo: ${modulos}">
-                            <label class="labels" th:text="'Módulo: ' + ${modulo.nombre} + ' - Curso: '">Experience in Designing</label>
+                            <a class="labels" th:text="'Módulo: ' + ${modulo.nombre} + ' - Curso: '" th:href="@{/modulos/modulo/{codigo}/{username}(codigo = ${modulo.codigo}, username = ${session.usuario.username})}">Experience in Designing</a>
                             <label class="labels" th:text="${modulo.getCurso()}" th:if="${modulo.getCurso() ne null}">Experience in Designing</label>
                             <label class="labels" th:if="${modulo.getCurso() eq null}">Sin curso </label>
                         </div>

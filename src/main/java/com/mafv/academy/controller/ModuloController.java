@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mafv.academy.models.Docente;
+import com.mafv.academy.models.Estudiante;
 import com.mafv.academy.models.Modulo;
 import com.mafv.academy.services.DocenteService;
+import com.mafv.academy.services.EstudianteService;
 import com.mafv.academy.services.ModuloService;
 
 
@@ -28,6 +30,9 @@ public class ModuloController {
 
     @Autowired
     DocenteService docentesService;
+
+    @Autowired
+    EstudianteService estudiantesService;
     
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping(value = "/list")
@@ -169,6 +174,26 @@ public class ModuloController {
         ModelAndView modelAndView = new ModelAndView();            
         modelAndView.setViewName("redirect:/modulos/list");
     
+        return modelAndView;
+    }
+
+    // Mostrar la información del módulo (esta información se mostrará tanto desde el curso al listar los módulos [ahí se verá quien es su docente...]
+    // y luego se verá información general del módulo, en este caso los alumnos, de los que se verá su nota, (si es admin borrarlos del módulo), 
+    // y el docente podrá ponerle una nota al alumno.)
+    @PreAuthorize("#username == authentication.principal.username")
+    @GetMapping(path = { "/modulo/{codigo}/{username}"})
+    public ModelAndView infoModulo(
+            @PathVariable(name = "codigo", required = true) int codigo,
+            @PathVariable(name = "username", required = true) String username){
+
+        Modulo modulo = modulosService.findById(codigo);
+        List<Estudiante> estudiantes = estudiantesService.findByModulo(codigo);
+        
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("modulo", modulo);
+        modelAndView.addObject("estudiantes", estudiantes);
+        modelAndView.setViewName("/modulos/info");
+
         return modelAndView;
     }
 }
