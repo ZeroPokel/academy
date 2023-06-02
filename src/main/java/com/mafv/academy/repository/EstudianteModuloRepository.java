@@ -10,5 +10,6 @@ import com.mafv.academy.models.EstudianteModuloKey;
 public interface EstudianteModuloRepository extends JpaRepository<EstudianteModulo, EstudianteModuloKey>{
     public void deleteByEstudianteCodigo(int codigo);
     public void deleteByModuloCodigo(int codigo);
+    public void deleteByModuloCodigoAndEstudianteCodigo(int idModulo, int idEstudiante);
     public List<EstudianteModulo> findByModuloCodigo(int codigo);
 }

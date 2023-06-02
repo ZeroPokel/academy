@@ -5,7 +5,7 @@
     
     <div th:replace="commons/menu :: menu"></div>
     <div class="container">
-        <h1 class="mt-4 mb-4 text-center" th:text="'Modulo: ' + ${modulo.nombre}"></h1>
+        <h1 class="mt-4 mb-4 text-center" th:text="'Alumnos del módulo ' + ${modulo.nombre}"></h1>
         <!--<a th:href="@{/estudiantes/create}" class="btn btn-info mb-3 rounded-2" th:if="${curso eq null and cursoList eq null}">Crear estudiante</a>-->
         <!--<a th:href="@{/cursos/list}" class="btn btn-success mb-3 rounded-2">Atrás</a>-->
         <!--<a th:href="@{/cursos/delete/all/estudiante/} + ${cursoList.codigo}" class="btn btn-danger mb-3 rounded-2" th:if="${cursoList ne null}">Borrar todos los estudiantes</a>-->
@@ -25,6 +25,25 @@
                             <td th:text="|${estudiante.nombre} ${estudiante.apellidos}|"></td>
                             <td th:text="${estudiante.email}"></td>
                             <td th:text="${estudiante.dni}"></td>
+                            <td>
+                                <button sec:authorize="hasAnyAuthority('ADMIN')" type="button" class="btn btn-danger rounded-2 bi bi-trash fs-4" data-bs-tooltip="tooltip" data-bs-placement="top" title="Borrar estudiante" data-bs-toggle="modal" data-bs-target="#deleteModal" th:attr="data-bs-target='#deleteModal'+${estudiante.codigo}"></button>                      
+                            </td>
+                            <!-- Modal, alerta que salta cuando le das a uno de los botones de eliminar para borrar dicha fila -->
+                            <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" th:id="deleteModal+${estudiante.codigo}" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content rounded-2">
+                                        <div class="modal-header">
+                                            <h3 class="modal-title" id="deleteModalLabel">Atencion</h3>                                        </div>
+                                        <div class="modal-body">
+                                            <p class="mb-0">El estudiante va a ser eliminado del módulo, al hacerlo se podría borrar la información en otras tablas, este cambio no se podrá deshacer, ¿estás seguro?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <a type="button" class="btn btn-success rounded-2" th:href="@{/modulos/delete/estudiante/{idEstudiante}/{idModulo}/{username}(idEstudiante=${estudiante.codigo}, idModulo=${modulo.codigo}, username=${session.usuario.username})}">Confirmar</a>
+                                            <button type="button" class="btn btn-danger rounded-2" data-bs-dismiss="modal">Cancelar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </tr>
                     </div>
                 </tbody>

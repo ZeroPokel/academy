@@ -106,4 +106,10 @@ public class ModuloServiceImpl implements ModuloService{
         }
 
     }
+
+    @Override
+    public void deleteEstudianteFromModulo(int moduloId, int estudianteId) {
+        
+        estudianteModuloRepository.deleteByModuloCodigoAndEstudianteCodigo(moduloId, estudianteId);
+    }
 }

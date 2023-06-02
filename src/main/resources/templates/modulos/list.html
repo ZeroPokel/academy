@@ -59,7 +59,7 @@
 
                             <td th:if="${cursoList ne null}">
                                 <button type="button" class="btn btn-danger rounded-2 bi bi-trash fs-4" data-bs-tooltip="tooltip" data-bs-placement="top" title="Borrar modulo" data-bs-toggle="modal" data-bs-target="#deleteModal" th:attr="data-bs-target='#deleteModal'+${modulo.codigo}"></button>                      
-                                
+                                <a class="btn btn-success rounded-2 bi bi-pen fs-4" th:href="@{/modulos/modulo/{codigo}/{username}(codigo = ${modulo.codigo}, username = ${session.usuario.username})}" data-bs-tooltip="tooltip" data-bs-placement="top" title="Ver alumnos del módulo"></a>
                                 <!-- Modal, alerta que salta para eliminar al modulo seleccionado del curso-->
                                 <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" th:id="deleteModal+${modulo.codigo}" aria-hidden="true">
                                     <div class="modal-dialog">
