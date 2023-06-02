@@ -115,10 +115,14 @@ public class CursoController {
 
         Curso curso = cursosService.findById(id);
         List<Docente> docentes = comprobarTutores();
+        List<Estudiante> estudiantes = estudianteService.findByCurso(curso);
+        List<Modulo> modulos = modulosService.findByCurso(curso);
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("docentes", docentes);
         modelAndView.addObject("curso", curso);
+        modelAndView.addObject("estudiantes", estudiantes);
+        modelAndView.addObject("modulos", modulos);
         modelAndView.setViewName("cursos/edit");
         return modelAndView;
     }
@@ -392,9 +396,10 @@ public class CursoController {
         Curso curso = cursosService.findById(idCurso);
         Modulo modulo = modulosService.findById(idModulo);
         modulosService.deleteModuloFromCurso(modulo.getCodigo(), curso.getCodigo());
+        modulosService.deleteById(idModulo);
     
         ModelAndView modelAndView = new ModelAndView();            
-        modelAndView.setViewName("redirect:/cursos/list/modulos/"+curso.getCodigo());
+        modelAndView.setViewName("redirect:/cursos/edit/"+curso.getCodigo());
     
         return modelAndView;
     }

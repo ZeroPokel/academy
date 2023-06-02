@@ -4,9 +4,9 @@
 <body>
 
     <div th:replace="commons/menu :: menu"></div>
-    <div class="container">
+    <div class="container mb-4">
         <form class="row g-3" method="post" th:action="@{/cursos/update}">
-                <legend>Editar curso</legend>
+                <legend th:text="'Editar curso ' + ${curso.nombre}">Editar curso</legend>
                 <div class="row">
                     <div class="col-md-3">
                         <label for="codigo" class="form-label mt-4">Codigo</label>
@@ -19,9 +19,105 @@
                 </div>
                 <div class="col-md-4">
                     <button type="submit" class="btn btn-success rounded-2">Confirmar</button>
-                    <a type="button" class="rounded-2 btn btn-danger" th:href="@{/cursos/list}">Cancelar</a>
+                    <a type="button" class="rounded-2 btn btn-danger" th:href="@{/cursos/list}">Atrás</a>
                 </div>
         </form>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5">
+                <h4 class="mt-4 mb-4 text-center">Módulos</h4>
+                <div class="row">
+                    <table class="table table-striped table-hover p-0 m-0 fs-6" th:if="${modulos.size()} ne 0">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Docente</th>
+                                <th scope="col">Operaciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <div th:each="modulo : ${modulos}">
+                                <tr class="table-light text p-0 m-0 align-middle">
+                                    <td th:text="${modulo.nombre}"></td>
+                                    <td th:if="${modulo.docente ne null}" th:text="|${modulo.docente.nombre} ${modulo.docente.apellidos}|"></td>
+                                    <td th:unless="${modulo.docente ne null}">Sin docente asignado</td>
+                                    <td>
+                                        <a th:href="@{/modulos/edit/}+${modulo.codigo}" class="btn-mini btn-info bi bi-pen fs-6 rounded-2" data-bs-tooltip="tooltip" data-bs-placement="top" title="Editar módulo"></a>
+                                        <button type="button" class="btn-mini btn-danger bi bi-trash fs-6 rounded-2" data-bs-tooltip="tooltip" data-bs-placement="top" title="Borrar módulo" data-bs-toggle="modal" data-bs-target="#deleteModal" th:attr="data-bs-target='#deleteModal'+${modulo.codigo}"></button>                      
+                                        <a th:if="${modulo.docente ne null}" th:href="@{/modulos/docente/{idDocente}/modulo/{idModulo}(idDocente = ${modulo.docente.codigo}, idModulo = ${modulo.codigo})}" class="btn-mini btn-info bi-person fs-6 rounded-2" role="button" data-bs-tooltip="tooltip" data-bs-placement="top" title="Docente"></a>
+                                        <a th:unless="${modulo.docente ne null}" th:href="@{/modulos/select/docente/}+${modulo.codigo}" class="btn-mini btn-info bi-person-plus fs-6 rounded-2" role="button" data-bs-tooltip="tooltip" data-bs-placement="top" title="Añadir docente"></a>
+                                    </td>
+                                    <!-- Modal, alerta que salta cuando le das a uno de los botones de eliminar para borrar dicha fila -->
+                                    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" th:id="deleteModal+${modulo.codigo}" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content rounded-2">
+                                                <div class="modal-header">
+                                                    <h3 class="modal-title" id="deleteModalLabel">Atencion</h3>                                        </div>
+                                                <div class="modal-body">
+                                                    <p class="mb-0">El módulo va a ser eliminado permanentemente, al hacerlo se borraría la información en otras tablas, este cambio no se podrá deshacer, ¿estás seguro?</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <a type="button" class="btn btn-success rounded-2" th:href="@{/modulos/delete/{id}(id=${modulo.codigo})}">Confirmar</a>
+                                                    <button type="button" class="btn btn-danger rounded-2" data-bs-dismiss="modal">Cancelar</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </tr>
+                            </div>
+                        </tbody>
+                    </table>
+                </div>
+                <a th:href="@{/modulos/create}" class="btn btn-info mb-3 rounded-2">Crear módulo</a>
+            </div>
+            <div class="col-md-2"></div>
+            <div class="col-md-5">
+                <h4 class="mt-4 mb-4 text-center">Estudiantes</h4>
+                <a th:href="@{/cursos/delete/all/estudiante/} + ${curso.codigo}" class="btn btn-danger mb-3 rounded-2" th:if="${estudiantes.size()} ne 0">Borrar todos los estudiantes</a>
+                <div class="row">
+                    <table class="table table-striped table-hover p-0 m-0 fs-6" th:if="${estudiantes.size()} ne 0">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">DNI</th>
+                                <th scope="col">Operaciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <div th:each="estudiante : ${estudiantes}">
+                                <tr class="table-light text p-0 m-0 align-middle">
+                                    <td th:text="|${estudiante.nombre} ${estudiante.apellidos}|"></td>
+                                    <td th:text="${estudiante.email}"></td>
+                                    <td th:text="${estudiante.dni}"></td>
+                                    <td>
+                                        <button type="button" class="btn-mini btn-danger rounded-2 bi bi-trash fs-6" data-bs-tooltip="tooltip" data-bs-placement="top" title="Borrar estudiante" data-bs-toggle="modal" data-bs-target="#deleteModal" th:attr="data-bs-target='#deleteModal'+${estudiante.codigo}"></button>                        
+                                        <!-- Modal, alerta que salta para eliminar al estudiante seleccionado del curso-->
+                                        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" th:id="deleteModal+${estudiante.codigo}" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content rounded-2">
+                                                    <div class="modal-header">
+                                                        <h3 class="modal-title" id="deleteModalLabel">Atencion</h3>                                        
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p class="mb-0">El estudiante va a ser eliminado del curso, al hacerlo se borraría la información en otras tablas que tenga relación, este cambio no se podrá deshacer, ¿estás seguro?</p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <a type="button" class="btn btn-success rounded-2" th:href="@{/cursos/delete/estudiante/{idEstudiante}/curso/{idCurso}(idEstudiante = ${estudiante.codigo}, idCurso = ${curso.codigo})}">Confirmar</a>
+                                                        <button type="button" class="btn btn-danger rounded-2" data-bs-dismiss="modal">Cancelar</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </div>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div th:replace="commons/footer :: footer" class="container"></div>

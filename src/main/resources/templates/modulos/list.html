@@ -6,7 +6,6 @@
     <div th:replace="commons/menu :: menu"></div>
     <div class="container">
         <h1 class="mt-4 mb-4 text-center">Módulos</h1>
-        <a th:href="@{/modulos/create}" class="btn btn-info mb-3 rounded-2" th:if="${curso eq null and cursoList eq null}">Crear módulo</a>
         <a th:href="@{/cursos/list}" class="btn btn-success mb-3 rounded-2" th:if="${curso ne null or cursoList ne null}">Atrás</a>
         <a th:href="@{/cursos/delete/all/modulos/} + ${cursoList.codigo}" class="btn btn-danger mb-3 rounded-2" th:if="${cursoList ne null}">Borrar todos los modulos</a>
         <div class="row">
