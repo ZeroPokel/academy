@@ -90,24 +90,6 @@ public class ModuloServiceImpl implements ModuloService{
     }
 
     @Override
-    public void deleteAllModuloFromCurso(int idCurso) {
-        Optional<Curso> cursoOptional = cursoRepository.findById(idCurso);
-        
-        if (cursoOptional.isPresent()) {
-            Curso curso = cursoOptional.get();
-            List<Modulo> modulosCurso = curso.getModulos();
-
-            for (Modulo modulo : modulosCurso){
-                modulo.setCurso(null);
-                estudianteModuloRepository.deleteByModuloCodigo(modulo.getCodigo());
-                repository.save(modulo);
-            }
-            
-        }
-
-    }
-
-    @Override
     public void deleteEstudianteFromModulo(int moduloId, int estudianteId) {
         
         estudianteModuloRepository.deleteByModuloCodigoAndEstudianteCodigo(moduloId, estudianteId);

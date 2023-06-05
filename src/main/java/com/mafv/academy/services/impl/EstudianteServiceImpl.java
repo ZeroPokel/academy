@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.mafv.academy.models.Curso;
+
 import com.mafv.academy.models.Estudiante;
 import com.mafv.academy.models.EstudianteModulo;
 import com.mafv.academy.models.EstudianteModuloKey;
@@ -78,46 +78,6 @@ public class EstudianteServiceImpl implements EstudianteService{
     @Override
     public void deleteAll() {
         repository.deleteAll();
-    }
-
-    @Override
-    public List<Estudiante> findByCurso(Curso curso) {
-        return repository.findByCurso(curso);
-    }
-
-    @Override
-    public void deleteEstudianteFromCurso(int estudianteId, int cursoId) {
-        Optional<Estudiante> estudianteOptional = repository.findById(estudianteId);
-
-        if (estudianteOptional.isPresent()) {
-            Estudiante estudiante = estudianteOptional.get();
-
-            if (estudiante.getCurso().getCodigo() == cursoId) {
-                estudiante.setCurso(null);
-            } 
-
-            estudianteModuloRepository.deleteByEstudianteCodigo(estudianteId);
-
-            repository.save(estudiante);
-        } 
-    }
-
-    @Override
-    public void deleteAllEstudianteFromCurso(int idCurso) {
-        Optional<Curso> cursoOptional = cursoRepository.findById(idCurso);
-        
-        if (cursoOptional.isPresent()) {
-            Curso curso = cursoOptional.get();
-            List<Estudiante> estudiantesCurso = curso.getEstudiantes();
-
-            for (Estudiante estudiante : estudiantesCurso){
-                estudiante.setCurso(null);
-                estudianteModuloRepository.deleteByEstudianteCodigo(estudiante.getCodigo());
-                repository.save(estudiante);
-            }
-            
-        }
-
     }
 
     @Override

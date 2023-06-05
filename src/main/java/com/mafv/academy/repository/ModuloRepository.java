@@ -12,4 +12,5 @@ public interface ModuloRepository extends JpaRepository<Modulo, Integer>{
     
     List<Modulo> findByDocente(Docente docente);
     List<Modulo> findByCurso(Curso curso);
+
 }

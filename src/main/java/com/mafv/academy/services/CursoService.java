@@ -7,6 +7,8 @@ import org.springframework.data.domain.Pageable;
 
 import com.mafv.academy.models.Curso;
 import com.mafv.academy.models.Docente;
+import com.mafv.academy.models.Estudiante;
+import com.mafv.academy.models.Modulo;
 
 public interface CursoService {
     public List<Curso> findAll();
@@ -18,5 +20,6 @@ public interface CursoService {
     public void deleteById(int id);
     public void deleteAll();
     public void deleteTutor(int id);
+    public List<Estudiante> findEstudiantesByCurso(Curso curso);
 
 }

@@ -69,12 +69,12 @@
                         </tbody>
                     </table>
                 </div>
-                <a th:href="@{/modulos/create}" class="btn btn-info mb-3 rounded-2">Crear módulo</a>
+                <br>
+                <a th:href="@{/modulos/create/} + ${curso.codigo}" class="btn btn-info mb-3 rounded-2">Crear módulo</a>
             </div>
             <div class="col-md-2"></div>
             <div class="col-md-5">
                 <h4 class="mt-4 mb-4 text-center">Estudiantes</h4>
-                <a th:href="@{/cursos/delete/all/estudiante/} + ${curso.codigo}" class="btn btn-danger mb-3 rounded-2" th:if="${estudiantes.size()} ne 0">Borrar todos los estudiantes</a>
                 <div class="row">
                     <table class="table table-striped table-hover p-0 m-0 fs-6" th:if="${estudiantes.size()} ne 0">
                         <thead>

@@ -23,9 +23,6 @@ public class Curso {
     private Docente tutor;
 
     @OneToMany(mappedBy = "curso")
-    private List<Estudiante> estudiantes;
-
-    @OneToMany(mappedBy = "curso")
     private List<Modulo> modulos;
 
     public Curso() {
@@ -58,14 +55,6 @@ public class Curso {
 
     public void setTutor(Docente tutor) {
         this.tutor = tutor;
-    }
-
-    public List<Estudiante> getEstudiantes() {
-        return estudiantes;
-    }
-
-    public void setEstudiantes(List<Estudiante> estudiantes) {
-        this.estudiantes = estudiantes;
     }
 
     @Override

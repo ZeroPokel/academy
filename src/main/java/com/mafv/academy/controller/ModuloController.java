@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.mafv.academy.models.Curso;
 import com.mafv.academy.models.Docente;
 import com.mafv.academy.models.Estudiante;
 import com.mafv.academy.models.Modulo;
+import com.mafv.academy.services.CursoService;
 import com.mafv.academy.services.DocenteService;
 import com.mafv.academy.services.EstudianteService;
 import com.mafv.academy.services.ModuloService;
@@ -30,6 +32,9 @@ public class ModuloController {
 
     @Autowired
     DocenteService docentesService;
+
+    @Autowired
+    CursoService cursosService;
 
     @Autowired
     EstudianteService estudiantesService;
@@ -47,24 +52,34 @@ public class ModuloController {
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN')")
-    @GetMapping(value = "/create")
-    public ModelAndView create(Modulo modulo) {
+    @GetMapping(value = "/create/{cursoCodigo}")
+    public ModelAndView create(Modulo modulo,
+        @PathVariable(name = "cursoCodigo", required = true) int cursoCodigo) {
 
+        Curso curso = cursosService.findById(cursoCodigo);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("modulo", new Modulo());
+        modelAndView.addObject("curso", curso);
         modelAndView.setViewName("modulos/create");
 
         return modelAndView;
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN')")
-    @PostMapping(path = "/save")
-    public ModelAndView save(Modulo modulo) throws IOException {
+    @PostMapping(path = "/save/{cursoCodigo}")
+    public ModelAndView save(Modulo modulo,
+        @PathVariable(name = "cursoCodigo", required = true) int cursoCodigo) throws IOException {
 
+        Curso curso = cursosService.findById(cursoCodigo);
+        modulo.setCurso(curso);
         Modulo mod = modulosService.save(modulo);
+        List<Modulo> modulos = modulosService.findByCurso(curso);
+        modulos.add(mod);
+        curso.setModulos(modulos);
+        cursosService.save(curso);
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:edit/" + mod.getCodigo());
+        modelAndView.setViewName("redirect:/cursos/edit/" + cursoCodigo);
 
         return modelAndView;
     }
