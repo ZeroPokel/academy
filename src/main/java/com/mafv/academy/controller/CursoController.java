@@ -108,11 +108,11 @@ public class CursoController {
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN')")
-    @GetMapping(path = { "/edit/{id}" })
+    @GetMapping(path = { "/edit/{idCurso}" })
     public ModelAndView edit(
-            @PathVariable(name = "id", required = true) int id) {
+            @PathVariable(name = "idCurso", required = true) int idCurso) {
 
-        Curso curso = cursosService.findById(id);
+        Curso curso = cursosService.findById(idCurso);
         List<Docente> docentes = comprobarTutores();
         List<Estudiante> estudiantes = cursosService.findEstudiantesByCurso(curso);
         List<Modulo> modulos = modulosService.findByCurso(curso);
@@ -140,17 +140,17 @@ public class CursoController {
 
     // Al borrar un curso, se borran las relaciones también con las otras tablas
     @PreAuthorize("hasAnyAuthority('ADMIN')")
-    @GetMapping(path = { "/delete/{id}" })
+    @GetMapping(path = { "/delete/{idCurso}" })
     public ModelAndView delete(
-            @PathVariable(name = "id", required = true) int id) {
+            @PathVariable(name = "idCurso", required = true) int idCurso) {
 
-        Curso curso = cursosService.findById(id);
+        Curso curso = cursosService.findById(idCurso);
 
         if (curso.getTutor() != null){
-            cursosService.deleteTutor(id);
+            cursosService.deleteTutor(idCurso);
         }
 
-        cursosService.deleteById(id);
+        cursosService.deleteById(idCurso);
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/cursos/list");
@@ -162,11 +162,11 @@ public class CursoController {
 
     // Mostrar tutor del curso seleccionado
     @PreAuthorize("hasAnyAuthority('ADMIN')")
-    @GetMapping(path = { "/tutor/{id}" })
+    @GetMapping(path = { "/tutor/{idCurso}" })
     public ModelAndView mostrarTutor(
-        @PathVariable(name = "id", required = true) int id) {
+        @PathVariable(name = "idCurso", required = true) int idCurso) {
 
-        Docente tutor = docentesService.findById(id);
+        Docente tutor = docentesService.findById(idCurso);
         Curso curso = cursosService.findByTutor(tutor);
     
         ModelAndView modelAndView = new ModelAndView();

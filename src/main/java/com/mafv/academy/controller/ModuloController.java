@@ -52,11 +52,11 @@ public class ModuloController {
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN')")
-    @GetMapping(value = "/create/{cursoCodigo}")
+    @GetMapping(value = "/create/{idCurso}")
     public ModelAndView create(Modulo modulo,
-        @PathVariable(name = "cursoCodigo", required = true) int cursoCodigo) {
+        @PathVariable(name = "idCurso", required = true) int idCurso) {
 
-        Curso curso = cursosService.findById(cursoCodigo);
+        Curso curso = cursosService.findById(idCurso);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("modulo", new Modulo());
         modelAndView.addObject("curso", curso);
@@ -66,11 +66,11 @@ public class ModuloController {
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN')")
-    @PostMapping(path = "/save/{cursoCodigo}")
+    @PostMapping(path = "/save/{idCurso}")
     public ModelAndView save(Modulo modulo,
-        @PathVariable(name = "cursoCodigo", required = true) int cursoCodigo) throws IOException {
+        @PathVariable(name = "idCurso", required = true) int idCurso) throws IOException {
 
-        Curso curso = cursosService.findById(cursoCodigo);
+        Curso curso = cursosService.findById(idCurso);
         modulo.setCurso(curso);
         Modulo mod = modulosService.save(modulo);
         List<Modulo> modulos = modulosService.findByCurso(curso);
@@ -79,17 +79,17 @@ public class ModuloController {
         cursosService.save(curso);
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:/cursos/edit/" + cursoCodigo);
+        modelAndView.setViewName("redirect:/cursos/edit/" + idCurso);
 
         return modelAndView;
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN')")
-    @GetMapping(path = { "/edit/{id}" })
+    @GetMapping(path = { "/edit/{idModulo}" })
     public ModelAndView edit(
-            @PathVariable(name = "id", required = true) int id) {
+            @PathVariable(name = "idModulo", required = true) int idModulo) {
 
-        Modulo modulo = modulosService.findById(id);
+        Modulo modulo = modulosService.findById(idModulo);
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("modulo", modulo);
@@ -110,11 +110,11 @@ public class ModuloController {
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN')")
-    @GetMapping(path = { "/delete/{id}" })
+    @GetMapping(path = { "/delete/{idModulo}" })
     public ModelAndView delete(
-            @PathVariable(name = "id", required = true) int id) {
+            @PathVariable(name = "idModulo", required = true) int idModulo) {
 
-        modulosService.deleteById(id);
+        modulosService.deleteById(idModulo);
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/modulos/list");
@@ -178,11 +178,11 @@ public class ModuloController {
 
     // Mostrar docentes para añadir uno al modulo seleccionado 
     @PreAuthorize("hasAnyAuthority('ADMIN')")
-    @GetMapping(path = { "/select/docente/{id}"})
+    @GetMapping(path = { "/select/docente/{idDocente}"})
     public ModelAndView selectDocente(
-        @PathVariable(name = "id", required = true) int id){
+        @PathVariable(name = "idDocente", required = true) int idDocente){
 
-        Modulo modulo = modulosService.findById(id);
+        Modulo modulo = modulosService.findById(idDocente);
         List<Docente> docentes = docentesService.findAll();
     
         ModelAndView modelAndView = new ModelAndView();            

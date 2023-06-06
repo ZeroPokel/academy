@@ -36,8 +36,8 @@ public class EstudianteServiceImpl implements EstudianteService{
     }
 
     @Override
-    public Estudiante findById(int id) {
-        Optional<Estudiante> findById = repository.findById(id);
+    public Estudiante findById(int idEstudiante) {
+        Optional<Estudiante> findById = repository.findById(idEstudiante);
         if(findById != null){
             return findById.get();
         }
@@ -51,8 +51,8 @@ public class EstudianteServiceImpl implements EstudianteService{
         List<EstudianteModulo> estudianteModulos = estudiante.getEstudianteModulos();
         if (estudianteModulos != null){
             for (EstudianteModulo estudianteModulo : estudianteModulos){
-                EstudianteModuloKey id = new EstudianteModuloKey(estudiante.getCodigo(), estudianteModulo.getModulo().getCodigo());
-                estudianteModulo.setCodigo(id);
+                EstudianteModuloKey idEstudianteModulo = new EstudianteModuloKey(estudiante.getCodigo(), estudianteModulo.getModulo().getCodigo());
+                estudianteModulo.setCodigo(idEstudianteModulo);
                 estudianteModuloRepository.save(estudianteModulo);
             }
         }
@@ -71,8 +71,8 @@ public class EstudianteServiceImpl implements EstudianteService{
     }
 
     @Override
-    public void deleteById(int id) {
-        repository.deleteById(id);
+    public void deleteById(int idEstudiante) {
+        repository.deleteById(idEstudiante);
     }
 
     @Override
@@ -81,8 +81,8 @@ public class EstudianteServiceImpl implements EstudianteService{
     }
 
     @Override
-    public List<Estudiante> findByModulo(int id) {
-        List<EstudianteModulo> estudianteModulos = estudianteModuloRepository.findByModuloCodigo(id);
+    public List<Estudiante> findByModulo(int idModulo) {
+        List<EstudianteModulo> estudianteModulos = estudianteModuloRepository.findByModuloCodigo(idModulo);
         List<Estudiante> estudiantes = new ArrayList<Estudiante>();
 
         for (EstudianteModulo estMod : estudianteModulos){

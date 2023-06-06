@@ -12,13 +12,13 @@ import com.mafv.academy.models.Estudiante;
 public interface CursoService {
     public List<Curso> findAll();
     public Page<Curso> findAll(Pageable page);
-    public Curso findById(int id);
+    public Curso findById(int idCurso);
     public Curso findByTutor(Docente tutor);
     public Curso save(Curso curso);
     public void update(Curso curso);
-    public void deleteById(int id);
+    public void deleteById(int idCurso);
     public void deleteAll();
-    public void deleteTutor(int id);
+    public void deleteTutor(int idCurso);
     public List<Estudiante> findEstudiantesByCurso(Curso curso);
 
 }

@@ -34,8 +34,8 @@ public class ModuloServiceImpl implements ModuloService{
     }
 
     @Override
-    public Modulo findById(int id) {
-        Optional<Modulo> findById = repository.findById(id);
+    public Modulo findById(int idModulo) {
+        Optional<Modulo> findById = repository.findById(idModulo);
         if(findById != null){
             return findById.get();
         }
@@ -53,8 +53,8 @@ public class ModuloServiceImpl implements ModuloService{
     }
 
     @Override
-    public void deleteById(int id) {
-        repository.deleteById(id);
+    public void deleteById(int idModulo) {
+        repository.deleteById(idModulo);
     }
 
     @Override
@@ -73,25 +73,25 @@ public class ModuloServiceImpl implements ModuloService{
     }
 
     @Override
-    public void deleteModuloFromCurso(int moduloId, int cursoId) {
-        Optional<Modulo> moduloOptional = repository.findById(moduloId);
+    public void deleteModuloFromCurso(int idModulo, int idCurso) {
+        Optional<Modulo> moduloOptional = repository.findById(idModulo);
 
         if (moduloOptional.isPresent()) {
             Modulo modulo = moduloOptional.get();
             
-            if (modulo.getCurso().getCodigo() == cursoId) {
+            if (modulo.getCurso().getCodigo() == idCurso) {
                 modulo.setCurso(null);
             } 
 
-            estudianteModuloRepository.deleteByModuloCodigo(moduloId);
+            estudianteModuloRepository.deleteByModuloCodigo(idModulo);
 
             repository.save(modulo);
         } 
     }
 
     @Override
-    public void deleteEstudianteFromModulo(int moduloId, int estudianteId) {
+    public void deleteEstudianteFromModulo(int idModulo, int idEstudiante) {
         
-        estudianteModuloRepository.deleteByModuloCodigoAndEstudianteCodigo(moduloId, estudianteId);
+        estudianteModuloRepository.deleteByModuloCodigoAndEstudianteCodigo(idModulo, idEstudiante);
     }
 }

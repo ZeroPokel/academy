@@ -33,8 +33,8 @@ public class CursoServiceImpl implements CursoService{
     }
 
     @Override
-    public Curso findById(int id) {
-        Optional<Curso> findById = repository.findById(id);
+    public Curso findById(int idCurso) {
+        Optional<Curso> findById = repository.findById(idCurso);
         if(findById != null){
             return findById.get();
         }
@@ -52,8 +52,8 @@ public class CursoServiceImpl implements CursoService{
     }
 
     @Override
-    public void deleteById(int id) {
-        repository.deleteById(id);
+    public void deleteById(int idCurso) {
+        repository.deleteById(idCurso);
     }
 
     @Override
@@ -67,8 +67,8 @@ public class CursoServiceImpl implements CursoService{
     }
 
     @Override
-    public void deleteTutor(int id) {
-        Curso curso = repository.findById(id).get();
+    public void deleteTutor(int idCurso) {
+        Curso curso = repository.findById(idCurso).get();
 
         curso.setTutor(null);
         repository.save(curso);

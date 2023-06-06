@@ -90,11 +90,11 @@ public class DocenteController {
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN')")
-    @GetMapping(path = { "/edit/{id}" })
+    @GetMapping(path = { "/edit/{idDocente}" })
     public ModelAndView edit(
-            @PathVariable(name = "id", required = true) int id) {
+            @PathVariable(name = "idDocente", required = true) int idDocente) {
 
-        Docente docente = docentesService.findById(id);
+        Docente docente = docentesService.findById(idDocente);
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("docente", docente);
@@ -120,12 +120,12 @@ public class DocenteController {
 
     // Muestra información del docente seleccionado
     @PreAuthorize("#username == authentication.principal.username")
-    @GetMapping(path = { "/info/{codigo}/{username}"})
+    @GetMapping(path = { "/info/{idDocente}/{username}"})
     public ModelAndView infoDocente(
-            @PathVariable(name = "codigo", required = true) int codigo,
+            @PathVariable(name = "idDocente", required = true) int idDocente,
             @PathVariable(name = "username", required = true) String username){
 
-        Docente docente = docentesService.findById(codigo);
+        Docente docente = docentesService.findById(idDocente);
         List<Modulo> modulos = docente.getModulos();
 
         ModelAndView modelAndView = new ModelAndView();
@@ -137,12 +137,12 @@ public class DocenteController {
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN')")
-    @GetMapping(path = { "/delete/{id}" })
+    @GetMapping(path = { "/delete/{idDocente}" })
     public ModelAndView delete(
-            @PathVariable(name = "id", required = true) int id) {
+            @PathVariable(name = "idDocente", required = true) int idDocente) {
 
         // Se comprueba si el docente es tutor de un curso, si lo es, borrará el tutor del curso
-        Docente docente = docentesService.findById(id);
+        Docente docente = docentesService.findById(idDocente);
         Curso curso = cursosService.findByTutor(docente);
         
         if(curso != null){
@@ -151,10 +151,10 @@ public class DocenteController {
 
         // Además se comprueba si el docenete imparte en algún módulo, si lo hace, será eliminado como docente del módulo
         if(docente.getModulos().size() != 0){
-            docentesService.deleteDocenteFromAllModulo(id);
+            docentesService.deleteDocenteFromAllModulo(idDocente);
         }
 
-        docentesService.deleteById(id);
+        docentesService.deleteById(idDocente);
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/docentes/list");

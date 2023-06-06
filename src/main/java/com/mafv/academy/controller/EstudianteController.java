@@ -85,11 +85,11 @@ public class EstudianteController {
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN')")
-    @GetMapping(path = { "/edit/{id}" })
+    @GetMapping(path = { "/edit/{idEstudiante}" })
     public ModelAndView edit(
-            @PathVariable(name = "id", required = true) int id) {
+            @PathVariable(name = "idEstudiante", required = true) int idEstudiante) {
 
-        Estudiante estudiante = estudiantesService.findById(id);
+        Estudiante estudiante = estudiantesService.findById(idEstudiante);
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("estudiante", estudiante);
@@ -114,11 +114,11 @@ public class EstudianteController {
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN')")
-    @GetMapping(path = { "/delete/{id}" })
+    @GetMapping(path = { "/delete/{idEstudiante}" })
     public ModelAndView delete(
-            @PathVariable(name = "id", required = true) int id) {
+            @PathVariable(name = "idEstudiante", required = true) int idEstudiante) {
 
-        estudiantesService.deleteById(id);
+        estudiantesService.deleteById(idEstudiante);
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/estudiantes/list");
@@ -128,12 +128,12 @@ public class EstudianteController {
 
     // Muestra información del estudiante seleccionado
     @PreAuthorize("#username == authentication.principal.username")
-    @GetMapping(path = { "/info/{codigo}/{username}"})
+    @GetMapping(path = { "/info/{idEstudiante}/{username}"})
     public ModelAndView infoEstudiante(
-            @PathVariable(name = "codigo", required = true) int codigo,
+            @PathVariable(name = "idEstudiante", required = true) int idEstudiante,
             @PathVariable(name = "username", required = true) String username){
 
-        Estudiante estudiante = estudiantesService.findById(codigo);
+        Estudiante estudiante = estudiantesService.findById(idEstudiante);
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("estudiante", estudiante);

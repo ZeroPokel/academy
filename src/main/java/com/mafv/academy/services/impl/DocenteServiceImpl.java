@@ -29,8 +29,8 @@ public class DocenteServiceImpl implements DocenteService{
     }
 
     @Override
-    public Docente findById(int id) {
-        Optional<Docente> findById = repository.findById(id);
+    public Docente findById(int idDocente) {
+        Optional<Docente> findById = repository.findById(idDocente);
         if(findById != null){
             return findById.get();
         }
@@ -54,8 +54,8 @@ public class DocenteServiceImpl implements DocenteService{
     }
 
     @Override
-    public void deleteById(int id) {
-        repository.deleteById(id);
+    public void deleteById(int idDocente) {
+        repository.deleteById(idDocente);
     }
 
     @Override
@@ -64,8 +64,8 @@ public class DocenteServiceImpl implements DocenteService{
     }
 
     @Override
-    public void deleteDocenteFromAllModulo(int id) {
-        Docente docente = repository.findById(id).get();
+    public void deleteDocenteFromAllModulo(int idDocente) {
+        Docente docente = repository.findById(idDocente).get();
         List<Modulo> modulos = moduloRepository.findByDocente(docente);
 
         if (modulos != null){
