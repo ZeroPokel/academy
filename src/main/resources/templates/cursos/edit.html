@@ -4,9 +4,10 @@
 <body>
 
     <div th:replace="commons/menu :: menu"></div>
+    <h1 class="mt-4 mb-4 text-center" th:text="'Curso ' + ${curso.nombre}"></h1>
     <div class="container mb-4">
         <form class="row g-3" method="post" th:action="@{/cursos/update}">
-                <legend th:text="'Editar curso ' + ${curso.nombre}">Editar curso</legend>
+                <legend th:text="'Editar curso'">Editar curso</legend>
                 <div class="row">
                     <div class="col-md-3">
                         <label for="codigo" class="form-label mt-4">Codigo</label>
@@ -16,13 +17,58 @@
                         <label for="nombre" class="form-label mt-4">Nombre</label>
                         <input type="text" class="form-control rounded-2" id="nombre" name="nombre" th:value="${curso.nombre}" placeholder="Introduce el nombre">
                     </div>
+                    <div class="col-md-3" th:if="${curso.tutor eq null}">
+                        <div class="form-group">
+                            <label for="tutor" class="form-label mt-4" name="tutor">Tutor</label>
+                            <select class="form-select" id="tutor" name="tutor" th:value="${curso.tutor}">
+                                <option th:if="${curso.tutor eq null}" name="tutor" id="tutor" selected="selected"></option>
+                                    <div th:each="docente : ${docentes}">
+                                        <div th:if="${curso.tutor ne null}">
+                                            <option th:if="${curso.tutor.codigo eq docente.getCodigo}" name="tutor" id="tutor" th:value="${docente.codigo}" th:text="|${docente.nombre} ${docente.apellidos}|" selected="selected"></option>
+                                        </div>
+                                        <option th:if="${docente.isEsTutor eq false}" name="tutor" id="tutor" th:value="${docente.codigo}" th:text="|${docente.nombre} ${docente.apellidos}|"></option>
+                                    </div>
+                            </select>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-4">
                     <button type="submit" class="btn btn-success rounded-2">Confirmar</button>
                     <a type="button" class="rounded-2 btn btn-danger" th:href="@{/cursos/list}">Atrás</a>
                 </div>
         </form>
+        <div class="col-md-5 mt-4" th:if="${curso.tutor ne null}">
+            <h4 th:text="'Tutor: ' + ${curso.tutor.nombre} + ' ' + ${curso.tutor.apellidos}"></h4>
+            <a type="button" th:href="@{/cursos/tutor/}+${curso.tutor.codigo}" class="btn btn-info rounded-2" th:text="'Ver tutor'"></a>
+        </div>
     </div>
+    <!--<div class="container mb-4" th:if="${curso.tutor ne null}">
+        <div class="row">
+            <div class="col-md-3">
+                <label for="codigo" class="form-label mt-4">Codigo</label>
+                <input type="text" class="form-control rounded-2" id="codigo" name="codigo" th:value="${curso.codigo}" readonly>
+            </div>
+            <div class="col-md-3">
+                <label for="nombre" class="form-label mt-4">Nombre</label>
+                <input type="text" class="form-control rounded-2" id="nombre" name="nombre" th:value="${curso.nombre}" placeholder="Introduce el nombre">
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="tutor" class="form-label mt-4" name="tutor">Tutor</label>
+                    <select class="form-select" id="tutor" name="tutor" th:value="${curso.tutor}">
+                        <option th:if="${curso.tutor eq null}" name="tutor" id="tutor" selected="selected"></option>
+                            <div th:each="docente : ${docentes}">
+                                <div th:if="${curso.tutor ne null}">
+                                    <option th:if="${curso.tutor.codigo eq docente.getCodigo}" name="tutor" id="tutor" th:value="${docente.codigo}" th:text="|${docente.nombre} ${docente.apellidos}|" selected="selected"></option>
+                                </div>
+                                <option th:if="${docente.isEsTutor eq false}" name="tutor" id="tutor" th:value="${docente.codigo}" th:text="|${docente.nombre} ${docente.apellidos}|"></option>
+                            </div>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>-->
+
     <div class="container">
         <div class="row">
             <div class="col-md-5">

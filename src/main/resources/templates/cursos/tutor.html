@@ -39,7 +39,7 @@
                         </div>
                     </div>
                     <div class="mt-5">
-                        <a th:href="@{/cursos/list}" type="button" class="btn btn-danger rounded-2">Atrás</a>
+                        <a th:href="@{/cursos/edit/} + ${curso.codigo}" type="button" class="btn btn-danger rounded-2">Atrás</a>
                         <button type="button" class="btn btn-danger rounded-2" data-bs-toggle="modal" data-bs-target="#deleteModal" th:attr="data-bs-target='#deleteModal'+${tutor.codigo}">Eliminar</button>                      
                     </div>
                     <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" th:id="deleteModal+${tutor.codigo}" aria-hidden="true">
@@ -52,7 +52,7 @@
                                     <p class="mb-0">El tutor va a ser eliminado del curso, este cambio no se podrá deshacer, ¿estás seguro?</p>
                                 </div>
                                 <div class="modal-footer">
-                                    <a type="button" class="btn btn-success rounded-2" th:href="@{/cursos/delete/tutor/{id}(id=${tutor.codigo})}">Confirmar</a>
+                                    <a type="button" class="btn btn-success rounded-2" th:href="@{/cursos/delete/tutor/{idCurso}(idCurso = ${curso.codigo})}">Confirmar</a>
                                     <button type="button" class="btn btn-danger rounded-2" data-bs-dismiss="modal">Cancelar</button>
                                 </div>
                             </div>

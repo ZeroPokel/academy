@@ -177,7 +177,7 @@ public class CursoController {
         return modelAndView;
     }
 
-    // Mostrar docentes que no son tutores para añadir uno al curso seleccionado 
+    // Mostrar docentes que no son tutores para añadir uno al curso seleccionado  - EN DESUSO POR AHORA
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping(path = { "/select/tutor/{id}"})
     public ModelAndView selectTutor(
@@ -194,7 +194,7 @@ public class CursoController {
         return modelAndView;
     }
 
-    // Añadir un docente al curso seleccionado sin tutor
+    // Añadir un docente al curso seleccionado sin tutor - EN DESUSO POR AHORA
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping(path = { "/add/tutor/{idTutor}/curso/{idCurso}"})
     public ModelAndView addTutor(
@@ -215,14 +215,14 @@ public class CursoController {
 
     // Borrado de tutor de un curso
     @PreAuthorize("hasAnyAuthority('ADMIN')")
-    @GetMapping(path = { "/delete/tutor/{id}" })
+    @GetMapping(path = { "/delete/tutor/{idCurso}" })
     public ModelAndView deleteTutor(
-            @PathVariable(name = "id", required = true) int id) {
+            @PathVariable(name = "idCurso", required = true) int idCurso) {
 
-        cursosService.deleteTutor(id);
+        cursosService.deleteTutor(idCurso);
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:/cursos/list");
+        modelAndView.setViewName("redirect:/cursos/edit/" + idCurso);
 
         return modelAndView;
     }
