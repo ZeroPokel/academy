@@ -38,8 +38,12 @@
                             <input type="text" class="form-control rounded-2" placeholder="sexo" th:value="${docente.sexo}" readonly>
                         </div>
                     </div>
-                    <div class="mt-5">
+                    <div class="mt-5" th:if="${idCurso eq null}">
                         <a th:href="@{/modulos/list}" type="button" class="btn btn-success rounded-2">Atrás</a>
+                        <button type="button" class="btn btn-danger rounded-2" data-bs-toggle="modal" data-bs-target="#deleteModal" th:attr="data-bs-target='#deleteModal'+${docente.codigo}">Eliminar</button>                      
+                    </div>
+                    <div class="mt-5" th:if="${idCurso ne null}">
+                        <a th:href="@{/cursos/edit/{idCurso}(idCurso = ${idCurso})}" type="button" class="btn btn-success rounded-2">Atrás</a>
                         <button type="button" class="btn btn-danger rounded-2" data-bs-toggle="modal" data-bs-target="#deleteModal" th:attr="data-bs-target='#deleteModal'+${docente.codigo}">Eliminar</button>                      
                     </div>
                     <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" th:id="deleteModal+${docente.codigo}" aria-hidden="true">

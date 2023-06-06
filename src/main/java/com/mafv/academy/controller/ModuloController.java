@@ -156,6 +156,26 @@ public class ModuloController {
         return modelAndView;
     }
 
+    // Mostrar docente del modulo seleccionado desde la vista de curso
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @GetMapping(path = { "/docente/{idDocente}/modulo/{idModulo}/curso/{idCurso}" })
+    public ModelAndView verDocenteDeModuloCurso(
+        @PathVariable(name = "idDocente", required = true) int idDocente,
+        @PathVariable(name = "idModulo", required = true) int idModulo,
+        @PathVariable(name = "idCurso", required = true) int idCurso) {
+
+        Docente docente = docentesService.findById(idDocente);
+        Modulo modulo = modulosService.findById(idModulo);
+    
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("docente", docente);
+        modelAndView.addObject("modulo", modulo);
+        modelAndView.addObject("idCurso", idCurso);
+        modelAndView.setViewName("modulos/docente");
+    
+        return modelAndView;
+    }
+
     // Mostrar docentes para añadir uno al modulo seleccionado 
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping(path = { "/select/docente/{id}"})
