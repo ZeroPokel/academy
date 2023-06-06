@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.mafv.academy.models.Curso;
 import com.mafv.academy.models.Docente;
 import com.mafv.academy.models.Estudiante;
-import com.mafv.academy.models.Modulo;
 import com.mafv.academy.repository.CursoRepository;
 import com.mafv.academy.services.CursoService;
 

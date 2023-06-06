@@ -9,7 +9,6 @@ import org.springframework.data.repository.query.Param;
 import com.mafv.academy.models.Curso;
 import com.mafv.academy.models.Docente;
 import com.mafv.academy.models.Estudiante;
-import com.mafv.academy.models.Modulo;
 
 public interface CursoRepository extends JpaRepository<Curso, Integer>{
     
