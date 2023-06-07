@@ -54,7 +54,24 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
             </form>-->
           </div>
         </div>
-        <a class="btn btn-outline-success mx-4" value="Logout" th:href="@{/logout}"><i class="bi bi-box-arrow-in-left"></i></a>
+        <a class="btn btn-outline-success mx-4" data-bs-toggle="modal" data-bs-target="#logoutModal"><i class="bi bi-box-arrow-in-left"></i></a>
+          <!-- Modal, alerta que salta cuando le das al botón de logout, pidiendote confirmar la acción -->
+        <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+              <div class="modal-content rounded-2">
+                  <div class="modal-header">
+                      <h3 class="modal-title" id="logoutModalLabel">Cerrar sesión</h3>
+                  </div>
+                  <div class="modal-body">
+                      <p class="mb-0">Vas a desconectarte, ¿estás seguro?</p>
+                  </div>
+                  <div class="modal-footer">
+                      <a type="button" class="btn btn-success rounded-2" th:href="@{/logout}">Confirmar</a>
+                      <button type="button" class="btn btn-danger rounded-2" data-bs-dismiss="modal">Cancelar</button>
+                  </div>
+              </div>
+          </div>
+        </div>
       </nav>
   </div> 
 </body>
