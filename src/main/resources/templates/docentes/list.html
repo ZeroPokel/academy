@@ -63,11 +63,11 @@
                         <tr class="table-light text p-0 m-0 align-middle" th:if="${curso ne null or modulo ne null}">
                             <td th:text="|${docente.nombre} ${docente.apellidos}|"></td>
                             <td th:text="${docente.dni}"></td>
-                            <td th:if="${curso ne null}">
+                            <td th:if="${modulo eq null}">
                                 <a th:href="@{/cursos/add/tutor/{idTutor}/curso/{idCurso}(idTutor = ${docente.codigo}, idCurso = ${curso.codigo})}" class="btn btn-success bi bi-check fs-4 rounded-2" data-bs-tooltip="tooltip" data-bs-placement="top" title="Añadir tutor"></a>                
                             </td>
                             <td th:if="${modulo ne null}">
-                                <a th:href="@{/modulos/add/docente/{idDocente}/modulo/{idModulo}(idDocente = ${docente.codigo}, idModulo = ${modulo.codigo})}" class="btn btn-success bi bi-check fs-4 rounded-2" data-bs-tooltip="tooltip" data-bs-placement="top" title="Añadir docente"></a>                
+                                <a th:href="@{/modulos/add/docente/{idDocente}/modulo/{idModulo}/{idCurso}(idDocente = ${docente.codigo}, idModulo = ${modulo.codigo}, idCurso = ${curso.codigo})}" class="btn btn-success bi bi-check fs-4 rounded-2" data-bs-tooltip="tooltip" data-bs-placement="top" title="Añadir docente"></a>                
                             </td>
                         </tr>  
                     </div>

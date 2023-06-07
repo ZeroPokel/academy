@@ -127,7 +127,26 @@ public class ModuloController {
         return modelAndView;
     }
 
-    // Borrado de docente de un modulo
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @GetMapping(path = { "/delete/{idModulo}/{idCurso}" })
+    public ModelAndView deleteModuloDesdeCurso(
+            @PathVariable(name = "idModulo", required = true) int idModulo,
+            @PathVariable(name = "idCurso", required = true) int idCurso) {
+
+        ModelAndView modelAndView = new ModelAndView();
+        Modulo modulo = modulosService.findById(idModulo);
+
+        if (modulosService.findModuloEstudiante(idModulo) && modulo.getDocente() == null){
+            modulosService.deleteById(idModulo);
+            modelAndView.setViewName("redirect:/cursos/edit/" + idCurso + "?deleteModuloTrue=" + true);
+        } else {
+            modelAndView.setViewName("redirect:/cursos/edit/" + idCurso + "?deleteModuloFalse=" + true);
+        }
+
+        return modelAndView;
+    }
+
+    /* Borrado de docente de un modulo
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping(path = { "/delete/docente/modulo/{idModulo}" })
     public ModelAndView deleteDocente(
@@ -139,6 +158,24 @@ public class ModuloController {
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/modulos/list?deleteDocente=" + true);
+
+        return modelAndView;
+    }
+    */
+    
+    // Borrado de docente de un modulo desde curso
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @GetMapping(path = { "/delete/docente/modulo/{idModulo}/{idCurso}" })
+    public ModelAndView deleteDocenteDesdeCuso(
+        @PathVariable(name = "idModulo", required = true) int idModulo,
+        @PathVariable(name = "idModulo", required = true) int idCurso) {
+
+        Modulo modulo = modulosService.findById(idModulo);
+        modulo.setDocente(null);
+        modulosService.save(modulo);
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("redirect:/cursos/edit/" + idCurso + "?deleteDocente=" + true);
 
         return modelAndView;
     }
@@ -183,16 +220,19 @@ public class ModuloController {
 
     // Mostrar docentes para añadir uno al modulo seleccionado 
     @PreAuthorize("hasAnyAuthority('ADMIN')")
-    @GetMapping(path = { "/select/docente/{idDocente}"})
+    @GetMapping(path = { "/select/docente/{idDocente}/{idCurso}"})
     public ModelAndView selectDocente(
-        @PathVariable(name = "idDocente", required = true) int idDocente){
+        @PathVariable(name = "idDocente", required = true) int idDocente,
+        @PathVariable(name = "idCurso", required = true) int idCurso){
 
         Modulo modulo = modulosService.findById(idDocente);
         List<Docente> docentes = docentesService.findAll();
+        Curso curso = cursosService.findById(idCurso);
     
         ModelAndView modelAndView = new ModelAndView();            
         modelAndView.addObject("modulo", modulo);
         modelAndView.addObject("docentes", docentes);
+        modelAndView.addObject("curso", curso);
         modelAndView.setViewName("docentes/list");
     
         return modelAndView;
@@ -200,10 +240,11 @@ public class ModuloController {
     
     // Añadir un docente al modulo seleccionado
     @PreAuthorize("hasAnyAuthority('ADMIN')") 
-    @GetMapping(path = { "/add/docente/{idDocente}/modulo/{idModulo}"})
+    @GetMapping(path = { "/add/docente/{idDocente}/modulo/{idModulo}/{idCurso}"})
     public ModelAndView addDocente(
         @PathVariable(name = "idModulo", required = true) int idModulo,
-        @PathVariable(name = "idDocente", required = true) int idDocente){
+        @PathVariable(name = "idDocente", required = true) int idDocente,
+        @PathVariable(name = "idCurso", required = true) int idCurso){
     
         Modulo modulo = modulosService.findById(idModulo);
         Docente docente = docentesService.findById(idDocente);
@@ -212,7 +253,7 @@ public class ModuloController {
         modulosService.save(modulo);
     
         ModelAndView modelAndView = new ModelAndView();            
-        modelAndView.setViewName("redirect:/modulos/list");
+        modelAndView.setViewName("redirect:/cursos/edit/" + idCurso);
     
         return modelAndView;
     }

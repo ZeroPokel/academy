@@ -38,9 +38,7 @@
                             <td>
                                 <a th:href="@{/modulos/edit/}+${modulo.codigo}" class="btn btn-info bi bi-pen fs-4 rounded-2" data-bs-tooltip="tooltip" data-bs-placement="top" title="Editar módulo"></a>
                                 <button type="button" class="btn btn-danger bi bi-trash fs-4 rounded-2" data-bs-tooltip="tooltip" data-bs-placement="top" title="Borrar módulo" data-bs-toggle="modal" data-bs-target="#deleteModal" th:attr="data-bs-target='#deleteModal'+${modulo.codigo}"></button>                      
-                                <a th:if="${modulo.docente ne null}" th:href="@{/modulos/docente/{idDocente}/modulo/{idModulo}(idDocente = ${modulo.docente.codigo}, idModulo = ${modulo.codigo})}" class="btn btn-info bi-person fs-4 rounded-2" role="button" data-bs-tooltip="tooltip" data-bs-placement="top" title="Docente"></a>
-                                <a th:unless="${modulo.docente ne null}" th:href="@{/modulos/select/docente/}+${modulo.codigo}" class="btn btn-info bi-person-plus fs-4 rounded-2" role="button" data-bs-tooltip="tooltip" data-bs-placement="top" title="Añadir docente"></a>
-                                
+                                <a th:if="${modulo.docente ne null}" th:href="@{/modulos/docente/{idDocente}/modulo/{idModulo}(idDocente = ${modulo.docente.codigo}, idModulo = ${modulo.codigo})}" class="btn btn-info bi-person fs-4 rounded-2" role="button" data-bs-tooltip="tooltip" data-bs-placement="top" title="Docente"></a>                                
                                 <!-- Modal, alerta que salta cuando le das a uno de los botones de eliminar para borrar dicha fila -->
                                 <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" th:id="deleteModal+${modulo.codigo}" aria-hidden="true">
                                     <div class="modal-dialog">
