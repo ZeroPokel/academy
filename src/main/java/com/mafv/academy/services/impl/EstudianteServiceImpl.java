@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.mafv.academy.models.Estudiante;
 import com.mafv.academy.models.EstudianteModulo;
 import com.mafv.academy.models.EstudianteModuloKey;
-import com.mafv.academy.repository.CursoRepository;
 import com.mafv.academy.repository.EstudianteModuloRepository;
 import com.mafv.academy.repository.EstudianteRepository;
 import com.mafv.academy.services.EstudianteService;
@@ -26,9 +25,6 @@ public class EstudianteServiceImpl implements EstudianteService{
 
     @Autowired
     EstudianteModuloRepository estudianteModuloRepository;
-
-    @Autowired
-    CursoRepository cursoRepository;
 
     @Override
     public List<Estudiante> findAll() {
