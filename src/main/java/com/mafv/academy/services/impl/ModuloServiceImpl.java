@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.mafv.academy.models.Curso;
 import com.mafv.academy.models.Docente;
+import com.mafv.academy.models.EstudianteModulo;
 import com.mafv.academy.models.Modulo;
 import com.mafv.academy.repository.CursoRepository;
 import com.mafv.academy.repository.EstudianteModuloRepository;
@@ -93,5 +94,12 @@ public class ModuloServiceImpl implements ModuloService{
     public void deleteEstudianteFromModulo(int idModulo, int idEstudiante) {
         
         estudianteModuloRepository.deleteByModuloCodigoAndEstudianteCodigo(idModulo, idEstudiante);
+    }
+
+    @Override
+    public Boolean findModuloEstudiante(int idModulo){
+        List<EstudianteModulo> estudianteModulo = estudianteModuloRepository.findByModuloCodigo(idModulo);
+
+        return estudianteModulo.size() == 0 ? true : false;
     }
 }

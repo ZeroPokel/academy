@@ -114,10 +114,15 @@ public class ModuloController {
     public ModelAndView delete(
             @PathVariable(name = "idModulo", required = true) int idModulo) {
 
-        modulosService.deleteById(idModulo);
-
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:/modulos/list");
+        Modulo modulo = modulosService.findById(idModulo);
+
+        if (modulosService.findModuloEstudiante(idModulo) && modulo.getDocente() == null){
+            modulosService.deleteById(idModulo);
+            modelAndView.setViewName("redirect:/modulos/list?deleteModuloTrue=" + true);
+        } else {
+            modelAndView.setViewName("redirect:/modulos/list?deleteModuloFalse=" + true);
+        }
 
         return modelAndView;
     }
@@ -133,7 +138,7 @@ public class ModuloController {
         modulosService.save(modulo);
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:/modulos/list");
+        modelAndView.setViewName("redirect:/modulos/list?deleteDocente=" + true);
 
         return modelAndView;
     }
