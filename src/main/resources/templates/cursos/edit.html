@@ -80,7 +80,7 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-md-5">
+            <div class="col-md-6">
                 <h4 class="mt-4 mb-4 text-center">Módulos</h4>
                 <div class="row">
                     <table class="table table-striped table-hover p-0 m-0 fs-6" th:if="${modulos.size()} ne 0">
@@ -102,7 +102,8 @@
                                         <button type="button" class="btn-mini btn-danger bi bi-trash fs-6 rounded-2" data-bs-tooltip="tooltip" data-bs-placement="top" title="Borrar módulo" data-bs-toggle="modal" data-bs-target="#deleteModal" th:attr="data-bs-target='#deleteModal'+${modulo.codigo}"></button>                      
                                         <a th:if="${modulo.docente ne null}" th:href="@{/modulos/docente/{idDocente}/modulo/{idModulo}/curso/{idCurso}(idDocente = ${modulo.docente.codigo}, idModulo = ${modulo.codigo}, idCurso = ${curso.codigo})}" class="btn-mini btn-info bi-person fs-6 rounded-2" role="button" data-bs-tooltip="tooltip" data-bs-placement="top" title="Docente"></a>
                                         <a th:unless="${modulo.docente ne null}" th:href="@{/modulos/select/docente/{idModulo}/{idCurso}(idModulo = ${modulo.codigo}, idCurso = ${curso.codigo})}" class="btn-mini btn-info bi-person-plus fs-6 rounded-2" role="button" data-bs-tooltip="tooltip" data-bs-placement="top" title="Añadir docente"></a>
-                                        <a th:href="@{/modulos/list/estudiante/{idModulo}/(idModulo = ${modulo.codigo})}" class="btn-mini btn-info bi-book fs-6 rounded-2" role="button" data-bs-tooltip="tooltip" data-bs-placement="top" title="Añadir estudiante"></a>
+                                        <a th:href="@{/modulos/list/estudiantes/{idModulo}/(idModulo = ${modulo.codigo})}" class="btn-mini btn-info bi-book fs-6 rounded-2" role="button" data-bs-tooltip="tooltip" data-bs-placement="top" title="Listar estudiante"></a>
+                                        <a th:href="@{/modulos/list/add/estudiante/{idModulo}/(idModulo = ${modulo.codigo})}" class="btn-mini btn-info bi-book fs-6 rounded-2" role="button" data-bs-tooltip="tooltip" data-bs-placement="top" title="Añadir estudiante"></a>
                                     </td>
                                     <!-- Modal, alerta que salta cuando le das a uno de los botones de eliminar para borrar dicha fila -->
                                     <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" th:id="deleteModal+${modulo.codigo}" aria-hidden="true">
@@ -129,7 +130,7 @@
                 <br>
                 <a th:href="@{/modulos/create/} + ${curso.codigo}" class="btn btn-info mb-3 rounded-2">Crear módulo</a>
             </div>
-            <div class="col-md-2"></div>
+            <div class="col-md-1"></div>
             <div class="col-md-5">
                 <h4 class="mt-4 mb-4 text-center">Estudiantes</h4>
                 <div class="row">

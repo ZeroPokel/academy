@@ -297,7 +297,7 @@ public class ModuloController {
     
     // Listar estudiantes que no pertenezcan al módulo para añadirlos
     @PreAuthorize("hasAnyAuthority('ADMIN')")
-    @GetMapping(path = { "/list/estudiante/{idModulo}"})
+    @GetMapping(path = { "/list/add/estudiante/{idModulo}"})
     public ModelAndView listEstudianteToModulo(
         @PathVariable(name = "idModulo", required = true) int idModulo){
 
@@ -311,6 +311,28 @@ public class ModuloController {
 
             return modelAndView;
         }
+
+    // Listar estudiantes del modulo seleccionado en el curso
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @GetMapping(path = { "/list/estudiantes/{idModulo}"})
+    public ModelAndView listEstudiantesFromModulo(
+        @PathVariable(name = "idModulo", required = true) int idModulo){
+
+            Modulo modulo = modulosService.findById(idModulo);
+            Curso curso = modulo.getCurso();
+            List<Docente> docentes = comprobarTutores();
+            List<Estudiante> estudiantes = estudiantesService.findByModulo(idModulo);
+            List<Modulo> modulos = modulosService.findByCurso(curso);
+
+            ModelAndView modelAndView = new ModelAndView();    
+            modelAndView.addObject("docentes", docentes);
+            modelAndView.addObject("curso", curso);
+            modelAndView.addObject("estudiantes", estudiantes);
+            modelAndView.addObject("modulos", modulos);
+            modelAndView.setViewName("cursos/edit");
+
+            return modelAndView;
+    }   
     
     // Añadir estudiante al modulo
     @PreAuthorize("hasAnyAuthority('ADMIN')")
@@ -330,9 +352,30 @@ public class ModuloController {
             estudiantesService.save(estudiante);
 
             ModelAndView modelAndView = new ModelAndView();           
-            modelAndView.setViewName("redirect:/modulos/list/estudiante/" + idModulo);
+            modelAndView.setViewName("redirect:/modulos/list/add/estudiante/" + idModulo);
 
             return modelAndView;
         }
 
+    
+    // FUNCIONES
+
+    // Función que comprueba todos los docentes y coloca el atributo "tutor" a true si dicho docente es tutor de ese curso y los devuelve
+    public List<Docente> comprobarTutores(){
+        List<Curso> cursos = cursosService.findAll();
+        List<Docente> docentes = docentesService.findAll();
+
+        for (Curso cursot : cursos){
+            for (Docente docente : docentes){
+                if(cursot.getTutor() != null){
+                    if(cursot.getTutor().getCodigo() == docente.getCodigo()){
+                        docente.setEsTutor(true);
+                        break;
+                    }
+                }
+            }
+        }
+
+        return docentes;
+    }
 }
