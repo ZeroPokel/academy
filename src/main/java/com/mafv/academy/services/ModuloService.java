@@ -16,6 +16,7 @@ public interface ModuloService {
     public void deleteById(int idModulo);
     public void deleteAll();
     public void deleteModuloFromCurso(int idModulo, int idCurso);
+    public void deleteAllEstudianteFromModulo(int idModulo);
     public void deleteEstudianteFromModulo(int idModulo, int idEstudiante);
     public Boolean findModuloEstudiante(int idModulo);
 }

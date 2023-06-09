@@ -102,4 +102,9 @@ public class ModuloServiceImpl implements ModuloService{
 
         return estudianteModulo.size() == 0 ? true : false;
     }
+
+    @Override
+    public void deleteAllEstudianteFromModulo(int idModulo) {
+        estudianteModuloRepository.deleteByModuloCodigo(idModulo);
+    }
 }

@@ -289,7 +289,21 @@ public class ModuloController {
             modulosService.deleteEstudianteFromModulo(idModulo, idEstudiante);
 
             ModelAndView modelAndView = new ModelAndView();            
-            modelAndView.setViewName("redirect:/modulos/list/estudiantes/" + idModulo);
+            modelAndView.setViewName("redirect:/modulos/list/estudiantes/" + idModulo + "?deleteEstudiante=" + true);
+
+            return modelAndView;
+        }
+
+    // Borrar estudiante del módulo seleccionado
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @GetMapping(path = { "/delete/all/estudiante/modulo/{idModulo}"})
+    public ModelAndView deleteAllEstudianteFromModulo(
+        @PathVariable(name = "idModulo", required = true) int idModulo){
+
+            modulosService.deleteAllEstudianteFromModulo(idModulo);
+
+            ModelAndView modelAndView = new ModelAndView();            
+            modelAndView.setViewName("redirect:/modulos/list/estudiantes/" + idModulo + "?deleteAllEstudiante=" + true);
 
             return modelAndView;
         }
