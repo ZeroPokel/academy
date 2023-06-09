@@ -166,17 +166,19 @@ public class ModuloController {
     
     // Borrado de docente de un modulo desde curso
     @PreAuthorize("hasAnyAuthority('ADMIN')")
-    @GetMapping(path = { "/delete/docente/modulo/{idModulo}/{idCurso}" })
+    @GetMapping(path = { "/delete/docente/modulo/{idModulo}" })
     public ModelAndView deleteDocenteDesdeCuso(
-        @PathVariable(name = "idModulo", required = true) int idModulo,
-        @PathVariable(name = "idModulo", required = true) int idCurso) {
+        @PathVariable(name = "idModulo", required = true) int idModulo) {
 
         Modulo modulo = modulosService.findById(idModulo);
         modulo.setDocente(null);
         modulosService.save(modulo);
 
+        Curso curso = modulo.getCurso();
+
+
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:/cursos/edit/" + idCurso + "?deleteDocente=" + true);
+        modelAndView.setViewName("redirect:/cursos/edit/" + curso.getCodigo() + "?deleteDocente=" + true);
 
         return modelAndView;
     }

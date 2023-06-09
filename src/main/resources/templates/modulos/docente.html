@@ -44,17 +44,17 @@
                     <div class="mt-5" th:if="${idCurso ne null}">
                         <a th:href="@{/cursos/edit/{idCurso}(idCurso = ${idCurso})}" type="button" class="btn btn-success rounded-2">Atrás</a>
                         <button type="button" class="btn btn-danger rounded-2" data-bs-toggle="modal" data-bs-target="#deleteModal" th:attr="data-bs-target='#deleteModal'">Eliminar</button>                      
-                        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" th:id="deleteModal" aria-hidden="true">
+                        <div class="modal fade" id="deleteDocenteModal" tabindex="-1" aria-labelledby="deleteDocenteModalLabel" th:id="deleteDocenteModal+${modulo.codigo}" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content rounded-2">
                                     <div class="modal-header">
-                                        <h3 class="modal-title" id="deleteModalLabel">Atencion</h3>
+                                        <h3 class="modal-title" id="deleteDocenteModalLabel">Atencion</h3>                                        
                                     </div>
                                     <div class="modal-body">
-                                        <p class="mb-0">El docente va a ser eliminado permanentemente, este cambio no se podrá deshacer, ¿estás seguro?</p>
+                                        <p class="mb-0">El docente va a ser eliminado del módulo, este cambio no se podrá deshacer, ¿estás seguro?</p>
                                     </div>
                                     <div class="modal-footer">
-                                        <a type="button" class="btn btn-success rounded-2" th:href="@{/modulos/delete/docente/modulo/{idModulo}/{idCurso}(idModulo = ${modulo.codigo}, idCurso = ${curso.codigo})}">Confirmar</a>
+                                        <a type="button" class="btn btn-success rounded-2" th:href="@{/modulos/delete/docente/modulo/{idModulo}(idModulo = ${modulo.codigo})}">Confirmar</a>
                                         <button type="button" class="btn btn-danger rounded-2" data-bs-dismiss="modal">Cancelar</button>
                                     </div>
                                 </div>
