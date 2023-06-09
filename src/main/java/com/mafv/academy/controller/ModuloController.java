@@ -281,16 +281,15 @@ public class ModuloController {
 
     // Borrar estudiante del módulo seleccionado
     @PreAuthorize("hasAnyAuthority('ADMIN')")
-    @GetMapping(path = { "/delete/estudiante/{idEstudiante}/{idModulo}/{username}"})
+    @GetMapping(path = { "/delete/estudiante/{idEstudiante}/modulo/{idModulo}"})
     public ModelAndView deleteEstudianteFromModulo(
         @PathVariable(name = "idEstudiante", required = true) int idEstudiante,
-        @PathVariable(name = "idModulo", required = true) int idModulo,
-        @PathVariable(name = "username", required = true) String username){
+        @PathVariable(name = "idModulo", required = true) int idModulo){
 
             modulosService.deleteEstudianteFromModulo(idModulo, idEstudiante);
 
             ModelAndView modelAndView = new ModelAndView();            
-            modelAndView.setViewName("redirect:/modulos/modulo/" + idModulo + "/" + username);
+            modelAndView.setViewName("redirect:/modulos/list/estudiantes/" + idModulo);
 
             return modelAndView;
         }
@@ -306,7 +305,7 @@ public class ModuloController {
 
             ModelAndView modelAndView = new ModelAndView();    
             modelAndView.addObject("estudiantes", estudiantes);
-            modelAndView.addObject("modulo", modulo);        
+            modelAndView.addObject("modulo", modulo);       
             modelAndView.setViewName("/estudiantes/list");
 
             return modelAndView;
@@ -329,6 +328,7 @@ public class ModuloController {
             modelAndView.addObject("curso", curso);
             modelAndView.addObject("estudiantes", estudiantes);
             modelAndView.addObject("modulos", modulos);
+            modelAndView.addObject("modulo", modulo);
             modelAndView.setViewName("cursos/edit");
 
             return modelAndView;

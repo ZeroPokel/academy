@@ -140,7 +140,7 @@
                                 <th scope="col">Nombre</th>
                                 <th scope="col">Email</th>
                                 <th scope="col">DNI</th>
-                                <th scope="col">Operaciones</th>
+                                <th scope="col" th:if="${modulo ne null}">Operaciones</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -149,7 +149,7 @@
                                     <td th:text="|${estudiante.nombre} ${estudiante.apellidos}|"></td>
                                     <td th:text="${estudiante.email}"></td>
                                     <td th:text="${estudiante.dni}"></td>
-                                    <td>
+                                    <td th:if="${modulo ne null}">
                                         <button type="button" class="btn-mini btn-danger rounded-2 bi bi-trash fs-6" data-bs-tooltip="tooltip" data-bs-placement="top" title="Borrar estudiante" data-bs-toggle="modal" data-bs-target="#deleteModal" th:attr="data-bs-target='#deleteModal'+${estudiante.codigo}"></button>                        
                                         <!-- Modal, alerta que salta para eliminar al estudiante seleccionado del curso-->
                                         <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" th:id="deleteModal+${estudiante.codigo}" aria-hidden="true">
@@ -162,7 +162,7 @@
                                                         <p class="mb-0">El estudiante va a ser eliminado del curso, al hacerlo se borraría la información en otras tablas que tenga relación, este cambio no se podrá deshacer, ¿estás seguro?</p>
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <a type="button" class="btn btn-success rounded-2" th:href="@{/cursos/delete/estudiante/{idEstudiante}/curso/{idCurso}(idEstudiante = ${estudiante.codigo}, idCurso = ${curso.codigo})}">Confirmar</a>
+                                                        <a type="button" class="btn btn-success rounded-2" th:href="@{/modulos/delete/estudiante/{idEstudiante}/modulo/{idModulo}(idEstudiante = ${estudiante.codigo}, idModulo = ${modulo.codigo})}">Confirmar</a>
                                                         <button type="button" class="btn btn-danger rounded-2" data-bs-dismiss="modal">Cancelar</button>
                                                     </div>
                                                 </div>
