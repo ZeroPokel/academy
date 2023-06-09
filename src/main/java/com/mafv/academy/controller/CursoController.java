@@ -144,16 +144,15 @@ public class CursoController {
     public ModelAndView delete(
             @PathVariable(name = "idCurso", required = true) int idCurso) {
 
-        Curso curso = cursosService.findById(idCurso);
-
-        if (curso.getTutor() != null){
-            cursosService.deleteTutor(idCurso);
-        }
-
-        cursosService.deleteById(idCurso);
-
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:/cursos/list");
+
+        Curso curso = cursosService.findById(idCurso);
+        if (curso.getTutor() != null || curso.getModulos().size() != 0){
+            modelAndView.setViewName("redirect:/cursos/list?deleteCursoFalse=" + true);
+        } else {
+            cursosService.deleteById(idCurso);
+            modelAndView.setViewName("redirect:/cursos/list?deleteCursoTrue=" + true);
+        }
 
         return modelAndView;
     }
