@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.mafv.academy.models.Estudiante;
 import com.mafv.academy.models.EstudianteModulo;
 import com.mafv.academy.models.EstudianteModuloKey;
+import com.mafv.academy.models.Modulo;
 import com.mafv.academy.repository.EstudianteModuloRepository;
 import com.mafv.academy.repository.EstudianteRepository;
 import com.mafv.academy.services.EstudianteService;
@@ -44,13 +45,11 @@ public class EstudianteServiceImpl implements EstudianteService{
     public Estudiante save(Estudiante estudiante) {
         repository.save(estudiante);
 
-        List<EstudianteModulo> estudianteModulos = estudiante.getEstudianteModulos();
-        if (estudianteModulos != null){
-            for (EstudianteModulo estudianteModulo : estudianteModulos){
-                EstudianteModuloKey idEstudianteModulo = new EstudianteModuloKey(estudiante.getCodigo(), estudianteModulo.getModulo().getCodigo());
-                estudianteModulo.setCodigo(idEstudianteModulo);
-                estudianteModuloRepository.save(estudianteModulo);
-            }
+        EstudianteModulo estudianteModulo = estudiante.getEstudianteModulo();
+        if (estudianteModulo != null){
+            EstudianteModuloKey idEstudianteModulo = new EstudianteModuloKey(estudiante.getCodigo(), estudianteModulo.getModulo().getCodigo());
+            estudianteModulo.setCodigo(idEstudianteModulo);
+            estudianteModuloRepository.save(estudianteModulo);
         }
         return estudiante;
     }
@@ -86,6 +85,11 @@ public class EstudianteServiceImpl implements EstudianteService{
         }
 
         return estudiantes;
+    }
+
+    @Override
+    public List<Estudiante> findEstudiantesNotInModulo(Modulo modulo) {
+        return repository.findEstudiantesNotInModulo(modulo);
     }
 
 }

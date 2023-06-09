@@ -11,14 +11,16 @@ import javax.persistence.Transient;
 public class Estudiante extends Usuario{
 
     @Transient
-    private List<EstudianteModulo> estudianteModulos;
+    private EstudianteModulo estudianteModulo;
 
-    public List<EstudianteModulo> getEstudianteModulos() {
-        return estudianteModulos;
+    public EstudianteModulo getEstudianteModulo() {
+        return estudianteModulo;
     }
 
-    public void setEstudianteModulos(List<EstudianteModulo> estudianteModulos) {
-        this.estudianteModulos = estudianteModulos;
+    public void setEstudianteModulo(EstudianteModulo estudianteModulo) {
+        this.estudianteModulo = estudianteModulo;
     }
+
+    
     
 }

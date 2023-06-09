@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.mafv.academy.models.Curso;
 import com.mafv.academy.models.Docente;
 import com.mafv.academy.models.Estudiante;
+import com.mafv.academy.models.EstudianteModulo;
 import com.mafv.academy.models.Modulo;
 import com.mafv.academy.services.CursoService;
 import com.mafv.academy.services.DocenteService;
@@ -293,4 +294,45 @@ public class ModuloController {
 
             return modelAndView;
         }
+    
+    // Listar estudiantes que no pertenezcan al módulo para añadirlos
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @GetMapping(path = { "/list/estudiante/{idModulo}"})
+    public ModelAndView listEstudianteToModulo(
+        @PathVariable(name = "idModulo", required = true) int idModulo){
+
+            Modulo modulo = modulosService.findById(idModulo);
+            List<Estudiante> estudiantes = estudiantesService.findEstudiantesNotInModulo(modulo);
+
+            ModelAndView modelAndView = new ModelAndView();    
+            modelAndView.addObject("estudiantes", estudiantes);
+            modelAndView.addObject("modulo", modulo);        
+            modelAndView.setViewName("/estudiantes/list");
+
+            return modelAndView;
+        }
+    
+    // Añadir estudiante al modulo
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @GetMapping(path = { "/add/estudiante/{idEstudiante}/{idModulo}"})
+    public ModelAndView addEstudianteModulo(
+        @PathVariable(name = "idEstudiante", required = true) int idEstudiante,
+        @PathVariable(name = "idModulo", required = true) int idModulo){
+
+            Modulo modulo = modulosService.findById(idModulo);
+            Estudiante estudiante = estudiantesService.findById(idEstudiante);
+
+            EstudianteModulo estudianteModulo = new EstudianteModulo();
+            estudianteModulo.setEstudiante(estudiante);
+            estudianteModulo.setModulo(modulo);
+
+            estudiante.setEstudianteModulo(estudianteModulo);
+            estudiantesService.save(estudiante);
+
+            ModelAndView modelAndView = new ModelAndView();           
+            modelAndView.setViewName("redirect:/modulos/list/estudiante/" + idModulo);
+
+            return modelAndView;
+        }
+
 }
