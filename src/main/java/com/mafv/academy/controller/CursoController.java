@@ -226,47 +226,6 @@ public class CursoController {
         return modelAndView;
     }
 
-    // ESTUDIANTES
-    
-    // Listar los estudiantes del curso seleccionado
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
-    @GetMapping(path = { "/list/estudiantes/{idCurso}"})
-    public ModelAndView listEstudianteCurso(
-        @PathVariable(name = "idCurso", required = true) int idCurso){
-    
-        Curso cursoList = cursosService.findById(idCurso);
-        //List<Estudiante> estudiantes = estudianteService.findByCurso(cursoList);
-        
-        //cursoList.setEstudiantes(estudiantes);
-    
-        ModelAndView modelAndView = new ModelAndView();
-       //modelAndView.addObject("estudiantes", estudiantes);
-        modelAndView.addObject("cursoList", cursoList);             
-        modelAndView.setViewName("estudiantes/list");
-    
-        return modelAndView;
-    }
-
-    // MODULOS
-
-    // Listado de módulos que no tienen curso
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
-    @GetMapping(path = { "/add/modulo/{idCurso}"})
-    public ModelAndView listAddModulo(
-        @PathVariable(name = "idCurso", required = true) int idCurso){
-    
-        Curso curso = cursosService.findById(idCurso);
-
-        List<Modulo> modulos = darModulos(curso);
-
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("modulos", modulos);
-        modelAndView.addObject("curso", curso);            
-        modelAndView.setViewName("modulos/list");
-    
-        return modelAndView;
-    }
-
     // Añadir un módulo al curso seleccionado
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping(path = { "/add/modulo/{idModulo}/curso/{idCurso}"})
@@ -338,20 +297,5 @@ public class CursoController {
         }
 
         return noTutores;
-    }
-
-    // Función que coge todos los modulos y te devuelve aquellos que no pertenezcan a un curso
-    public List<Modulo> darModulos(Curso curso){
-
-        List<Modulo> modulos = modulosService.findAll();
-        List<Modulo> modulosFiltrado = new ArrayList<Modulo>();
-
-        for (Modulo modulo : modulos){
-            if(modulo.getCurso() == null){
-                modulosFiltrado.add(modulo);
-            }
-        }
-
-        return modulosFiltrado;
     }
 }

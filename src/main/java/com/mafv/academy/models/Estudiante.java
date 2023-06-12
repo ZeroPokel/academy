@@ -1,7 +1,5 @@
 package com.mafv.academy.models;
 
-import java.util.List;
-
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Transient;

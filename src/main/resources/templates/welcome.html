@@ -9,11 +9,14 @@
             <div class="row align-items-md-stretch">
                 <div class="col-md-12">
                     <div class="h-100 p-5 rounded-3">
-                        <h3>¡Hola!</h3>
+                        <h3>¡Bienvenido a Akademy!</h3>
                         <span sec:authorize="isAuthenticated()">
                             Usuario: <span sec:authentication="name"></span>
                             Roles: <span sec:authentication="principal.authorities"></span>
                         </span>
+                        <p sec:authorize="hasAnyAuthority('ESTUDIANTE')">Desde este portal podrás comprobar información respecto a tus módulos matriculados</p>
+                        <p sec:authorize="hasAnyAuthority('DOCENTE')">Como docente podrá realizar gestiones en los módulos que imparte y consultar información</p>
+                        <p sec:authorize="hasAnyAuthority('ADMIN')">Ha entrado como administrador, desde aquí podrá realizar gestiones de toda la academia.</p>
                     </div>
                 </div>
             </div>
