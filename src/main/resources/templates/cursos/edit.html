@@ -21,7 +21,7 @@
         <div th:if="${param.deleteModuloFalse}" class="alert alert-dismissible alert-danger mt-4 rounded-3"> 
             <p class="mb-0"><small>Error al eliminar el módulo, comprueba que el módulo no tenga estudiantes o un docente asignado.</small></p>
         </div>
-        <form class="row g-3" method="post" th:action="@{/cursos/update}">
+        <form class="row g-3" method="post" th:action="@{/cursos/update}" sec:authorize="hasAnyAuthority('ADMIN')">
                 <legend th:text="'Editar curso'">Editar curso</legend>
                 <div class="row">
                     <div class="col-md-3">
@@ -52,7 +52,7 @@
                     <a type="button" class="rounded-2 btn btn-danger" th:href="@{/cursos/list}">Atrás</a>
                 </div>
         </form>
-        <div class="col-md-5 mt-4" th:if="${curso.tutor ne null}">
+        <div class="col-md-5 mt-4" th:if="${curso.tutor ne null}" sec:authorize="hasAnyAuthority('ADMIN')">
             <h4 th:text="'Tutor: ' + ${curso.tutor.nombre} + ' ' + ${curso.tutor.apellidos}"></h4>
             <a type="button" th:href="@{/cursos/tutor/}+${curso.tutor.codigo}" class="btn btn-info rounded-2" th:text="'Ver tutor'"></a>
         </div>
@@ -78,12 +78,12 @@
                                     <td th:if="${modulo.docente ne null}" th:text="|${modulo.docente.nombre} ${modulo.docente.apellidos}|"></td>
                                     <td th:unless="${modulo.docente ne null}">Sin docente asignado</td>
                                     <td>
-                                        <a th:href="@{/modulos/edit/}+${modulo.codigo}" class="btn-mini btn-info bi bi-pen fs-6 rounded-2" data-bs-tooltip="tooltip" data-bs-placement="top" title="Editar módulo"></a>
-                                        <button type="button" class="btn-mini btn-danger bi bi-trash fs-6 rounded-2" data-bs-tooltip="tooltip" data-bs-placement="top" title="Borrar módulo" data-bs-toggle="modal" data-bs-target="#deleteModal" th:attr="data-bs-target='#deleteModal'+${modulo.codigo}"></button>                      
+                                        <a sec:authorize="hasAnyAuthority('ADMIN')" th:href="@{/modulos/edit/}+${modulo.codigo}" class="btn-mini btn-info bi bi-pen fs-6 rounded-2" data-bs-tooltip="tooltip" data-bs-placement="top" title="Editar módulo"></a>
+                                        <button sec:authorize="hasAnyAuthority('ADMIN')" type="button" class="btn-mini btn-danger bi bi-trash fs-6 rounded-2" data-bs-tooltip="tooltip" data-bs-placement="top" title="Borrar módulo" data-bs-toggle="modal" data-bs-target="#deleteModal" th:attr="data-bs-target='#deleteModal'+${modulo.codigo}"></button>                      
                                         <a th:if="${modulo.docente ne null}" th:href="@{/modulos/docente/{idDocente}/modulo/{idModulo}/curso/{idCurso}(idDocente = ${modulo.docente.codigo}, idModulo = ${modulo.codigo}, idCurso = ${curso.codigo})}" class="btn-mini btn-info bi-person fs-6 rounded-2" role="button" data-bs-tooltip="tooltip" data-bs-placement="top" title="Docente"></a>
-                                        <a th:unless="${modulo.docente ne null}" th:href="@{/modulos/select/docente/{idModulo}/{idCurso}(idModulo = ${modulo.codigo}, idCurso = ${curso.codigo})}" class="btn-mini btn-info bi-person-plus fs-6 rounded-2" role="button" data-bs-tooltip="tooltip" data-bs-placement="top" title="Añadir docente"></a>
+                                        <a sec:authorize="hasAnyAuthority('ADMIN')" th:unless="${modulo.docente ne null}" th:href="@{/modulos/select/docente/{idModulo}/{idCurso}(idModulo = ${modulo.codigo}, idCurso = ${curso.codigo})}" class="btn-mini btn-info bi-person-plus fs-6 rounded-2" role="button" data-bs-tooltip="tooltip" data-bs-placement="top" title="Añadir docente"></a>
                                         <a th:href="@{/modulos/list/estudiantes/{idModulo}/(idModulo = ${modulo.codigo})}" class="btn-mini btn-info bi-book-half fs-6 rounded-2" role="button" data-bs-tooltip="tooltip" data-bs-placement="top" title="Listar estudiante"></a>
-                                        <a th:href="@{/modulos/list/add/estudiante/{idModulo}/(idModulo = ${modulo.codigo})}" class="btn-mini btn-info bi-book fs-6 rounded-2" role="button" data-bs-tooltip="tooltip" data-bs-placement="top" title="Añadir estudiante"></a>
+                                        <a sec:authorize="hasAnyAuthority('ADMIN')" th:href="@{/modulos/list/add/estudiante/{idModulo}/(idModulo = ${modulo.codigo})}" class="btn-mini btn-info bi-book fs-6 rounded-2" role="button" data-bs-tooltip="tooltip" data-bs-placement="top" title="Añadir estudiante"></a>
                                     </td>
                                     <!-- Modal, alerta que salta cuando le das a uno de los botones de eliminar para borrar dicha fila -->
                                     <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" th:id="deleteModal+${modulo.codigo}" aria-hidden="true">
@@ -108,7 +108,7 @@
                     </table>
                 </div>
                 <br>
-                <a th:href="@{/modulos/create/} + ${curso.codigo}" class="btn btn-info mb-3 rounded-2">Crear módulo</a>
+                <a th:href="@{/modulos/create/} + ${curso.codigo}" class="btn btn-info mb-3 rounded-2" sec:authorize="hasAnyAuthority('ADMIN')">Crear módulo</a>
             </div>
             <div class="col-md-1"></div>
             <div class="col-md-5">
@@ -131,7 +131,7 @@
                                     <td th:text="|${estudiante.nombre} ${estudiante.apellidos}|"></td>
                                     <td th:text="${estudiante.email}"></td>
                                     <td th:text="${estudiante.dni}"></td>
-                                    <td th:if="${modulo ne null}">
+                                    <td th:if="${modulo ne null}" sec:authorize="hasAnyAuthority('ADMIN')">
                                         <button type="button" class="btn-mini btn-danger rounded-2 bi bi-trash fs-6" data-bs-tooltip="tooltip" data-bs-placement="top" title="Borrar estudiante" data-bs-toggle="modal" data-bs-target="#deleteModal" th:attr="data-bs-target='#deleteModal'+${estudiante.codigo}"></button>                        
                                         <!-- Modal, alerta que salta para eliminar al estudiante seleccionado del modulo-->
                                         <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" th:id="deleteModal+${estudiante.codigo}" aria-hidden="true">
@@ -157,7 +157,7 @@
                     </table>
                 </div>
                 <br>
-                <div th:if="${modulos.size() ne 0}">
+                <div th:if="${modulos.size() ne 0}" sec:authorize="hasAnyAuthority('ADMIN')">
                     <a th:if="${modulo ne null} and ${estudiantes.size() ne 0}" th:href="@{/modulos/delete/all/estudiante/modulo/} + ${modulo.codigo}" class="btn btn-danger mb-3 rounded-2"  data-bs-toggle="modal" data-bs-target="#deleteAllModal" th:attr="data-bs-target='#deleteAllModal'+${modulo.codigo}">Borrar todos los estudiantes</a>
                     <!--Modal, alerta que salta para eliminar todos los estudiantes del modulo-->
                     <div class="modal fade" id="deleteAllModal" tabindex="-1" aria-labelledby="deleteAllModalLabel" th:id="deleteAllModal+${modulo.codigo}" aria-hidden="true">

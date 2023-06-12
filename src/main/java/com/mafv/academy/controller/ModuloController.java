@@ -328,7 +328,7 @@ public class ModuloController {
         }
 
     // Listar estudiantes del modulo seleccionado en el curso
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'TUTOR')")
     @GetMapping(path = { "/list/estudiantes/{idModulo}"})
     public ModelAndView listEstudiantesFromModulo(
         @PathVariable(name = "idModulo", required = true) int idModulo){

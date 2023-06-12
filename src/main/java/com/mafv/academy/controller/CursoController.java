@@ -108,7 +108,7 @@ public class CursoController {
         return modelAndView;
     }
 
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'TUTOR')")
     @GetMapping(path = { "/edit/{idCurso}" })
     public ModelAndView edit(
             @PathVariable(name = "idCurso", required = true) int idCurso) {
@@ -182,6 +182,22 @@ public class CursoController {
         modelAndView.addObject("curso", curso);
         modelAndView.setViewName("cursos/tutor");
     
+        return modelAndView;
+    }
+
+    // Muestra la tutoria al Docente que es tutor de un curso
+    @PreAuthorize("#username == authentication.principal.username")
+    @GetMapping(path = { "/tutor/{idDocente}/{username}"})
+    public ModelAndView tutoriaDocente(
+            @PathVariable(name = "idDocente", required = true) int idDocente,
+            @PathVariable(name = "username", required = true) String username){
+
+        Docente docente = docentesService.findById(idDocente);
+        Curso curso = cursosService.findByTutor(docente);
+        
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("redirect:/cursos/edit/" + curso.getCodigo());
+
         return modelAndView;
     }
 
