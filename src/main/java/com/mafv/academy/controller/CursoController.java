@@ -23,6 +23,7 @@ import com.mafv.academy.models.Curso;
 import com.mafv.academy.models.Docente;
 import com.mafv.academy.models.Estudiante;
 import com.mafv.academy.models.Modulo;
+import com.mafv.academy.models.Permiso;
 import com.mafv.academy.services.CursoService;
 import com.mafv.academy.services.DocenteService;
 import com.mafv.academy.services.EstudianteService;
@@ -131,6 +132,14 @@ public class CursoController {
     public ModelAndView update(Curso curso) {
 
         cursosService.update(curso);
+
+        if (curso.getTutor() != null){
+            Docente docente = curso.getTutor();
+            List<Permiso> permisos = docente.getPermissions();
+            Permiso permiso = new Permiso("TUTOR", "TUTOR");
+            permisos.add(permiso);
+            docentesService.save(docente);
+        }
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:edit/" + curso.getCodigo());
