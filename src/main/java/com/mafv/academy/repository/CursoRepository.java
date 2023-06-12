@@ -14,6 +14,6 @@ public interface CursoRepository extends JpaRepository<Curso, Integer>{
     
     Curso findByTutor(Docente tutor);
 
-    @Query("SELECT em.estudiante FROM EstudianteModulo em JOIN em.modulo m WHERE m.curso = :curso")
+    @Query("SELECT DISTINCT em.estudiante FROM EstudianteModulo em JOIN em.modulo m WHERE m.curso = :curso")
     List<Estudiante> findEstudiantesByCurso(@Param("curso") Curso curso);
 }
