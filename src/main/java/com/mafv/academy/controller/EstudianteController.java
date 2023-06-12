@@ -18,9 +18,12 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mafv.academy.models.Estudiante;
+import com.mafv.academy.models.EstudianteModulo;
+import com.mafv.academy.models.Modulo;
 import com.mafv.academy.models.Permiso;
 import com.mafv.academy.services.CursoService;
 import com.mafv.academy.services.EstudianteService;
+import com.mafv.academy.services.ModuloService;
 
 @Controller
 @RequestMapping("/estudiantes")
@@ -31,6 +34,9 @@ public class EstudianteController {
 
     @Autowired
     CursoService cursosService;
+
+    @Autowired
+    ModuloService modulosService;
 
     @Autowired
 	PasswordEncoder encoder;
@@ -138,6 +144,24 @@ public class EstudianteController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("estudiante", estudiante);
         modelAndView.setViewName("/estudiantes/info");
+
+        return modelAndView;
+    }
+
+    // Muestra información del estudiante seleccionado
+    @PreAuthorize("#username == authentication.principal.username")
+    @GetMapping(path = { "/modulos/{idEstudiante}/{username}"})
+    public ModelAndView infoModulosEstudiante(
+            @PathVariable(name = "idEstudiante", required = true) int idEstudiante,
+            @PathVariable(name = "username", required = true) String username){
+
+        Estudiante estudiante = estudiantesService.findById(idEstudiante);
+        List<EstudianteModulo> estudianteModulos = modulosService.findByEstudiante(idEstudiante);
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("estudiante", estudiante);
+        modelAndView.addObject("estModulos", estudianteModulos);
+        modelAndView.setViewName("/estudiantes/modulos");
 
         return modelAndView;
     }

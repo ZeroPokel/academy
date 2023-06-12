@@ -34,6 +34,9 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
               <li class="nav-item" sec:authorize="hasAnyAuthority('ESTUDIANTE')">
                 <a class="nav-link" th:href="@{/estudiantes/info/{idEstudiante}/{username}(idEstudiante = ${session.usuario.codigo}, username = ${session.usuario.username})}">Perfil</a>
               </li>
+              <li class="nav-item" sec:authorize="hasAnyAuthority('ESTUDIANTE')">
+                <a class="nav-link" th:href="@{/estudiantes/modulos/{idEstudiante}/{username}(idEstudiante = ${session.usuario.codigo}, username = ${session.usuario.username})}">Mis módulos</a>
+              </li>
               <li class="nav-item" sec:authorize="hasAnyAuthority('DOCENTE')">
                 <a class="nav-link" th:href="@{/docentes/info/{idDocente}/{username}(idDocente = ${session.usuario.codigo}, username = ${session.usuario.username})}">Perfil</a>
               </li>

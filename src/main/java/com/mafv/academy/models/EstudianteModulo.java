@@ -23,7 +23,9 @@ public class EstudianteModulo {
     @JoinColumn(name = "modulo_codigo")
     private Modulo modulo;
 
-    private float nota;
+    private float primEv;
+    private float segunEv;
+    private float tercEv;
 
     public EstudianteModulo() {
     }
@@ -56,13 +58,28 @@ public class EstudianteModulo {
         this.modulo = modulo;
     }
 
-    public float getNota() {
-        return nota;
+    public float getPrimEv() {
+        return primEv;
     }
 
-    public void setNota(float nota) {
-        this.nota = nota;
+    public void setPrimEv(float primEv) {
+        this.primEv = primEv;
     }
 
+    public float getSegunEv() {
+        return segunEv;
+    }
+
+    public void setSegunEv(float segunEv) {
+        this.segunEv = segunEv;
+    }
+
+    public float getTercEv() {
+        return tercEv;
+    }
+
+    public void setTercEv(float tercEv) {
+        this.tercEv = tercEv;
+    }
     
 }

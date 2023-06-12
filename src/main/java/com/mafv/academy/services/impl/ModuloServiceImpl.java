@@ -1,5 +1,6 @@
 package com.mafv.academy.services.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -106,5 +107,10 @@ public class ModuloServiceImpl implements ModuloService{
     @Override
     public void deleteAllEstudianteFromModulo(int idModulo) {
         estudianteModuloRepository.deleteByModuloCodigo(idModulo);
+    }
+
+    @Override
+    public List<EstudianteModulo> findByEstudiante(int idEstudiante) {
+        return estudianteModuloRepository.findByEstudianteCodigo(idEstudiante);
     }
 }
