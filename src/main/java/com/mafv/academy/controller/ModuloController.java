@@ -296,7 +296,7 @@ public class ModuloController {
             return modelAndView;
         }
 
-    // Borrar estudiante del módulo seleccionado
+    // Borrar todos los estudiantes del módulo seleccionado
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping(path = { "/delete/all/estudiante/modulo/{idModulo}"})
     public ModelAndView deleteAllEstudianteFromModulo(
@@ -350,7 +350,7 @@ public class ModuloController {
             return modelAndView;
     }   
     
-    // Añadir estudiante al modulo
+    // Añadir estudiante al modulo seleccionado
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping(path = { "/add/estudiante/{idEstudiante}/{idModulo}"})
     public ModelAndView addEstudianteModulo(
@@ -373,7 +373,26 @@ public class ModuloController {
             return modelAndView;
         }
 
-    
+    // Listar estudiantes del modulo seleccionado del docente
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'DOCENTE')")
+    @GetMapping(path = { "/list/docente/estudiantes/{idModulo}/{idDocente}"})
+    public ModelAndView listEstudiantesFromModuloDocente(
+        @PathVariable(name = "idModulo", required = true) int idModulo,
+        @PathVariable(name = "idDocente", required = true) int idDocente){
+
+            Docente docente = docentesService.findById(idDocente);
+            Modulo modulo = modulosService.findById(idModulo);
+            List<EstudianteModulo> estudiantesModulo = modulosService.findEstudiantesByModulo(idModulo);
+
+            ModelAndView modelAndView = new ModelAndView();    
+            modelAndView.addObject("docente", docente);
+            modelAndView.addObject("estudiantesModulo", estudiantesModulo);
+            modelAndView.addObject("modulo", modulo);
+            modelAndView.setViewName("/modulos/estudiantes");
+
+            return modelAndView;
+    }   
+     
     // FUNCIONES
 
     // Función que comprueba todos los docentes y coloca el atributo "tutor" a true si dicho docente es tutor de ese curso y los devuelve

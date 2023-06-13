@@ -148,7 +148,7 @@ public class EstudianteController {
         return modelAndView;
     }
 
-    // Muestra información del estudiante seleccionado
+    // Muestra los modulos a los que el estudiante está matriculado
     @PreAuthorize("#username == authentication.principal.username")
     @GetMapping(path = { "/modulos/{idEstudiante}/{username}"})
     public ModelAndView infoModulosEstudiante(
@@ -166,7 +166,19 @@ public class EstudianteController {
         return modelAndView;
     }
 
-    // A los alumnos se le listará los módulos y se le mostrará que curso está, clickando en mas info, verá el profesor que imparte, el módulo y
-    // las notas de probablemente los 3 trimestres y la media final.
+    // Actualizar las notas de los estudiantes del módulo
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'DOCENTE')")
+    @PostMapping(path = { "/update/notas/estudiantes"})
+    public ModelAndView updateNotasEstudiantes(List<Estudiante> estudiantes){
+
+        for(Estudiante estudiante : estudiantes){
+            estudiantesService.save(estudiante);
+        }
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("/welcome");
+
+        return modelAndView;
+    }
 
 }

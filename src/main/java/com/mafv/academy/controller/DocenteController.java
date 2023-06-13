@@ -19,10 +19,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.mafv.academy.models.Curso;
 import com.mafv.academy.models.Docente;
+import com.mafv.academy.models.Estudiante;
 import com.mafv.academy.models.Modulo;
 import com.mafv.academy.models.Permiso;
 import com.mafv.academy.services.CursoService;
 import com.mafv.academy.services.DocenteService;
+import com.mafv.academy.services.EstudianteService;
 import com.mafv.academy.services.ModuloService;
 
 @Controller
@@ -40,6 +42,9 @@ public class DocenteController {
 
     @Autowired
     ModuloService modulosService;
+
+    @Autowired
+    EstudianteService estudiantesService;
     
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping(value = "/list")
@@ -158,6 +163,24 @@ public class DocenteController {
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/docentes/list");
+
+        return modelAndView;
+    }
+    
+    // Muestra los módulos que imparte el docente
+    @PreAuthorize("#username == authentication.principal.username")
+    @GetMapping(path = { "/modulos/{idDocente}/{username}"})
+    public ModelAndView infoModulosDocente(
+            @PathVariable(name = "idDocente", required = true) int idDocente,
+            @PathVariable(name = "username", required = true) String username){
+
+        Docente docente = docentesService.findById(idDocente);
+        List<Modulo> modulos = modulosService.findByDocente(docente);
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("docente", docente);
+        modelAndView.addObject("modulos", modulos);
+        modelAndView.setViewName("/docentes/modulos");
 
         return modelAndView;
     }

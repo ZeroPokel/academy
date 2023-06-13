@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="commons/header :: header"> </head>
+<body>
+    
+    <div th:replace="commons/menu :: menu"></div>
+    <div class="container">
+        <h4 class="mt-4 mb-4 text-center">Estudiantes</h4>
+        <h5 class="mt-4 mb-4 text-center" th:if="${estudiantesModulo.size() eq 0}">No hay estudiantes en el módulo</h5>
+        <div class="row">
+            <form method="post" th:action="@{/update/notas/estudiantes}">
+                <table class="table table-striped table-hover p-0 m-0 fs-6" th:if="${estudiantesModulo.size() ne 0}">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">DNI</th>
+                            <th scope="col">Nota 1ºEv</th>
+                            <th scope="col">Nota 2ºEv</th>
+                            <th scope="col">Nota 3ºEv</th>
+                            <th scope="col">Operaciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <div th:each="estudianteModulo : ${estudiantesModulo}">
+                            <tr class="table-light text p-0 m-0 align-middle">
+                                <td th:text="|${estudianteModulo.getEstudiante().nombre} ${estudianteModulo.getEstudiante().apellidos}|"></td>
+                                <td th:text="${estudianteModulo.getEstudiante().email}"></td>
+                                <td th:text="${estudianteModulo.getEstudiante().dni}"></td>
+                                <td th:if="${estudianteModulo.primEv eq null}">
+                                    <input type="number" min="0" max="10" class="form-control rounded-2" id="primEv" name="primEv" th:value="0.00">
+                                </td>
+                                <td th:if="${estudianteModulo.primEv ne null}">
+                                    <input type="number" min="0" max="10" class="form-control rounded-2" id="primEv" name="primEv" th:value="${estudianteModulo.primEv}">
+                                </td>
+                                <td th:if="${estudianteModulo.segunEv eq null}">
+                                    <input type="number" min="0" max="10" class="form-control rounded-2" id="segunEv" name="segunEv" th:value="0.00">
+                                </td>
+                                <td th:if="${estudianteModulo.segunEv ne null}">
+                                    <input type="number" min="0" max="10" class="form-control rounded-2" id="segunEv" name="segunEv" th:value="${estudianteModulo.segunEv}">
+                                </td>
+                                <td th:if="${estudianteModulo.tercEv eq null}">
+                                    <input type="number" min="0" max="10" class="form-control rounded-2" id="tercEv" name="tercEv" th:value="0.00">
+                                </td>
+                                <td th:if="${estudianteModulo.tercEv ne null}">
+                                    <input type="number" min="0" max="10" class="form-control rounded-2" id="tercEv" name="tercEv" th:value="${estudianteModulo.tercEv}">
+                                </td>
+                                <!--<td th:if="${estudiante.getPrimEv() eq null}">Sin nota</td>
+                                <td th:if="${estudiante.getPrimEv() ne null}" th:text="${estudiante.getPrimEv()}"></td>   
+                                <td th:if="${estudiante.getSegunEv() eq null}">Sin nota</td>
+                                <td th:if="${estudiante.getSegunEv() ne null}" th:text="${estudiante.getSegunEv()}"></td>  
+                                <td th:if="${estudiante.getTercEv() eq null}">Sin nota</td>
+                                <td th:if="${estudiante.getTercEv() ne null}" th:text="${estudiante.getTercEv()}"></td>  
+                                <td>
+                                    <a th:href="@{/modulos/addNota/estudiante/{idModulo}/{idEstudiante}/(idModulo = ${modulo.codigo}, idEstudiante = ${estudiante.codigo})}" class="btn-mini btn-info bi-book-half fs-6 rounded-2" role="button" data-bs-tooltip="tooltip" data-bs-placement="top" title="Cambiar notas"></a>
+                                </td>-->
+                            </tr>
+                        </div>
+                    </tbody>
+                </table>
+                <div class="col-md-4">
+                    <button type="submit" class="btn btn-success rounded-2">Confirmar</button>
+                </div>
+            </form>
+        </div>
+    </div>  
+    <div th:replace="commons/footer :: footer" class="container"></div>
+</body>
+</html>

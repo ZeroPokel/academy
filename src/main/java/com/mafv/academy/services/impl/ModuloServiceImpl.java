@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.mafv.academy.models.Curso;
 import com.mafv.academy.models.Docente;
+import com.mafv.academy.models.Estudiante;
 import com.mafv.academy.models.EstudianteModulo;
 import com.mafv.academy.models.Modulo;
 import com.mafv.academy.repository.CursoRepository;
@@ -112,5 +113,10 @@ public class ModuloServiceImpl implements ModuloService{
     @Override
     public List<EstudianteModulo> findByEstudiante(int idEstudiante) {
         return estudianteModuloRepository.findByEstudianteCodigo(idEstudiante);
+    }
+
+    @Override
+    public List<EstudianteModulo> findEstudiantesByModulo(int idModulo){
+        return estudianteModuloRepository.findByModuloCodigo(idModulo);
     }
 }

@@ -21,4 +21,5 @@ public interface ModuloService {
     public void deleteEstudianteFromModulo(int idModulo, int idEstudiante);
     public Boolean findModuloEstudiante(int idModulo);
     public List<EstudianteModulo> findByEstudiante(int idEstudiante);
+    public List<EstudianteModulo> findEstudiantesByModulo(int idModulo);
 }

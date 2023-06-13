@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="commons/header :: header"> </head>
+<body>
+    
+    <div th:replace="commons/menu :: menu"></div>
+    <div class="container">
+        <h1 class="mt-4 mb-4 text-center">Módulos impartidos</h1>
+        <h3 class="text-center" th:if="${modulos.size() eq 0}">No imparte ningún módulo</h3>
+        <div class="row">
+            <table class="table table-striped table-hover p-0 m-0" th:if="${modulos.size() ne 0}">
+                <thead>
+                    <tr>
+                        <th scope="col">Módulo</th>
+                        <th scope="col">Curso</th>
+                        <th scope="col">Nº Estudiantes</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <div th:each="modulo : ${modulos}">
+                        <tr class="table-light text p-0 m-0 align-middle">
+                            <td th:text="${modulo.nombre}"></td>
+                            <td th:text="${modulo.getCurso().nombre}"></td>
+                            <td >Temporal</td>
+                            <td>
+                                <a th:href="@{/modulos/list/docente/estudiantes/{idModulo}/{idDocente}/(idModulo = ${modulo.codigo}, idDocente = ${docente.codigo})}" class="btn-mini btn-info bi-book-half fs-6 rounded-2" role="button" data-bs-tooltip="tooltip" data-bs-placement="top" title="Listar estudiantes"></a>
+                            </td>
+                        </tr>
+                    </div>
+                </tbody>
+            </table>
+        </div>
+    </div>  
+    <div th:replace="commons/footer :: footer" class="container"></div>
+</body>
+</html>
