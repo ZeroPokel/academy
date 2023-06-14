@@ -383,6 +383,8 @@ public class ModuloController {
 
             Docente docente = docentesService.findById(idDocente);
             Modulo modulo = modulosService.findById(idModulo);
+
+            /* -1- Misma QUERY */
             List<EstudianteModulo> estudiantesModulo = modulosService.findEstudiantesByModulo(idModulo);
 
             ModelAndView modelAndView = new ModelAndView();    
@@ -401,6 +403,7 @@ public class ModuloController {
         @RequestParam("segunEv") Float[] segundaEv,
         @RequestParam("tercEv") Float[] terceraEv){
 
+        /* -1- Misma QUERY */
         List<EstudianteModulo> estudiantes = modulosService.findEstudiantesByModulo(codigoModulo);
         int i = 0;
 
@@ -413,8 +416,10 @@ public class ModuloController {
             i++;
         }
 
+        Modulo modulo = modulosService.findById(codigoModulo);
+        Docente docente = modulo.getDocente();
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("/welcome");
+        modelAndView.setViewName("redirect:/modulos/list/docente/estudiantes/" + codigoModulo + "/" + docente.getCodigo());
 
         return modelAndView;
     }

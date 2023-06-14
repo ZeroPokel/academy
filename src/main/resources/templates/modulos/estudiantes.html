@@ -19,7 +19,6 @@
                             <th scope="col">Nota 1ºEv</th>
                             <th scope="col">Nota 2ºEv</th>
                             <th scope="col">Nota 3ºEv</th>
-                            <th scope="col">Operaciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -29,38 +28,31 @@
                                 <td th:text="${estudianteModulo.getEstudiante().email}"></td>
                                 <td th:text="${estudianteModulo.getEstudiante().dni}"></td>
                                 <td th:if="${estudianteModulo.primEv eq null}">
-                                    <input type="number" min="0" max="10" class="form-control rounded-2" id="primEv" name="primEv">
+                                    <input type="number" step="0.01" min="0" max="10" id="primEv" name="primEv">
                                 </td>
                                 <td th:if="${estudianteModulo.primEv ne null}">
-                                    <input type="number" min="0" max="10" class="form-control rounded-2" id="primEv" name="primEv" th:value="${estudianteModulo.primEv}">
+                                    <input type="number" step="0.01" min="0" max="10" id="primEv" name="primEv" th:value="${estudianteModulo.primEv}">
                                 </td>
                                 <td th:if="${estudianteModulo.segunEv eq null}">
-                                    <input type="number" min="0" max="10" class="form-control rounded-2" id="segunEv" name="segunEv">
+                                    <input type="number" step="0.01" min="0" max="10" id="segunEv" name="segunEv">
                                 </td>
                                 <td th:if="${estudianteModulo.segunEv ne null}">
-                                    <input type="number" min="0" max="10" class="form-control rounded-2" id="segunEv" name="segunEv" th:value="${estudianteModulo.segunEv}">
+                                    <input type="number" step="0.01" min="0" max="10" id="segunEv" name="segunEv" th:value="${estudianteModulo.segunEv}">
                                 </td>
                                 <td th:if="${estudianteModulo.tercEv eq null}">
-                                    <input type="number" min="0" max="10" class="form-control rounded-2" id="tercEv" name="tercEv">
+                                    <input type="number" step="0.01" min="0" max="10" id="tercEv" name="tercEv">
                                 </td>
                                 <td th:if="${estudianteModulo.tercEv ne null}">
-                                    <input type="number" min="0" max="10" class="form-control rounded-2" id="tercEv" name="tercEv" th:value="${estudianteModulo.tercEv}">
+                                    <input type="number" step="0.01" min="0" max="10" id="tercEv" name="tercEv" th:value="${estudianteModulo.tercEv}">
                                 </td>
-                                <!--<td th:if="${estudiante.getPrimEv() eq null}">Sin nota</td>
-                                <td th:if="${estudiante.getPrimEv() ne null}" th:text="${estudiante.getPrimEv()}"></td>   
-                                <td th:if="${estudiante.getSegunEv() eq null}">Sin nota</td>
-                                <td th:if="${estudiante.getSegunEv() ne null}" th:text="${estudiante.getSegunEv()}"></td>  
-                                <td th:if="${estudiante.getTercEv() eq null}">Sin nota</td>
-                                <td th:if="${estudiante.getTercEv() ne null}" th:text="${estudiante.getTercEv()}"></td>  
-                                <td>
-                                    <a th:href="@{/modulos/addNota/estudiante/{idModulo}/{idEstudiante}/(idModulo = ${modulo.codigo}, idEstudiante = ${estudiante.codigo})}" class="btn-mini btn-info bi-book-half fs-6 rounded-2" role="button" data-bs-tooltip="tooltip" data-bs-placement="top" title="Cambiar notas"></a>
-                                </td>-->
                             </tr>
                         </div>
                     </tbody>
                 </table>
+                <br>
                 <div class="col-md-4">
                     <button type="submit" class="btn btn-success rounded-2">Confirmar</button>
+                    <a type="button" class="rounded-2 btn btn-danger" th:href="@{/modulos/list/docente/estudiantes/{idModulo}/{idDocente}/(idModulo = ${modulo.codigo}, idDocente = ${docente.codigo})}">Atrás</a>
                 </div>
             </form>
         </div>
