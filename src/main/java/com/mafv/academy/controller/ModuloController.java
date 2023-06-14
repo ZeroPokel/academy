@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mafv.academy.models.Curso;
@@ -391,7 +392,32 @@ public class ModuloController {
             modelAndView.setViewName("/modulos/estudiantes");
 
             return modelAndView;
-    }   
+    }  
+    
+    // Actualizar las notas de los estudiantes del módulo
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'DOCENTE')")
+    @PostMapping(path = { "/update/notas/estudiantes"})
+    public ModelAndView updateNotasEstudiantes(@RequestParam("codigo") Integer codigoModulo, @RequestParam("primEv") Float[] primeraEv, 
+        @RequestParam("segunEv") Float[] segundaEv,
+        @RequestParam("tercEv") Float[] terceraEv){
+
+        List<EstudianteModulo> estudiantes = modulosService.findEstudiantesByModulo(codigoModulo);
+        int i = 0;
+
+        for(EstudianteModulo estudiante : estudiantes){
+            estudiante.setPrimEv(primeraEv[i]);
+            estudiante.setSegunEv(segundaEv[i]);
+            estudiante.setTercEv(terceraEv[i]);
+            estudiantesService.saveEstModulo(estudiante);
+
+            i++;
+        }
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("/welcome");
+
+        return modelAndView;
+    }
      
     // FUNCIONES
 

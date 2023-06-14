@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.mafv.academy.models.Curso;
 import com.mafv.academy.models.Docente;
+import com.mafv.academy.models.Estudiante;
 import com.mafv.academy.models.EstudianteModulo;
 import com.mafv.academy.models.Modulo;
 
@@ -22,4 +23,5 @@ public interface ModuloService {
     public Boolean findModuloEstudiante(int idModulo);
     public List<EstudianteModulo> findByEstudiante(int idEstudiante);
     public List<EstudianteModulo> findEstudiantesByModulo(int idModulo);
+    public List<Estudiante> findEstudiantesInModulo(Modulo modulo);
 }

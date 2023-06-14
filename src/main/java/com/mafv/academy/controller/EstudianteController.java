@@ -166,19 +166,5 @@ public class EstudianteController {
         return modelAndView;
     }
 
-    // Actualizar las notas de los estudiantes del módulo
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'DOCENTE')")
-    @PostMapping(path = { "/update/notas/estudiantes"})
-    public ModelAndView updateNotasEstudiantes(List<Estudiante> estudiantes){
-
-        for(Estudiante estudiante : estudiantes){
-            estudiantesService.save(estudiante);
-        }
-
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("/welcome");
-
-        return modelAndView;
-    }
 
 }

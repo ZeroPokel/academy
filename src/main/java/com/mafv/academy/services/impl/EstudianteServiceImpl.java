@@ -92,4 +92,9 @@ public class EstudianteServiceImpl implements EstudianteService{
         return repository.findEstudiantesNotInModulo(modulo);
     }
 
+    @Override
+    public void saveEstModulo(EstudianteModulo estudiante) {
+        estudianteModuloRepository.save(estudiante);
+    }
+
 }

@@ -8,7 +8,8 @@
         <h4 class="mt-4 mb-4 text-center">Estudiantes</h4>
         <h5 class="mt-4 mb-4 text-center" th:if="${estudiantesModulo.size() eq 0}">No hay estudiantes en el módulo</h5>
         <div class="row">
-            <form method="post" th:action="@{/update/notas/estudiantes}">
+            <form method="post" th:action="@{/modulos/update/notas/estudiantes}">
+                <input type="text" class="d-none" id="codigo" name="codigo" th:value="${modulo.codigo}" reandonly>
                 <table class="table table-striped table-hover p-0 m-0 fs-6" th:if="${estudiantesModulo.size() ne 0}">
                     <thead>
                         <tr>
@@ -23,24 +24,24 @@
                     </thead>
                     <tbody>
                         <div th:each="estudianteModulo : ${estudiantesModulo}">
-                            <tr class="table-light text p-0 m-0 align-middle">
+                            <tr class="table-light text p-0 m-0 align-middle">                                
                                 <td th:text="|${estudianteModulo.getEstudiante().nombre} ${estudianteModulo.getEstudiante().apellidos}|"></td>
                                 <td th:text="${estudianteModulo.getEstudiante().email}"></td>
                                 <td th:text="${estudianteModulo.getEstudiante().dni}"></td>
                                 <td th:if="${estudianteModulo.primEv eq null}">
-                                    <input type="number" min="0" max="10" class="form-control rounded-2" id="primEv" name="primEv" th:value="0.00">
+                                    <input type="number" min="0" max="10" class="form-control rounded-2" id="primEv" name="primEv">
                                 </td>
                                 <td th:if="${estudianteModulo.primEv ne null}">
                                     <input type="number" min="0" max="10" class="form-control rounded-2" id="primEv" name="primEv" th:value="${estudianteModulo.primEv}">
                                 </td>
                                 <td th:if="${estudianteModulo.segunEv eq null}">
-                                    <input type="number" min="0" max="10" class="form-control rounded-2" id="segunEv" name="segunEv" th:value="0.00">
+                                    <input type="number" min="0" max="10" class="form-control rounded-2" id="segunEv" name="segunEv">
                                 </td>
                                 <td th:if="${estudianteModulo.segunEv ne null}">
                                     <input type="number" min="0" max="10" class="form-control rounded-2" id="segunEv" name="segunEv" th:value="${estudianteModulo.segunEv}">
                                 </td>
                                 <td th:if="${estudianteModulo.tercEv eq null}">
-                                    <input type="number" min="0" max="10" class="form-control rounded-2" id="tercEv" name="tercEv" th:value="0.00">
+                                    <input type="number" min="0" max="10" class="form-control rounded-2" id="tercEv" name="tercEv">
                                 </td>
                                 <td th:if="${estudianteModulo.tercEv ne null}">
                                     <input type="number" min="0" max="10" class="form-control rounded-2" id="tercEv" name="tercEv" th:value="${estudianteModulo.tercEv}">

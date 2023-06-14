@@ -119,4 +119,9 @@ public class ModuloServiceImpl implements ModuloService{
     public List<EstudianteModulo> findEstudiantesByModulo(int idModulo){
         return estudianteModuloRepository.findByModuloCodigo(idModulo);
     }
+
+    @Override
+    public List<Estudiante> findEstudiantesInModulo(Modulo modulo) {
+        return repository.findEstudiantesByModulo(modulo);
+    }
 }
