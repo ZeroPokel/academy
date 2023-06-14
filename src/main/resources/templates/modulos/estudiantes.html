@@ -19,6 +19,7 @@
                             <th scope="col">Nota 1ºEv</th>
                             <th scope="col">Nota 2ºEv</th>
                             <th scope="col">Nota 3ºEv</th>
+                            <th scope="col">Nota final</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -45,6 +46,7 @@
                                 <td th:if="${estudianteModulo.tercEv ne null}">
                                     <input type="number" step="0.01" min="0" max="10" id="tercEv" name="tercEv" th:value="${estudianteModulo.tercEv}">
                                 </td>
+                                <td th:text="${estudianteModulo.getNotaFinal()}"></td>
                             </tr>
                         </div>
                     </tbody>

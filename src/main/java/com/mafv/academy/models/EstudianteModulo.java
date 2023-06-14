@@ -1,5 +1,7 @@
 package com.mafv.academy.models;
 
+import java.text.DecimalFormat;
+
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -80,6 +82,10 @@ public class EstudianteModulo {
 
     public void setTercEv(float tercEv) {
         this.tercEv = tercEv;
+    }
+
+    public float getNotaFinal(){
+        return (float) (Math.round(((getPrimEv() + getSegunEv() + getTercEv()) / 3) * 100.00) / 100.00);
     }
     
 }
