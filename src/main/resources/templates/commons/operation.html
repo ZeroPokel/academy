@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+    <!-- Mostrar alerta de si las operaciones se realizan con exito o no -->
+    <div th:fragment="operation">
+        <div th:if="${param.operacionExitoTrue}" class="alert alert-dismissible alert-success mt-4 rounded-3"> 
+            <p class="mb-0"><small>Operación realizada con éxito.</small></p>
+        </div>
+        <div th:if="${param.operacionExitoFalse}" class="alert alert-dismissible alert-danger mt-4 rounded-3"> 
+            <p class="mb-0"><small>Error al realizar la operación, comprueba que la entidad no contenga información de otras entidades..</small></p>
+        </div>
+    </div>
+</body>
+</html>

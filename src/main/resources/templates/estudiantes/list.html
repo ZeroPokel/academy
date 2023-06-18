@@ -6,6 +6,7 @@
     <div th:replace="commons/menu :: menu"></div>
     <div class="container">
         <h1 class="mt-4 mb-4 text-center">Estudiantes</h1>
+        <div th:replace="commons/operation :: operation"></div>
         <a th:href="@{/cursos/edit/} + ${modulo.getCurso().getCodigo()}" class="btn btn-danger mb-3 rounded-2" th:if="${modulo ne null}">Atrás</a>
         <a th:href="@{/estudiantes/create}" class="btn btn-info mb-3 rounded-2" th:if="${modulo eq null}">Crear estudiante</a>
         <div class="row">

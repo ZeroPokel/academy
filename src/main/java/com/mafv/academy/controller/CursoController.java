@@ -149,10 +149,10 @@ public class CursoController {
 
         Curso curso = cursosService.findById(idCurso);
         if (curso.getTutor() != null || curso.getModulos().size() != 0){
-            modelAndView.setViewName("redirect:/cursos/list?deleteCursoFalse=" + true);
+            modelAndView.setViewName("redirect:/cursos/list?operacionExitoFalse=" + true);
         } else {
             cursosService.deleteById(idCurso);
-            modelAndView.setViewName("redirect:/cursos/list?deleteCursoTrue=" + true);
+            modelAndView.setViewName("redirect:/cursos/list?operacionExitoTrue=" + true);
         }
 
         return modelAndView;
@@ -210,7 +210,7 @@ public class CursoController {
         return modelAndView;
     }
 
-    // Añadir un docente al curso seleccionado sin tutor - EN DESUSO POR AHORA
+    // Añadir un docente al curso seleccionado sin tutor
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping(path = { "/add/tutor/{idTutor}/curso/{idCurso}"})
     public ModelAndView addTutor(

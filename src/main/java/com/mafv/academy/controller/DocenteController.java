@@ -186,7 +186,7 @@ public class DocenteController {
         docentesService.deleteById(idDocente);
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:/docentes/list");
+        modelAndView.setViewName("redirect:/docentes/list?operacionExitoTrue=" + true);
 
         return modelAndView;
     }

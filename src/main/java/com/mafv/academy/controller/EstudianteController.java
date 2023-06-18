@@ -151,7 +151,7 @@ public class EstudianteController {
         estudiantesService.deleteById(idEstudiante);
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:/estudiantes/list");
+        modelAndView.setViewName("redirect:/estudiantes/list?operacionExitoTrue=" + true);
 
         return modelAndView;
     }

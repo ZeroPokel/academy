@@ -146,9 +146,9 @@ public class ModuloController {
 
         if (modulosService.findModuloEstudiante(idModulo) && modulo.getDocente() == null){
             modulosService.deleteById(idModulo);
-            modelAndView.setViewName("redirect:/modulos/list?deleteModuloTrue=" + true);
+            modelAndView.setViewName("redirect:/modulos/list?operacionExitoTrue=" + true);
         } else {
-            modelAndView.setViewName("redirect:/modulos/list?deleteModuloFalse=" + true);
+            modelAndView.setViewName("redirect:/modulos/list?operacionExitoFalse=" + true);
         }
 
         return modelAndView;
@@ -165,30 +165,13 @@ public class ModuloController {
 
         if (modulosService.findModuloEstudiante(idModulo) && modulo.getDocente() == null){
             modulosService.deleteById(idModulo);
-            modelAndView.setViewName("redirect:/cursos/edit/" + idCurso + "?deleteModuloTrue=" + true);
+            modelAndView.setViewName("redirect:/cursos/edit/" + idCurso + "?operacionExitooTrue=" + true);
         } else {
-            modelAndView.setViewName("redirect:/cursos/edit/" + idCurso + "?deleteModuloFalse=" + true);
+            modelAndView.setViewName("redirect:/cursos/edit/" + idCurso + "?operacionExitoFalse=" + true);
         }
 
         return modelAndView;
     }
-
-    /* Borrado de docente de un modulo
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
-    @GetMapping(path = { "/delete/docente/modulo/{idModulo}" })
-    public ModelAndView deleteDocente(
-        @PathVariable(name = "idModulo", required = true) int idModulo) {
-
-        Modulo modulo = modulosService.findById(idModulo);
-        modulo.setDocente(null);
-        modulosService.save(modulo);
-
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:/modulos/list?deleteDocente=" + true);
-
-        return modelAndView;
-    }
-    */
     
     // Borrado de docente de un modulo desde curso
     @PreAuthorize("hasAnyAuthority('ADMIN')")
@@ -204,7 +187,7 @@ public class ModuloController {
 
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:/cursos/edit/" + curso.getCodigo() + "?deleteDocente=" + true);
+        modelAndView.setViewName("redirect:/cursos/edit/" + curso.getCodigo() + "?operacionExitoTrue=" + true);
 
         return modelAndView;
     }
@@ -317,7 +300,7 @@ public class ModuloController {
             modulosService.deleteEstudianteFromModulo(idModulo, idEstudiante);
 
             ModelAndView modelAndView = new ModelAndView();            
-            modelAndView.setViewName("redirect:/modulos/list/estudiantes/" + idModulo + "?deleteEstudiante=" + true);
+            modelAndView.setViewName("redirect:/modulos/list/estudiantes/" + idModulo + "?operacionExitoTrue=" + true);
 
             return modelAndView;
         }
@@ -331,7 +314,7 @@ public class ModuloController {
             modulosService.deleteAllEstudianteFromModulo(idModulo);
 
             ModelAndView modelAndView = new ModelAndView();            
-            modelAndView.setViewName("redirect:/modulos/list/estudiantes/" + idModulo + "?deleteAllEstudiante=" + true);
+            modelAndView.setViewName("redirect:/modulos/list/estudiantes/" + idModulo + "?operacionExitoTrue=" + true);
 
             return modelAndView;
         }
