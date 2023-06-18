@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.mafv.academy.models.Usuario;
-import com.mafv.academy.models.UsuarioDTO;
 import com.mafv.academy.repository.UsuarioRepository;
 
 @Controller
@@ -24,7 +23,7 @@ public class LoginController {
     private UsuarioRepository userRepository;
 
     @RequestMapping(value = "/processLogin", method = RequestMethod.POST)
-    public String processLogin(UsuarioDTO usuario, HttpSession session) {
+    public String processLogin(Usuario usuario, HttpSession session) {
 
         Usuario user = userRepository.findByUsername(usuario.getUsername());
         if (user == null) {
