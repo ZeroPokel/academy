@@ -25,13 +25,14 @@
                             <td th:text="${estMod.getModulo().nombre}"></td>
                             <td th:if="${estMod.getModulo().docente ne null}" th:text="|${estMod.getModulo().docente.nombre} ${estMod.getModulo().docente.apellidos}|"></td>
                             <td th:unless="${estMod.getModulo().docente ne null}">Sin docente asignado</td>
-                            <td th:if="${estMod.getPrimEv() eq null}">Sin nota</td>
-                            <td th:if="${estMod.getPrimEv() ne null}" th:text="${estMod.getPrimEv()}"></td>   
-                            <td th:if="${estMod.getSegunEv() eq null}">Sin nota</td>
-                            <td th:if="${estMod.getSegunEv() ne null}" th:text="${estMod.getSegunEv()}"></td>  
-                            <td th:if="${estMod.getTercEv() eq null}">Sin nota</td>
-                            <td th:if="${estMod.getTercEv() ne null}" th:text="${estMod.getTercEv()}"></td>  
-                            <td th:if="${estMod.getFinal() ne null}" th:text="${estMod.getNotaFinal()}"></td>
+                            <td th:if="${estMod.getPrimEv() eq 0}">Sin nota</td>
+                            <td th:if="${estMod.getPrimEv() ne 0}" th:text="${estMod.getPrimEv()}"></td>   
+                            <td th:if="${estMod.getSegunEv() eq 0}">Sin nota</td>
+                            <td th:if="${estMod.getSegunEv() ne 0}" th:text="${estMod.getSegunEv()}"></td>  
+                            <td th:if="${estMod.getTercEv() eq 0}">Sin nota</td>
+                            <td th:if="${estMod.getTercEv() ne 0}" th:text="${estMod.getTercEv()}"></td>  
+                            <td th:if="${estMod.getPrimEv() ne 0 and estMod.getSegunEv() ne 0 and estMod.getTercEv() ne 0}" th:text="${estMod.getNotaFinal()}"></td>
+                            <td th:unless="${estMod.getPrimEv() ne 0 and estMod.getSegunEv() ne 0 and estMod.getTercEv() ne 0}">Sin nota</td>
                         </tr>
                     </div>
                 </tbody>
