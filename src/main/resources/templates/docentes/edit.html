@@ -64,19 +64,3 @@
     <div th:replace="commons/footer :: footer" class="container"></div>
 </body>
 </html>
-
-<!--
-
-    <script>
-        function blurFunction(fecha){
-            var fechaConvertida = new Date(fecha);
-            fechaConvertida = fechaConvertida.toLocaleDateString('en-GB');
-            return fechaConvertida;
-        }
-    </script>
-
-                            <input type="text" class="form-control" id="fechaNacimiento" name="fechaNacimiento" onfocus="(this.type='date');" 
-                            onblur="(this.type='text', this.value=blurFunction(value));" 
-                            th:value="${#dates.format(docente.fechaNacimiento, 'dd-MM-yyyy')}" placeholder="Introduce la fecha de nacimiento">
-
--->

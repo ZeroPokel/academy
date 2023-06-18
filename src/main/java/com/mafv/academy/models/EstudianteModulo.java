@@ -1,7 +1,5 @@
 package com.mafv.academy.models;
 
-import java.text.DecimalFormat;
-
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;

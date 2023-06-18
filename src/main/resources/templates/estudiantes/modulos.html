@@ -31,8 +31,7 @@
                             <td th:if="${estMod.getSegunEv() ne null}" th:text="${estMod.getSegunEv()}"></td>  
                             <td th:if="${estMod.getTercEv() eq null}">Sin nota</td>
                             <td th:if="${estMod.getTercEv() ne null}" th:text="${estMod.getTercEv()}"></td>  
-                            <!--<td th:if="${estMod.getFinal() eq null}">Sin nota</td>
-                            <td th:if="${estMod.getFinal() ne null}" th:text="${estMod.getFinal()}"></td>-->
+                            <td th:if="${estMod.getFinal() ne null}" th:text="${estMod.getNotaFinal()}"></td>
                         </tr>
                     </div>
                 </tbody>
