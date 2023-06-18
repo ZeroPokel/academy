@@ -19,7 +19,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.mafv.academy.models.Curso;
 import com.mafv.academy.models.Docente;
-import com.mafv.academy.models.Estudiante;
 import com.mafv.academy.models.Modulo;
 import com.mafv.academy.models.Permiso;
 import com.mafv.academy.services.CursoService;
