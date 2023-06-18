@@ -2,6 +2,9 @@ package com.mafv.academy.services;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import com.mafv.academy.models.Curso;
 import com.mafv.academy.models.Docente;
 import com.mafv.academy.models.Estudiante;
@@ -10,6 +13,7 @@ import com.mafv.academy.models.Modulo;
 
 public interface ModuloService {
     public List<Modulo> findAll();
+    public Page<Modulo> findAll(Pageable page);
     public Modulo findById(int idModulo);
     public Modulo save(Modulo modulo);
     public List<Modulo> findByDocente(Docente docente);

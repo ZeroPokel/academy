@@ -50,19 +50,11 @@ public class CursoController {
 
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping(value = "/list")
-    public ModelAndView list(Model model) {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:list/1/codigo/asc");
-        return modelAndView;
-    }
+    public ModelAndView listPage(Model model) {
 
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
-    @GetMapping(value = "/list/{numPage}/{fieldSort}/{directionSort}")
-    public ModelAndView listPage(Model model,
-            @PathVariable("numPage") Integer numPage,
-            @PathVariable("fieldSort") String fieldSort,
-            @PathVariable("directionSort") String directionSort) {
-
+        Integer numPage = 1;
+        String fieldSort = "codigo";
+        String directionSort = "asc";
 
         Pageable pageable = PageRequest.of(numPage - 1, sizePage,
             directionSort.equals("asc") ? Sort.by(fieldSort).ascending() : Sort.by(fieldSort).descending());
@@ -147,7 +139,7 @@ public class CursoController {
         return modelAndView;
     }
 
-    // Al borrar un curso, se borran las relaciones también con las otras tablas
+    // Al borrar un curso, si tiene relaciones con otras tablas, no se podrá borrar
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping(path = { "/delete/{idCurso}" })
     public ModelAndView delete(

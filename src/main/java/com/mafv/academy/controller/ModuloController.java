@@ -4,9 +4,14 @@ import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,15 +45,35 @@ public class ModuloController {
 
     @Autowired
     EstudianteService estudiantesService;
+
+    @Value("${pagination.size}")
+    int sizePage;
     
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping(value = "/list")
     public ModelAndView listPage(Model model) {
 
-        List<Modulo> modulos = modulosService.findAll();
+        Integer numPage = 1;
+        String fieldSort = "codigo";
+        String directionSort = "asc";
+        
+        Pageable pageable = PageRequest.of(numPage - 1, sizePage,
+            directionSort.equals("asc") ? Sort.by(fieldSort).ascending() : Sort.by(fieldSort).descending());
+
+        Page<Modulo> page = modulosService.findAll(pageable);
+
+        List<Modulo> modulos = page.getContent();
 
         ModelAndView modelAndView = new ModelAndView("modulos/list");
         modelAndView.addObject("modulos", modulos);
+
+
+        modelAndView.addObject("numPage", numPage);
+        modelAndView.addObject("totalPages", page.getTotalPages());
+        modelAndView.addObject("totalElements", page.getTotalElements());
+
+        modelAndView.addObject("fieldSort", fieldSort);
+        modelAndView.addObject("directionSort", directionSort.equals("asc") ? "asc" : "desc");
 
         return modelAndView;
     }
