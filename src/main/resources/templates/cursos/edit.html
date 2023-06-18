@@ -7,7 +7,7 @@
     <div class="container mb-4">
         <h1 class="mt-4 mb-4 text-center" th:text="'Curso ' + ${curso.nombre}"></h1>
         <div th:replace="commons/operation :: operation"></div>
-        <form class="row g-3" method="post" th:action="@{/cursos/update}" sec:authorize="hasAnyAuthority('ADMIN')">
+        <form onsubmit="validarNombre(event)" id="formulario" class="row g-3" method="post" th:action="@{/cursos/update}" sec:authorize="hasAnyAuthority('ADMIN')">
                 <legend th:text="'Editar curso'">Editar curso</legend>
                 <div class="row">
                     <div class="col-md-3">

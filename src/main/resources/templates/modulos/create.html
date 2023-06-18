@@ -5,7 +5,7 @@
 
     <div th:replace="commons/menu :: menu"></div>
     <div class="container">
-        <form class="row g-3" method="post" th:action="@{/modulos/save/} + ${curso.codigo}">
+        <form onsubmit="validarNombre(event)" id="formulario" class="row g-3" method="post" th:action="@{/modulos/save/} + ${curso.codigo}">
                 <legend>Nuevo módulo</legend>
                 <div class="row">
                     <div class="col-md-3">
