@@ -178,10 +178,16 @@ public class EstudianteController {
     public ModelAndView delete(
             @PathVariable(name = "idEstudiante", required = true) int idEstudiante) {
 
-        estudiantesService.deleteById(idEstudiante);
-
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:/estudiantes/list/1/codigo/asc?operacionExitoTrue=" + true);
+        List<EstudianteModulo> estudianteModulo = modulosService.findByEstudiante(idEstudiante);
+
+        if (estudianteModulo.size() == 0){
+            estudiantesService.deleteById(idEstudiante);
+            modelAndView.setViewName("redirect:/estudiantes/list/1/codigo/asc?operacionExitoTrue=" + true);
+        } else {
+            modelAndView.setViewName("redirect:/estudiantes/list/1/codigo/asc?operacionExitoFalse=" + true);
+        }
+
 
         return modelAndView;
     }
