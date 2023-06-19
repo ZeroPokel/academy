@@ -54,13 +54,42 @@ public class DocenteController {
     int sizePage;
 
     @PreAuthorize("hasAnyAuthority('ADMIN')")
-    @GetMapping(value = "/list")
+    @GetMapping(value = "/list/1/codigo/asc")
     public ModelAndView listPage(Model model) {
 
         Integer numPage = 1;
         String fieldSort = "codigo";
         String directionSort = "asc";
         
+        Pageable pageable = PageRequest.of(numPage - 1, sizePage,
+            directionSort.equals("asc") ? Sort.by(fieldSort).ascending() : Sort.by(fieldSort).descending());
+
+        Page<Docente> page = docentesService.findAll(pageable);
+
+        List<Docente> docentes = page.getContent();
+
+        ModelAndView modelAndView = new ModelAndView("docentes/list");
+        modelAndView.addObject("docentes", docentes);
+
+
+        modelAndView.addObject("numPage", numPage);
+        modelAndView.addObject("totalPages", page.getTotalPages());
+        modelAndView.addObject("totalElements", page.getTotalElements());
+
+        modelAndView.addObject("fieldSort", fieldSort);
+        modelAndView.addObject("directionSort", directionSort.equals("asc") ? "asc" : "desc");
+
+        return modelAndView;
+    }
+
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @GetMapping(value = "/list/{numPage}/{fieldSort}/{directionSort}")
+    public ModelAndView listPage(Model model,
+            @PathVariable("numPage") Integer numPage,
+            @PathVariable("fieldSort") String fieldSort,
+            @PathVariable("directionSort") String directionSort) {
+
+
         Pageable pageable = PageRequest.of(numPage - 1, sizePage,
             directionSort.equals("asc") ? Sort.by(fieldSort).ascending() : Sort.by(fieldSort).descending());
 
@@ -186,7 +215,7 @@ public class DocenteController {
         docentesService.deleteById(idDocente);
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:/docentes/list?operacionExitoTrue=" + true);
+        modelAndView.setViewName("redirect:/docentes/list/1/codigo/asc?operacionExitoTrue=" + true);
 
         return modelAndView;
     }
@@ -200,6 +229,11 @@ public class DocenteController {
 
         Docente docente = docentesService.findById(idDocente);
         List<Modulo> modulos = modulosService.findByDocente(docente);
+        
+        for (Modulo modulo : modulos){
+            int numEstudiantes = modulosService.countEstudiantesByModulo(modulo.getCodigo());
+            modulo.setNumEstudiantes(numEstudiantes);
+        }
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("docente", docente);
@@ -209,7 +243,4 @@ public class DocenteController {
         return modelAndView;
     }
 
-
-    // Si el docente es tutor, tendrá una vista de tutoría, donde le saldrá información de la clase que es tutor, los módulos, que profesor imparte dicho módulo,
-    // y de ahí podrá ir a la info de los módulos y de los alumnos
 }

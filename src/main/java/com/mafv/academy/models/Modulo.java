@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 @Entity
 public class Modulo {
@@ -28,6 +29,9 @@ public class Modulo {
 
     @OneToMany(mappedBy = "modulo")
     private List<EstudianteModulo> nota;
+
+    @Transient
+    private int numEstudiantes;
 
     public Modulo() {
     }
@@ -98,6 +102,12 @@ public class Modulo {
         return true;
     }
 
-    
+    public int getNumEstudiantes() {
+        return numEstudiantes;
+    }
+
+    public void setNumEstudiantes(int numEstudiantes) {
+        this.numEstudiantes = numEstudiantes;
+    }
 
 }

@@ -49,13 +49,43 @@ public class EstudianteController {
     int sizePage;
 
     @PreAuthorize("hasAnyAuthority('ADMIN')")
-    @GetMapping(value = "/list")
+    @GetMapping(value = "/list/1/codigo/asc")
     public ModelAndView listPage(Model model) {
 
         Integer numPage = 1;
         String fieldSort = "codigo";
         String directionSort = "asc";
         
+        Pageable pageable = PageRequest.of(numPage - 1, sizePage,
+            directionSort.equals("asc") ? Sort.by(fieldSort).ascending() : Sort.by(fieldSort).descending());
+
+        Page<Estudiante> page = estudiantesService.findAll(pageable);
+
+        List<Estudiante> estudiantes = page.getContent();
+
+        ModelAndView modelAndView = new ModelAndView("estudiantes/list");
+        modelAndView.addObject("estudiantes", estudiantes);
+
+
+        modelAndView.addObject("numPage", numPage);
+        modelAndView.addObject("totalPages", page.getTotalPages());
+        modelAndView.addObject("totalElements", page.getTotalElements());
+
+        modelAndView.addObject("fieldSort", fieldSort);
+        modelAndView.addObject("directionSort", directionSort.equals("asc") ? "asc" : "desc");
+
+        return modelAndView;
+    }
+
+    
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @GetMapping(value = "/list/{numPage}/{fieldSort}/{directionSort}")
+    public ModelAndView listPage(Model model,
+            @PathVariable("numPage") Integer numPage,
+            @PathVariable("fieldSort") String fieldSort,
+            @PathVariable("directionSort") String directionSort) {
+
+
         Pageable pageable = PageRequest.of(numPage - 1, sizePage,
             directionSort.equals("asc") ? Sort.by(fieldSort).ascending() : Sort.by(fieldSort).descending());
 
@@ -151,7 +181,7 @@ public class EstudianteController {
         estudiantesService.deleteById(idEstudiante);
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:/estudiantes/list?operacionExitoTrue=" + true);
+        modelAndView.setViewName("redirect:/estudiantes/list/1/codigo/asc?operacionExitoTrue=" + true);
 
         return modelAndView;
     }

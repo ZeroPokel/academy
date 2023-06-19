@@ -130,4 +130,10 @@ public class ModuloServiceImpl implements ModuloService{
     public Page<Modulo> findAll(Pageable page) {
         return repository.findAll(page);
     }
+ 
+    @Override
+    public Integer countEstudiantesByModulo(int idModulo) {
+        return estudianteModuloRepository.countByModuloCodigo(idModulo);
+    }
+
 }

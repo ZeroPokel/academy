@@ -20,16 +20,16 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
                 </a>
               </li>
               <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN')">
-                <a class="nav-link" th:href="@{/cursos/list}">Cursos</a>
+                <a class="nav-link" th:href="@{/cursos/list/1/codigo/asc}">Cursos</a>
               </li>
               <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN')">
-                <a class="nav-link" th:href="@{/modulos/list}">Módulos</a>
+                <a class="nav-link" th:href="@{/modulos/list/1/codigo/asc}">Módulos</a>
               </li>
               <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN')">
-                <a class="nav-link" th:href="@{/docentes/list}">Docentes</a>
+                <a class="nav-link" th:href="@{/docentes/list/1/codigo/asc}">Docentes</a>
               </li>
               <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN')">
-                <a class="nav-link" th:href="@{/estudiantes/list}">Estudiantes</a>
+                <a class="nav-link" th:href="@{/estudiantes/list/1/codigo/asc}">Estudiantes</a>
               </li>
               <li class="nav-item" sec:authorize="hasAnyAuthority('ESTUDIANTE')">
                 <a class="nav-link" th:href="@{/estudiantes/info/{idEstudiante}/{username}(idEstudiante = ${session.usuario.codigo}, username = ${session.usuario.username})}">Perfil</a>

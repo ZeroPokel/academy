@@ -49,12 +49,41 @@ public class CursoController {
     int sizePage;
 
     @PreAuthorize("hasAnyAuthority('ADMIN')")
-    @GetMapping(value = "/list")
+    @GetMapping(value = "/list/1/codigo/asc")
     public ModelAndView listPage(Model model) {
 
         Integer numPage = 1;
         String fieldSort = "codigo";
         String directionSort = "asc";
+
+        Pageable pageable = PageRequest.of(numPage - 1, sizePage,
+            directionSort.equals("asc") ? Sort.by(fieldSort).ascending() : Sort.by(fieldSort).descending());
+
+        Page<Curso> page = cursosService.findAll(pageable);
+
+        List<Curso> cursos = page.getContent();
+
+        ModelAndView modelAndView = new ModelAndView("cursos/list");
+        modelAndView.addObject("cursos", cursos);
+
+
+        modelAndView.addObject("numPage", numPage);
+        modelAndView.addObject("totalPages", page.getTotalPages());
+        modelAndView.addObject("totalElements", page.getTotalElements());
+
+        modelAndView.addObject("fieldSort", fieldSort);
+        modelAndView.addObject("directionSort", directionSort.equals("asc") ? "asc" : "desc");
+
+        return modelAndView;
+    }
+
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @GetMapping(value = "/list/{numPage}/{fieldSort}/{directionSort}")
+    public ModelAndView listPage(Model model,
+            @PathVariable("numPage") Integer numPage,
+            @PathVariable("fieldSort") String fieldSort,
+            @PathVariable("directionSort") String directionSort) {
+
 
         Pageable pageable = PageRequest.of(numPage - 1, sizePage,
             directionSort.equals("asc") ? Sort.by(fieldSort).ascending() : Sort.by(fieldSort).descending());
@@ -149,10 +178,10 @@ public class CursoController {
 
         Curso curso = cursosService.findById(idCurso);
         if (curso.getTutor() != null || curso.getModulos().size() != 0){
-            modelAndView.setViewName("redirect:/cursos/list?operacionExitoFalse=" + true);
+            modelAndView.setViewName("redirect:/cursos/list/1/codigo/asc?operacionExitoFalse=" + true);
         } else {
             cursosService.deleteById(idCurso);
-            modelAndView.setViewName("redirect:/cursos/list?operacionExitoTrue=" + true);
+            modelAndView.setViewName("redirect:/cursos/list/1/codigo/asc?operacionExitoTrue=" + true);
         }
 
         return modelAndView;
@@ -205,7 +234,7 @@ public class CursoController {
         ModelAndView modelAndView = new ModelAndView();            
         modelAndView.addObject("curso", curso);
         modelAndView.addObject("docentes", docentes);
-        modelAndView.setViewName("docentes/list");
+        modelAndView.setViewName("docentes/list/1/codigo/asc");
 
         return modelAndView;
     }
@@ -224,7 +253,7 @@ public class CursoController {
         cursosService.save(curso);
     
         ModelAndView modelAndView = new ModelAndView();            
-        modelAndView.setViewName("redirect:/cursos/list");
+        modelAndView.setViewName("redirect:/cursos/list/1/codigo/asc");
     
         return modelAndView;
     }

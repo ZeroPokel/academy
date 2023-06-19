@@ -28,4 +28,5 @@ public interface ModuloService {
     public List<EstudianteModulo> findByEstudiante(int idEstudiante);
     public List<EstudianteModulo> findEstudiantesByModulo(int idModulo);
     public List<Estudiante> findEstudiantesInModulo(Modulo modulo);
+    public Integer countEstudiantesByModulo(int idModulo);
 }

@@ -22,7 +22,8 @@
                         <tr class="table-light text p-0 m-0 align-middle">
                             <td th:text="${modulo.nombre}"></td>
                             <td th:text="${modulo.getCurso().nombre}"></td>
-                            <td >Temporal</td>
+                            <td th:text="${modulo.getNumEstudiantes()}"></td>
+                            <td></td>
                             <td>
                                 <a th:href="@{/modulos/list/docente/estudiantes/{idModulo}/{idDocente}/(idModulo = ${modulo.codigo}, idDocente = ${docente.codigo})}" class="btn-mini btn-info bi-book-half fs-6 rounded-2" role="button" data-bs-tooltip="tooltip" data-bs-placement="top" title="Listar estudiantes"></a>
                             </td>

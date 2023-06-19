@@ -50,13 +50,42 @@ public class ModuloController {
     int sizePage;
     
     @PreAuthorize("hasAnyAuthority('ADMIN')")
-    @GetMapping(value = "/list")
+    @GetMapping(value = "/list/1/codigo/asc")
     public ModelAndView listPage(Model model) {
 
         Integer numPage = 1;
         String fieldSort = "codigo";
         String directionSort = "asc";
         
+        Pageable pageable = PageRequest.of(numPage - 1, sizePage,
+            directionSort.equals("asc") ? Sort.by(fieldSort).ascending() : Sort.by(fieldSort).descending());
+
+        Page<Modulo> page = modulosService.findAll(pageable);
+
+        List<Modulo> modulos = page.getContent();
+
+        ModelAndView modelAndView = new ModelAndView("modulos/list");
+        modelAndView.addObject("modulos", modulos);
+
+
+        modelAndView.addObject("numPage", numPage);
+        modelAndView.addObject("totalPages", page.getTotalPages());
+        modelAndView.addObject("totalElements", page.getTotalElements());
+
+        modelAndView.addObject("fieldSort", fieldSort);
+        modelAndView.addObject("directionSort", directionSort.equals("asc") ? "asc" : "desc");
+
+        return modelAndView;
+    }
+
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @GetMapping(value = "/list/{numPage}/{fieldSort}/{directionSort}")
+    public ModelAndView listPage(Model model,
+            @PathVariable("numPage") Integer numPage,
+            @PathVariable("fieldSort") String fieldSort,
+            @PathVariable("directionSort") String directionSort) {
+
+
         Pageable pageable = PageRequest.of(numPage - 1, sizePage,
             directionSort.equals("asc") ? Sort.by(fieldSort).ascending() : Sort.by(fieldSort).descending());
 
@@ -146,9 +175,9 @@ public class ModuloController {
 
         if (modulosService.findModuloEstudiante(idModulo) && modulo.getDocente() == null){
             modulosService.deleteById(idModulo);
-            modelAndView.setViewName("redirect:/modulos/list?operacionExitoTrue=" + true);
+            modelAndView.setViewName("redirect:/modulos/list/1/codigo/asc?operacionExitoTrue=" + true);
         } else {
-            modelAndView.setViewName("redirect:/modulos/list?operacionExitoFalse=" + true);
+            modelAndView.setViewName("redirect:/modulos/list/1/codigo/asc?operacionExitoFalse=" + true);
         }
 
         return modelAndView;
@@ -245,7 +274,7 @@ public class ModuloController {
         modelAndView.addObject("modulo", modulo);
         modelAndView.addObject("docentes", docentes);
         modelAndView.addObject("curso", curso);
-        modelAndView.setViewName("docentes/list");
+        modelAndView.setViewName("docentes/list/1/codigo/asc");
     
         return modelAndView;
     }
@@ -331,7 +360,7 @@ public class ModuloController {
             ModelAndView modelAndView = new ModelAndView();    
             modelAndView.addObject("estudiantes", estudiantes);
             modelAndView.addObject("modulo", modulo);       
-            modelAndView.setViewName("/estudiantes/list");
+            modelAndView.setViewName("/estudiantes/list/1/codigo/asc");
 
             return modelAndView;
         }

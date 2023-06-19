@@ -13,4 +13,5 @@ public interface EstudianteModuloRepository extends JpaRepository<EstudianteModu
     public void deleteByModuloCodigoAndEstudianteCodigo(int idModulo, int idEstudiante);
     public List<EstudianteModulo> findByModuloCodigo(int idModulo);
     public List<EstudianteModulo> findByEstudianteCodigo(int idEstudiante);
+    public Integer countByModuloCodigo(int idModulo);
 }
