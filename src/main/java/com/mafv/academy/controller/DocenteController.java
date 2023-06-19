@@ -208,23 +208,21 @@ public class DocenteController {
     public ModelAndView delete(
             @PathVariable(name = "idDocente", required = true) int idDocente) {
 
-        // Se comprueba si el docente es tutor de un curso, si lo es, borrará el tutor del curso
+        ModelAndView modelAndView = new ModelAndView();
         Docente docente = docentesService.findById(idDocente);
         Curso curso = cursosService.findByTutor(docente);
-        
-        if(curso != null){
-            cursosService.deleteTutor(curso.getCodigo());
-        }
 
-        // Además se comprueba si el docenete imparte en algún módulo, si lo hace, será eliminado como docente del módulo
+        // Se comprueba si el docenete imparte en algún módulo y si es tutor de algun curso, si alguna de estas dos se cumple, no se podrá eliminar
         if(docente.getModulos().size() != 0){
-            docentesService.deleteDocenteFromAllModulo(idDocente);
+            if(curso != null){
+                modelAndView.setViewName("redirect:/docentes/list/1/codigo/asc?operacionExitoFalse=" + true);
+            } else {
+                modelAndView.setViewName("redirect:/docentes/list/1/codigo/asc?operacionExitoTrue=" + true);
+                docentesService.deleteById(idDocente);
+            }
+        } else {
+            modelAndView.setViewName("redirect:/docentes/list/1/codigo/asc?operacionExitoFalse=" + true);
         }
-
-        docentesService.deleteById(idDocente);
-
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:/docentes/list/1/codigo/asc?operacionExitoTrue=" + true);
 
         return modelAndView;
     }
