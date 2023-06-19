@@ -38,6 +38,7 @@
                 </tbody>
             </table>
         </div>
+        <a sec:authorize="hasAnyAuthority('ADMIN')" type="button" class="btn btn-success rounded-2" th:href="@{/estudiantes/list}">Atrás</a>
     </div>  
     <div th:replace="commons/footer :: footer" class="container"></div>
 </body>

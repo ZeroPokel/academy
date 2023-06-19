@@ -49,6 +49,15 @@ public class EstudianteController {
     int sizePage;
 
     @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @GetMapping(value = "/list")
+    public ModelAndView list(Model model) {
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("redirect:list/1/codigo/asc");
+        return modelAndView;
+    }
+
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping(value = "/list/1/codigo/asc")
     public ModelAndView listPage(Model model) {
 
@@ -214,6 +223,23 @@ public class EstudianteController {
     public ModelAndView infoModulosEstudiante(
             @PathVariable(name = "idEstudiante", required = true) int idEstudiante,
             @PathVariable(name = "username", required = true) String username){
+
+        Estudiante estudiante = estudiantesService.findById(idEstudiante);
+        List<EstudianteModulo> estudianteModulos = modulosService.findByEstudiante(idEstudiante);
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("estudiante", estudiante);
+        modelAndView.addObject("estModulos", estudianteModulos);
+        modelAndView.setViewName("/estudiantes/modulos");
+
+        return modelAndView;
+    }
+
+    // Muestra los modulos a los que el estudiante está matriculado desde admin
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @GetMapping(path = { "/modulos/{idEstudiante}"})
+    public ModelAndView infoModulosEstudianteAdmin(
+            @PathVariable(name = "idEstudiante", required = true) int idEstudiante){
 
         Estudiante estudiante = estudiantesService.findById(idEstudiante);
         List<EstudianteModulo> estudianteModulos = modulosService.findByEstudiante(idEstudiante);

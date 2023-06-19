@@ -42,6 +42,8 @@
                             <td>
                                 <a th:href="@{/estudiantes/edit/}+${estudiante.codigo}" class="btn btn-info bi bi-pen fs-4 rounded-2" data-bs-tooltip="tooltip" data-bs-placement="top" title="Editar estudiante"></a>
                                 <button type="button" class="btn btn-danger rounded-2 bi bi-trash fs-4" data-bs-tooltip="tooltip" data-bs-placement="top" title="Borrar estudiante" data-bs-toggle="modal" data-bs-target="#deleteModal" th:attr="data-bs-target='#deleteModal'+${estudiante.codigo}"></button>                      
+                                <a th:href="@{/estudiantes/modulos/{idEstudiante}/(idEstudiante = ${estudiante.codigo})}" class="btn-mini btn-info bi-book-half fs-4 rounded-2" role="button" data-bs-tooltip="tooltip" data-bs-placement="top" title="Listar modulos"></a>
+
                             </td>
 
                             <!-- Modal, alerta que salta cuando le das a uno de los botones de eliminar para borrar dicha fila -->

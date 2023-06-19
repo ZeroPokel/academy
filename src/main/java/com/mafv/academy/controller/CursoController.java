@@ -49,6 +49,14 @@ public class CursoController {
     int sizePage;
 
     @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @GetMapping(value = "/list")
+    public ModelAndView list(Model model) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("redirect:list/1/codigo/asc");
+        return modelAndView;
+    }
+
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping(value = "/list/1/codigo/asc")
     public ModelAndView listPage(Model model) {
 
