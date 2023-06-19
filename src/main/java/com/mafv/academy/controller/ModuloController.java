@@ -274,7 +274,7 @@ public class ModuloController {
         modelAndView.addObject("modulo", modulo);
         modelAndView.addObject("docentes", docentes);
         modelAndView.addObject("curso", curso);
-        modelAndView.setViewName("docentes/list/1/codigo/asc");
+        modelAndView.setViewName("docentes/list");
     
         return modelAndView;
     }
@@ -360,7 +360,7 @@ public class ModuloController {
             ModelAndView modelAndView = new ModelAndView();    
             modelAndView.addObject("estudiantes", estudiantes);
             modelAndView.addObject("modulo", modulo);       
-            modelAndView.setViewName("/estudiantes/list/1/codigo/asc");
+            modelAndView.setViewName("estudiantes/list");
 
             return modelAndView;
         }
