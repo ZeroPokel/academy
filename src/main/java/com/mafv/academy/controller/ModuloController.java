@@ -240,7 +240,7 @@ public class ModuloController {
     }
 
     // Mostrar docente del modulo seleccionado desde la vista de curso
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'DOCENTE')")
     @GetMapping(path = { "/docente/{idDocente}/modulo/{idModulo}/curso/{idCurso}" })
     public ModelAndView verDocenteDeModuloCurso(
         @PathVariable(name = "idDocente", required = true) int idDocente,

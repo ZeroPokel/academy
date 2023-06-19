@@ -41,10 +41,10 @@
                     <div class="mt-5" th:if="${idCurso eq null}">
                         <a th:href="@{/modulos/list}" type="button" class="btn btn-success rounded-2">Atrás</a>
                     </div>
-                    <div class="mt-5" th:if="${idCurso ne null}">
+                    <div class="mt-5" th:if="${idCurso ne null}" >
                         <a th:href="@{/cursos/edit/{idCurso}(idCurso = ${idCurso})}" type="button" class="btn btn-success rounded-2">Atrás</a>
-                        <button type="button" class="btn btn-danger rounded-2" data-bs-toggle="modal" data-bs-target="#deleteModal" th:attr="data-bs-target='#deleteModal'">Eliminar</button>                      
-                        <div class="modal fade" id="deleteDocenteModal" tabindex="-1" aria-labelledby="deleteDocenteModalLabel" th:id="deleteDocenteModal+${modulo.codigo}" aria-hidden="true">
+                        <button sec:authorize="hasAnyAuthority('ADMIN')" type="button" class="btn btn-danger rounded-2" data-bs-toggle="modal" data-bs-target="#deleteModal" th:attr="data-bs-target='#deleteModal'">Eliminar</button>                      
+                        <div sec:authorize="hasAnyAuthority('ADMIN')" class="modal fade" id="deleteDocenteModal" tabindex="-1" aria-labelledby="deleteDocenteModalLabel" th:id="deleteDocenteModal+${modulo.codigo}" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content rounded-2">
                                     <div class="modal-header">
