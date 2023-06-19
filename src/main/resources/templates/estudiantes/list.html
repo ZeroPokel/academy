@@ -7,7 +7,7 @@
     <div class="container">
         <h1 class="mt-4 mb-4 text-center">Estudiantes</h1>
         <div th:replace="commons/operation :: operation"></div>
-        <form class="row g-3" method="get" th:action="@{/estudiantes/buscar}">
+        <form class="row g-3" method="get" th:action="@{/estudiantes/buscar}" th:if="${modulo eq null}">
             <div class="col-sm-6">
               <div class="col-md-6 mb-3">
                 <label for="apellidos" class="form-label">Buscar estudiante por apellidos </label>
