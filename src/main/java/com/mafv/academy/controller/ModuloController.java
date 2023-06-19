@@ -203,7 +203,7 @@ public class ModuloController {
 
         if (modulosService.findModuloEstudiante(idModulo) && modulo.getDocente() == null){
             modulosService.deleteById(idModulo);
-            modelAndView.setViewName("redirect:/cursos/edit/" + idCurso + "?operacionExitooTrue=" + true);
+            modelAndView.setViewName("redirect:/cursos/edit/" + idCurso + "?operacionExitoTrue=" + true);
         } else {
             modelAndView.setViewName("redirect:/cursos/edit/" + idCurso + "?operacionExitoFalse=" + true);
         }
