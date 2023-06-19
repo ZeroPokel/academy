@@ -79,4 +79,9 @@ public class CursoServiceImpl implements CursoService{
         return repository.findEstudiantesByCurso(curso);
     }
 
+    @Override
+    public List<Curso> findByNombre(String nombre) {
+        return repository.findByNombreContaining(nombre);
+    }
+
 }

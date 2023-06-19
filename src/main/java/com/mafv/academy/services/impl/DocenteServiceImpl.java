@@ -82,6 +82,11 @@ public class DocenteServiceImpl implements DocenteService{
     public Page<Docente> findAll(Pageable page) {
         return repository.findAll(page);
     }
+
+    @Override
+    public List<Docente> findByApellidos(String apellidos) {
+        return repository.findByApellidosContaining(apellidos);
+    }
     
     
 }

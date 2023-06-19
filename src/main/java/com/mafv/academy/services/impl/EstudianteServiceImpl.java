@@ -104,4 +104,9 @@ public class EstudianteServiceImpl implements EstudianteService{
         return repository.findAll(page);
     }
 
+    @Override
+    public List<Estudiante> findByApellidos(String apellidos) {
+        return repository.findByApellidosContaining(apellidos);
+    }
+
 }

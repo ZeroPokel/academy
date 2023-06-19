@@ -13,5 +13,5 @@ public interface EstudianteRepository extends JpaRepository<Estudiante, Integer>
     @Query("SELECT e FROM Estudiante e WHERE NOT EXISTS " +
            "(SELECT em FROM EstudianteModulo em WHERE em.estudiante = e AND em.modulo = :modulo)")
     List<Estudiante> findEstudiantesNotInModulo(Modulo modulo);
-    
+    List<Estudiante> findByApellidosContaining(String apellidos);
 }

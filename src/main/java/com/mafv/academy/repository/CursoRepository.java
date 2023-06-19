@@ -13,6 +13,7 @@ import com.mafv.academy.models.Estudiante;
 public interface CursoRepository extends JpaRepository<Curso, Integer>{
     
     Curso findByTutor(Docente tutor);
+    List<Curso> findByNombreContaining(String nombre);
 
     @Query("SELECT DISTINCT em.estudiante FROM EstudianteModulo em JOIN em.modulo m WHERE m.curso = :curso")
     List<Estudiante> findEstudiantesByCurso(@Param("curso") Curso curso);

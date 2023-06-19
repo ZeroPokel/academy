@@ -16,4 +16,5 @@ public interface DocenteService {
     public void deleteById(int idDocente);
     public void deleteAll();
     public void deleteDocenteFromAllModulo(int idDocente);
+    public List<Docente> findByApellidos(String apellidos);
 }

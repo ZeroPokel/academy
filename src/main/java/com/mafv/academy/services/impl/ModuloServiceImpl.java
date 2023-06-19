@@ -136,4 +136,9 @@ public class ModuloServiceImpl implements ModuloService{
         return estudianteModuloRepository.countByModuloCodigo(idModulo);
     }
 
+    @Override
+    public List<Modulo> findByNombre(String nombre) {
+        return repository.findByNombreContaining(nombre);
+    }
+
 }

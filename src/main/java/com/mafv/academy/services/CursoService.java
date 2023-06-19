@@ -20,5 +20,6 @@ public interface CursoService {
     public void deleteAll();
     public void deleteTutor(int idCurso);
     public List<Estudiante> findEstudiantesByCurso(Curso curso);
+    public List<Curso> findByNombre(String nombre);
 
 }

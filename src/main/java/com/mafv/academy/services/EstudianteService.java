@@ -20,4 +20,5 @@ public interface EstudianteService {
     public void deleteAll();
     public List<Estudiante> findEstudiantesNotInModulo(Modulo modulo);
     public void saveEstModulo(EstudianteModulo estudiante);
+    public List<Estudiante> findByApellidos(String apellidos);
 }

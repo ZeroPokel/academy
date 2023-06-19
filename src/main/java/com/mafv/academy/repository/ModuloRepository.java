@@ -18,5 +18,5 @@ public interface ModuloRepository extends JpaRepository<Modulo, Integer>{
 
     @Query("SELECT em.estudiante FROM EstudianteModulo em WHERE em.modulo = :modulo")
     List<Estudiante> findEstudiantesByModulo(@Param("modulo") Modulo modulo);
-
+    List<Modulo> findByNombreContaining(String nombre);
 }
