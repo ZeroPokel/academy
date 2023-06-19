@@ -7,6 +7,15 @@
     <div class="container">
         <h1 class="mt-4 mb-4 text-center">Docentes</h1>
         <div th:replace="commons/operation :: operation"></div>
+        <form class="row g-3" method="get" th:action="@{/docentes/buscar}">
+            <div class="col-sm-6">
+              <div class="col-md-6 mb-3">
+                <label for="apellidos" class="form-label">Buscar docente por apellidos </label>
+                <input type="text" id="apellidos" name="apellidos">
+                <button class="btn rounded-2 btn-primary" type="submit">Buscar</button>
+              </div>
+            </div>
+        </form>
         <a th:if="${curso eq null and modulo eq null}" th:href="@{/docentes/create}" class="btn btn-info mb-3 rounded-2">Crear docente</a>
         <a th:if="${curso ne null and modulo ne null}" th:href="@{/cursos/edit/{idCurso}(idCurso = ${curso.codigo})}" class="btn btn-success mb-3 rounded-2">Atrás</a>
         <div class="row">

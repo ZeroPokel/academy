@@ -252,5 +252,18 @@ public class EstudianteController {
         return modelAndView;
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @GetMapping(value = "/buscar")
+    public ModelAndView findByCriteria(
+        @RequestParam("apellidos") String apellidos){
+        
+        List<Estudiante> estudiantesEncontrados = estudiantesService.findByApellidos(apellidos);
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("estudiantes", estudiantesEncontrados);
+        modelAndView.setViewName("estudiantes/list");
+
+        return modelAndView;
+    }
 
 }

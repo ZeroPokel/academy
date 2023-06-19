@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mafv.academy.models.Curso;
@@ -315,6 +316,20 @@ public class CursoController {
         ModelAndView modelAndView = new ModelAndView();            
         modelAndView.setViewName("redirect:/cursos/edit/"+curso.getCodigo());
     
+        return modelAndView;
+    }
+
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @GetMapping(value = "/buscar")
+    public ModelAndView findByCriteria(
+        @RequestParam("nombre") String nombre){
+        
+        List<Curso> cursosEncontrados = cursosService.findByNombre(nombre);
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("cursos", cursosEncontrados);
+        modelAndView.setViewName("cursos/list");
+
         return modelAndView;
     }
 

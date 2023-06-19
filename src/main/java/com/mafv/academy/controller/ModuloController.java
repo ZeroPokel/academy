@@ -469,6 +469,20 @@ public class ModuloController {
 
         return modelAndView;
     }
+
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @GetMapping(value = "/buscar")
+    public ModelAndView findByCriteria(
+        @RequestParam("nombre") String nombre){
+        
+        List<Modulo> modulosEncontrados = modulosService.findByNombre(nombre);
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("modulos", modulosEncontrados);
+        modelAndView.setViewName("modulos/list");
+
+        return modelAndView;
+    }
      
     // FUNCIONES
 
